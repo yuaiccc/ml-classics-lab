@@ -81,9 +81,11 @@ npm run dev        # http://localhost:5180
   - 聚类：K-Means、DBSCAN
   - 降维：PCA（幂迭代）
 - [x] **M3** RL 接入统一播放器：Python 录制管线 → JSON 帧 → 前端 `env` 家族回放
-  - 已生成并验证：**CartPole · PPO**（真实 rollout，撑满 500 步）
-  - 其余 4 个脚本已接好录制开关，可自行生成（见下）
-- [ ] **M4** 深度学习（MLP → CNN → Transformer 注意力）
+  - 已生成并验证：**CartPole·PPO**（撑满 500 步）、**MountainCar·PPO**（先退后冲登顶）、**Pendulum·SAC**（摆杆立稳）
+  - 其余脚本（DQN / Shaped）已接好录制开关，可自行生成（见下）
+- [~] **M4** 深度学习（进行中）
+  - [x] **MLP**（手写反向传播）—— 在同心圆数据上学非线性边界，对比逻辑回归
+  - [ ] CNN（卷积核 / 激活图）、Transformer（注意力热图）—— 需 Python 预计算
 
 ### 重新生成 / 新增 RL 回放帧
 

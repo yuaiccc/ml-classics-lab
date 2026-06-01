@@ -32,7 +32,7 @@ export default function Home() {
           to="/lab"
           className="inline-flex items-center gap-1.5 mt-4 ml-[52px] px-3 py-1.5 rounded-lg text-xs border border-[#b388ff]/40 text-[#b388ff] hover:bg-[rgba(179,136,255,0.1)] transition-all"
         >
-          <Sparkles className="w-3.5 h-3.5" /> 算法过程动画 · 实验台（回归 / 分类 / 聚类 / 降维 共 8 种）
+          <Sparkles className="w-3.5 h-3.5" /> 算法过程动画 · 实验台（回归 / 分类 / 聚类 / 降维 / 深度学习 / 强化学习）
           <ArrowRight className="w-3 h-3" />
         </Link>
       </header>

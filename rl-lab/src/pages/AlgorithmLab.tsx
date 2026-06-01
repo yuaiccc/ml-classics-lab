@@ -12,7 +12,10 @@ import { runKNN } from "@/algorithms/knn";
 import { runKMeans } from "@/algorithms/kmeans";
 import { runDBSCAN } from "@/algorithms/dbscan";
 import { runPCA } from "@/algorithms/pca";
+import { runMLP } from "@/algorithms/mlp";
 import cartpolePPO from "@/data/frames/cartpole-ppo.json";
+import pendulumSAC from "@/data/frames/pendulum-sac.json";
+import mountaincarPPO from "@/data/frames/mountaincar-ppo.json";
 // 算法源码（?raw 把文件当字符串导入，供前端「查看源码」展示）
 import linregSrc from "@/algorithms/gradient-descent.ts?raw";
 import logregSrc from "@/algorithms/logistic-regression.ts?raw";
@@ -22,6 +25,7 @@ import knnSrc from "@/algorithms/knn.ts?raw";
 import kmeansSrc from "@/algorithms/kmeans.ts?raw";
 import dbscanSrc from "@/algorithms/dbscan.ts?raw";
 import pcaSrc from "@/algorithms/pca.ts?raw";
+import mlpSrc from "@/algorithms/mlp.ts?raw";
 import { useTrajectory } from "@/player/useTrajectory";
 import TrajectoryPlayer from "@/player/TrajectoryPlayer";
 import RegressionPlot from "@/visualizers/RegressionPlot";
@@ -132,6 +136,17 @@ const DEMOS: Demo[] = [
     source: { code: pcaSrc, path: "algorithms/pca.ts" },
   },
   {
+    key: "mlp",
+    label: "MLP 神经网络",
+    group: "深度学习",
+    build: (seed) => runMLP({ seed }),
+    Viz: BoundaryPlot,
+    metricKey: "loss",
+    metricLabel: "交叉熵 Loss",
+    metricColor: "#b388ff",
+    source: { code: mlpSrc, path: "algorithms/mlp.ts" },
+  },
+  {
     key: "cartpole-ppo",
     label: "CartPole · PPO",
     group: "强化学习 · env",
@@ -140,6 +155,26 @@ const DEMOS: Demo[] = [
     metricKey: "return",
     metricLabel: "累计回报 Return",
     metricColor: "#00ff88",
+  },
+  {
+    key: "mountaincar-ppo",
+    label: "MountainCar · PPO",
+    group: "强化学习 · env",
+    build: () => mountaincarPPO as unknown as Trajectory,
+    Viz: EnvPlot,
+    metricKey: "return",
+    metricLabel: "累计回报 Return",
+    metricColor: "#00e5ff",
+  },
+  {
+    key: "pendulum-sac",
+    label: "Pendulum · SAC",
+    group: "强化学习 · env",
+    build: () => pendulumSAC as unknown as Trajectory,
+    Viz: EnvPlot,
+    metricKey: "return",
+    metricLabel: "累计回报 Return",
+    metricColor: "#ffab40",
   },
 ];
 

@@ -154,7 +154,8 @@ Tianshou/                         # 仓库根（Tianshou 本体不动）
 
 ### 深度学习基础（deep → `scatter-boundary` / `curves`）
 - [x] 🌐 梯度下降 Gradient Descent — 线性回归拟合线逐帧贴合
-- [ ] 🐍 MLP — 决策边界随 epoch 演化
+- [x] 🌐 MLP — 手写反向传播，同心圆非线性边界随 epoch 演化
+- [ ] 🐍 MLP（更大规模）— 决策边界随 epoch 演化
 - [ ] 🐍 CNN — 卷积核 / 激活图可视化
 - [ ] 🐍 RNN / LSTM — 序列隐状态
 - [ ] 🐍 Transformer — 注意力热图
@@ -164,9 +165,9 @@ Tianshou/                         # 仓库根（Tianshou 本体不动）
 ### 强化学习（rl → `env` + `curves`）
 - [x] 🐍 DQN（MountainCar）— 已有 `solve_mountaincar_dqn.py`
 - [x] 🐍 DQN + Reward Shaping — 已有 `solve_mountaincar_shaped.py`
-- [x] 🐍 PPO（CartPole）— 已有 `solve_cartpole_ppo.py`
-- [x] 🐍 PPO（MountainCar）— 已有 `solve_mountaincar_ppo.py`
-- [x] 🐍 SAC（Pendulum）— 已有 `solve_pendulum_sac.py`
+- [x] 🐍 PPO（CartPole）— `solve_cartpole_ppo.py`，已生成 env 回放帧 ✅
+- [x] 🐍 PPO（MountainCar）— `solve_mountaincar_ppo.py`，已生成 env 回放帧 ✅
+- [x] 🐍 SAC（Pendulum）— `solve_pendulum_sac.py`，已生成 env 回放帧 ✅
 - [ ] 🌐 Q-Learning / Sarsa — GridWorld 价值热图动画
 - [ ] 🐍 A2C / DDPG / TD3 — 复用 Tianshou
 

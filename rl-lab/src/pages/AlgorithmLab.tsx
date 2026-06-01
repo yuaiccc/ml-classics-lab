@@ -13,6 +13,15 @@ import { runKMeans } from "@/algorithms/kmeans";
 import { runDBSCAN } from "@/algorithms/dbscan";
 import { runPCA } from "@/algorithms/pca";
 import cartpolePPO from "@/data/frames/cartpole-ppo.json";
+// 算法源码（?raw 把文件当字符串导入，供前端「查看源码」展示）
+import linregSrc from "@/algorithms/gradient-descent.ts?raw";
+import logregSrc from "@/algorithms/logistic-regression.ts?raw";
+import perceptronSrc from "@/algorithms/perceptron.ts?raw";
+import dtreeSrc from "@/algorithms/decision-tree.ts?raw";
+import knnSrc from "@/algorithms/knn.ts?raw";
+import kmeansSrc from "@/algorithms/kmeans.ts?raw";
+import dbscanSrc from "@/algorithms/dbscan.ts?raw";
+import pcaSrc from "@/algorithms/pca.ts?raw";
 import { useTrajectory } from "@/player/useTrajectory";
 import TrajectoryPlayer from "@/player/TrajectoryPlayer";
 import RegressionPlot from "@/visualizers/RegressionPlot";
@@ -22,6 +31,7 @@ import PCAPlot from "@/visualizers/PCAPlot";
 import EnvPlot from "@/visualizers/EnvPlot";
 import MetricCurve from "@/visualizers/MetricCurve";
 import TutorialPanel from "@/components/TutorialPanel";
+import CodeViewer from "@/components/CodeViewer";
 
 interface Demo {
   key: string;
@@ -33,6 +43,8 @@ interface Demo {
   metricKey: string;
   metricLabel: string;
   metricColor?: string;
+  /** 算法源码（浏览器端 TS 实现），用于「查看源码」 */
+  source?: { code: string; path: string };
 }
 
 const DEMOS: Demo[] = [
@@ -44,6 +56,7 @@ const DEMOS: Demo[] = [
     Viz: RegressionPlot,
     metricKey: "loss",
     metricLabel: "MSE Loss",
+    source: { code: linregSrc, path: "algorithms/gradient-descent.ts" },
   },
   {
     key: "logreg",
@@ -53,6 +66,7 @@ const DEMOS: Demo[] = [
     Viz: BoundaryPlot,
     metricKey: "loss",
     metricLabel: "交叉熵 Loss",
+    source: { code: logregSrc, path: "algorithms/logistic-regression.ts" },
   },
   {
     key: "perceptron",
@@ -63,6 +77,7 @@ const DEMOS: Demo[] = [
     metricKey: "errors",
     metricLabel: "误分类点数",
     metricColor: "#ff5252",
+    source: { code: perceptronSrc, path: "algorithms/perceptron.ts" },
   },
   {
     key: "dtree",
@@ -72,6 +87,7 @@ const DEMOS: Demo[] = [
     Viz: BoundaryPlot,
     metricKey: "accuracy",
     metricLabel: "训练准确率",
+    source: { code: dtreeSrc, path: "algorithms/decision-tree.ts" },
   },
   {
     key: "knn",
@@ -81,6 +97,7 @@ const DEMOS: Demo[] = [
     Viz: BoundaryPlot,
     metricKey: "accuracy",
     metricLabel: "留一法准确率",
+    source: { code: knnSrc, path: "algorithms/knn.ts" },
   },
   {
     key: "kmeans",
@@ -90,6 +107,7 @@ const DEMOS: Demo[] = [
     Viz: ClustersPlot,
     metricKey: "inertia",
     metricLabel: "Inertia（簇内平方和）",
+    source: { code: kmeansSrc, path: "algorithms/kmeans.ts" },
   },
   {
     key: "dbscan",
@@ -100,6 +118,7 @@ const DEMOS: Demo[] = [
     metricKey: "clusters",
     metricLabel: "已发现簇数",
     metricColor: "#b388ff",
+    source: { code: dbscanSrc, path: "algorithms/dbscan.ts" },
   },
   {
     key: "pca",
@@ -110,6 +129,7 @@ const DEMOS: Demo[] = [
     metricKey: "variance",
     metricLabel: "主轴方向方差",
     metricColor: "#ffab40",
+    source: { code: pcaSrc, path: "algorithms/pca.ts" },
   },
   {
     key: "cartpole-ppo",
@@ -257,6 +277,13 @@ export default function AlgorithmLab() {
       {meta.tutorial && (
         <div className="mt-5">
           <TutorialPanel tutorial={meta.tutorial} />
+        </div>
+      )}
+
+      {/* 真实源码（浏览器端纯手写实现，无机器学习库） */}
+      {demo.source && (
+        <div className="mt-5">
+          <CodeViewer code={demo.source.code} path={demo.source.path} language="tsx" />
         </div>
       )}
     </div>

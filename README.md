@@ -82,8 +82,9 @@ npm run dev        # http://localhost:5180
   - 聚类：K-Means、DBSCAN
   - 降维：PCA（幂迭代）
 - [x] **M3** RL 接入统一播放器：Python 录制管线 → JSON 帧 → 前端 `env` 家族回放
-  - 已生成并验证：**CartPole·PPO**（撑满 500 步）、**MountainCar·PPO**（先退后冲登顶）、**Pendulum·SAC**（摆杆立稳）
-  - 其余脚本（DQN / Shaped）已接好录制开关，可自行生成（见下）
+  - **5 个 RL 回放**：CartPole·PPO、MountainCar·DQN(失败)/PPO/Shaped、Pendulum·SAC
+  - MountainCar 三连对照：DQN 失败 → PPO 换算法成功 → Shaped 改奖励成功
+  - **经典控制对照**：CartPole 状态反馈控制器（浏览器端，不学习），演示"RL 之前怎么解"
 - [x] **M4** 深度学习
   - [x] **MLP**（手写反向传播）—— 在同心圆数据上学非线性边界，对比逻辑回归
   - [x] **CNN**（PyTorch）—— 横线/竖线分类，卷积核随训练变成边缘检测器 + 激活图可视化

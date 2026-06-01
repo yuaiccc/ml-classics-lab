@@ -169,6 +169,7 @@ Tianshou/                         # 仓库根（Tianshou 本体不动）
 - [x] 🐍 PPO（CartPole）— `solve_cartpole_ppo.py`，已生成 env 回放帧 ✅
 - [x] 🐍 PPO（MountainCar）— `solve_mountaincar_ppo.py`，已生成 env 回放帧 ✅
 - [x] 🐍 SAC（Pendulum）— `solve_pendulum_sac.py`，已生成 env 回放帧 ✅
+- [x] 🌐 经典控制对照 — CartPole 状态反馈/LQR（`algorithms/cartpole-control.ts`，演示 RL 之前的解法）
 - [ ] 🌐 Q-Learning / Sarsa — GridWorld 价值热图动画
 - [ ] 🐍 A2C / DDPG / TD3 — 复用 Tianshou
 

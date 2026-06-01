@@ -133,7 +133,7 @@ npx vite build          # 构建
 
 **已完成**：M1 脚手架 ✅ · M2 监督/无监督（8 个浏览器算法）✅ · M3 RL 接入（CartPole/MountainCar/Pendulum 回放）✅ · M4 深度学习（MLP + CNN + Self-Attention）✅
 
-`/lab` 现有 **15 个 demo**：线性回归、逻辑回归、感知机、决策树、KNN、K-Means、DBSCAN、PCA、MLP、CNN、Self-Attention、Mamba(SSM)、CartPole、MountainCar、Pendulum。
+`/lab` 现有 **18 个 demo**：线性回归、逻辑回归、感知机、决策树、KNN、K-Means、DBSCAN、PCA、MLP、CNN、Self-Attention、Mamba(SSM)、CartPole·经典控制、CartPole·PPO、MountainCar·DQN/PPO/Shaped、Pendulum·SAC。
 
 **可继续的方向（按价值排序）**：
 - 🐍 经典 ML 补全：SVM、随机森林、GBDT、GMM(EM)、t-SNE、层次聚类（走 4B 管线）

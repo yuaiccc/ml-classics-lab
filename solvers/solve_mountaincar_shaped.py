@@ -161,6 +161,21 @@ def main() -> None:
             "envId": "MountainCar-v0",
             "description": "用势能奖励塑形破解稀疏奖励：训练时加 shaped reward，回放在原始环境上。",
             "insight": "观测 = [位置, 速度]。奖励塑形给“朝目标移动/积累动量”额外正反馈，让 DQN 也能学会上山。",
+            "tutorial": {
+                "problem": "稀疏奖励让 DQN 学不动，怎么救？给它“塑形”奖励。",
+                "intuition": "训练时额外奖励“朝目标移动 / 积累动量 / 爬得更高”，把稀疏信号变稠密，DQN 就有了往上爬的梯度。注意回放是在原始环境上跑的——成功登顶。",
+                "watch": [
+                    "小车先退后冲、借力荡上山，约 88 步到顶",
+                    "Return 比纯 DQN 的 -200 好得多",
+                    "同一个 DQN 算法，只是改了奖励，就从失败变成功",
+                ],
+                "concepts": [
+                    {"term": "奖励塑形 reward shaping", "explain": "人为加额外奖励引导学习，把稀疏信号变稠密"},
+                    {"term": "势能函数", "explain": "常用“离目标多近/爬多高”作为塑形信号"},
+                    {"term": "训练用塑形/评估用原始", "explain": "回放在原始环境，避免塑形污染真实表现"},
+                ],
+                "tryThis": "三个 MountainCar 排排看：DQN(失败) → PPO(换算法) → Shaped(改奖励)，体会两条不同的解题思路。",
+            },
             "hyperparams": {"lr": "1e-3", "gamma": 0.99},
         },
     )

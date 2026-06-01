@@ -149,6 +149,21 @@ def main() -> None:
             "envId": "MountainCar-v0",
             "description": "DQN 在稀疏奖励的 MountainCar 上的一条回放（通常学不到有效策略，可对比 PPO）。",
             "insight": "观测 = [位置, 速度]。稀疏奖励下 DQN 的 ε-贪心探索往往触发不了到达山顶的正信号。",
+            "tutorial": {
+                "problem": "DQN 在稀疏奖励的 MountainCar 上为什么会失败？这是探索难题的活教材。",
+                "intuition": "每一步奖励都是 -1，唯一的正反馈在山顶。DQN 的 ε-贪心探索基本撞不到山顶——从没尝过“好结果”的味道，自然学不会去追求它。这一局就是它一直在山谷里来回晃，200 步都没上去。",
+                "watch": [
+                    "小车在谷底左右小幅晃动，始终冲不上去",
+                    "Return 一路 -1 累加到 -200（满负），说明整局没到顶",
+                    "这不是 bug，是“稀疏奖励 + 探索不足”的真实演示",
+                ],
+                "concepts": [
+                    {"term": "稀疏奖励", "explain": "有用的正反馈极少出现，几乎学不到"},
+                    {"term": "ε-贪心探索", "explain": "大概率走当前最优、小概率随机——撞不到罕见的山顶"},
+                    {"term": "探索-利用困境", "explain": "没见过好结果，就不知道该去追求它"},
+                ],
+                "tryThis": "对照「MountainCar·PPO」（换算法成功）和「MountainCar·Shaped」（改奖励成功），看同一环境三种结局。",
+            },
             "hyperparams": {"lr": "1e-3", "gamma": 0.99, "n_step": 4},
         },
     )

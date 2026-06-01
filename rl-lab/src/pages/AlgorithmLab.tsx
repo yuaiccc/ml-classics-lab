@@ -14,9 +14,12 @@ import { runDBSCAN } from "@/algorithms/dbscan";
 import { runPCA } from "@/algorithms/pca";
 import { runMLP } from "@/algorithms/mlp";
 import { runSelectiveSSM } from "@/algorithms/mamba";
+import { runCartPoleControl } from "@/algorithms/cartpole-control";
 import cartpolePPO from "@/data/frames/cartpole-ppo.json";
 import pendulumSAC from "@/data/frames/pendulum-sac.json";
 import mountaincarPPO from "@/data/frames/mountaincar-ppo.json";
+import mountaincarDQN from "@/data/frames/mountaincar-dqn.json";
+import mountaincarShaped from "@/data/frames/mountaincar-shaped.json";
 import cnnShapes from "@/data/frames/cnn-shapes.json";
 import attentionReverse from "@/data/frames/attention-reverse.json";
 // 算法源码（?raw 把文件当字符串导入，供前端「查看源码」展示）
@@ -30,6 +33,7 @@ import dbscanSrc from "@/algorithms/dbscan.ts?raw";
 import pcaSrc from "@/algorithms/pca.ts?raw";
 import mlpSrc from "@/algorithms/mlp.ts?raw";
 import mambaSrc from "@/algorithms/mamba.ts?raw";
+import cartpoleControlSrc from "@/algorithms/cartpole-control.ts?raw";
 import { useTrajectory } from "@/player/useTrajectory";
 import TrajectoryPlayer from "@/player/TrajectoryPlayer";
 import RegressionPlot from "@/visualizers/RegressionPlot";
@@ -185,6 +189,17 @@ const DEMOS: Demo[] = [
     source: { code: mambaSrc, path: "algorithms/mamba.ts" },
   },
   {
+    key: "cartpole-control",
+    label: "CartPole · 经典控制",
+    group: "经典控制（RL 之前）",
+    build: (seed) => runCartPoleControl({ seed }),
+    Viz: EnvPlot,
+    metricKey: "angle",
+    metricLabel: "杆偏离角度（°）",
+    metricColor: "#ffab40",
+    source: { code: cartpoleControlSrc, path: "algorithms/cartpole-control.ts" },
+  },
+  {
     key: "cartpole-ppo",
     label: "CartPole · PPO",
     group: "强化学习 · env",
@@ -195,6 +210,16 @@ const DEMOS: Demo[] = [
     metricColor: "#00ff88",
   },
   {
+    key: "mountaincar-dqn",
+    label: "MountainCar · DQN（失败）",
+    group: "强化学习 · env",
+    build: () => mountaincarDQN as unknown as Trajectory,
+    Viz: EnvPlot,
+    metricKey: "return",
+    metricLabel: "累计回报 Return",
+    metricColor: "#ff5252",
+  },
+  {
     key: "mountaincar-ppo",
     label: "MountainCar · PPO",
     group: "强化学习 · env",
@@ -203,6 +228,16 @@ const DEMOS: Demo[] = [
     metricKey: "return",
     metricLabel: "累计回报 Return",
     metricColor: "#00e5ff",
+  },
+  {
+    key: "mountaincar-shaped",
+    label: "MountainCar · Shaped",
+    group: "强化学习 · env",
+    build: () => mountaincarShaped as unknown as Trajectory,
+    Viz: EnvPlot,
+    metricKey: "return",
+    metricLabel: "累计回报 Return",
+    metricColor: "#ffab40",
   },
   {
     key: "pendulum-sac",

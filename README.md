@@ -85,7 +85,8 @@ npm run dev        # http://localhost:5180
   - 其余脚本（DQN / Shaped）已接好录制开关，可自行生成（见下）
 - [~] **M4** 深度学习（进行中）
   - [x] **MLP**（手写反向传播）—— 在同心圆数据上学非线性边界，对比逻辑回归
-  - [ ] CNN（卷积核 / 激活图）、Transformer（注意力热图）—— 需 Python 预计算
+  - [x] **CNN**（PyTorch）—— 横线/竖线分类，卷积核随训练变成边缘检测器 + 激活图可视化
+  - [ ] Transformer（注意力热图）—— 大模型时代的核心机制，下一步
 
 ### 重新生成 / 新增 RL 回放帧
 
@@ -96,6 +97,7 @@ npm run dev        # http://localhost:5180
 conda activate tianshou
 RECORD_FRAMES=1 python solvers/solve_pendulum_sac.py      # → pendulum-sac.json
 RECORD_FRAMES=1 python solvers/solve_mountaincar_ppo.py   # → mountaincar-ppo.json
+python solvers/train_cnn.py                               # → cnn-shapes.json（CNN，纯 PyTorch）
 ```
 
 前端 `env` 渲染器已支持 CartPole / MountainCar / Pendulum 三种环境，生成 JSON 后

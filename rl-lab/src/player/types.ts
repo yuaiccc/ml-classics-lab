@@ -1,7 +1,7 @@
 // 统一的「帧轨迹」契约 —— 所有算法的过程动画都归约到这个结构。
 // 设计见 ML_LAB_DESIGN.md §1、§3。
 
-export type Family = "scatter-boundary" | "clusters" | "curves" | "env" | "pca";
+export type Family = "scatter-boundary" | "clusters" | "curves" | "env" | "pca" | "cnn";
 
 /** 小白教程内容：把每个算法做成一节可读的小课。 */
 export interface Tutorial {
@@ -102,4 +102,13 @@ export interface PCAState {
 export interface EnvState {
   observation: number[];
   action?: number | number[];
+}
+
+/** cnn 家族：某一训练 epoch 的卷积核 + 一个样本的激活图（Python 导出） */
+export interface CnnState {
+  input: number[][]; // H×W 输入图
+  filters: number[][][]; // [F][k][k] 第一层卷积核
+  activations: number[][][]; // [F][h][w] 该样本的激活图
+  label: number;
+  pred: number;
 }

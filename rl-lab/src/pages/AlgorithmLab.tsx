@@ -16,6 +16,7 @@ import { runMLP } from "@/algorithms/mlp";
 import cartpolePPO from "@/data/frames/cartpole-ppo.json";
 import pendulumSAC from "@/data/frames/pendulum-sac.json";
 import mountaincarPPO from "@/data/frames/mountaincar-ppo.json";
+import cnnShapes from "@/data/frames/cnn-shapes.json";
 // 算法源码（?raw 把文件当字符串导入，供前端「查看源码」展示）
 import linregSrc from "@/algorithms/gradient-descent.ts?raw";
 import logregSrc from "@/algorithms/logistic-regression.ts?raw";
@@ -33,6 +34,7 @@ import BoundaryPlot from "@/visualizers/BoundaryPlot";
 import ClustersPlot from "@/visualizers/ClustersPlot";
 import PCAPlot from "@/visualizers/PCAPlot";
 import EnvPlot from "@/visualizers/EnvPlot";
+import CnnPlot from "@/visualizers/CnnPlot";
 import MetricCurve from "@/visualizers/MetricCurve";
 import TutorialPanel from "@/components/TutorialPanel";
 import CodeViewer from "@/components/CodeViewer";
@@ -145,6 +147,16 @@ const DEMOS: Demo[] = [
     metricLabel: "交叉熵 Loss",
     metricColor: "#b388ff",
     source: { code: mlpSrc, path: "algorithms/mlp.ts" },
+  },
+  {
+    key: "cnn-shapes",
+    label: "CNN 卷积网络",
+    group: "深度学习",
+    build: () => cnnShapes as unknown as Trajectory,
+    Viz: CnnPlot,
+    metricKey: "accuracy",
+    metricLabel: "训练准确率",
+    metricColor: "#00e5ff",
   },
   {
     key: "cartpole-ppo",

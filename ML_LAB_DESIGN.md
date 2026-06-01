@@ -156,7 +156,7 @@ Tianshou/                         # 仓库根（Tianshou 本体不动）
 - [x] 🌐 梯度下降 Gradient Descent — 线性回归拟合线逐帧贴合
 - [x] 🌐 MLP — 手写反向传播，同心圆非线性边界随 epoch 演化
 - [ ] 🐍 MLP（更大规模）— 决策边界随 epoch 演化
-- [ ] 🐍 CNN — 卷积核 / 激活图可视化
+- [x] 🐍 CNN — 卷积核 / 激活图可视化（横线vs竖线，`solvers/train_cnn.py`）
 - [ ] 🐍 RNN / LSTM — 序列隐状态
 - [ ] 🐍 Transformer — 注意力热图
 - [ ] 🐍 Autoencoder — 潜空间 / 重建

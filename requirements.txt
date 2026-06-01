@@ -1,0 +1,5 @@
+# solvers/ 里的 RL 复现脚本依赖（Tianshou v2 API）
+tianshou>=2.0,<3.0
+gymnasium>=0.29
+torch>=2.0
+numpy

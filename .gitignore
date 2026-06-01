@@ -1,0 +1,25 @@
+# Node / frontend
+rl-lab/node_modules/
+rl-lab/dist/
+rl-lab/.vite/
+*.local
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# 预计算的帧数据（大文件，见 ML_LAB_DESIGN.md §7）
+frames/
+
+# 训练产物
+*.pth
+log/
+tensorboard/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

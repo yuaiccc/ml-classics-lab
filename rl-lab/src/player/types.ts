@@ -8,7 +8,8 @@ export type Family =
   | "env"
   | "pca"
   | "cnn"
-  | "attention";
+  | "attention"
+  | "ssm";
 
 /** 小白教程内容：把每个算法做成一节可读的小课。 */
 export interface Tutorial {
@@ -126,4 +127,13 @@ export interface AttentionState {
   target: number[]; // 目标序列
   pred: number[]; // 模型预测序列
   attention: number[][]; // L×L 注意力权重（行=输出/查询位，列=输入/键位）
+}
+
+/** ssm 家族（Mamba 选择性扫描）：浏览器端实时计算，时间轴 = 扫描到第 pos 个位置 */
+export interface SSMState {
+  tokens: number[]; // 整个序列（0=空白，>0=信号 token）
+  pos: number; // 当前扫描位置
+  gates: number[]; // 每个位置的选择门 Δ ∈ [0,1]（input-dependent）
+  memory: number[][]; // [L][C] 每个时刻的记忆向量（C 个信号通道）
+  output: number[]; // 每个时刻输出的 token id（=记忆里最强的信号）
 }

@@ -88,6 +88,7 @@ npm run dev        # http://localhost:5180
   - [x] **MLP**（手写反向传播）—— 在同心圆数据上学非线性边界，对比逻辑回归
   - [x] **CNN**（PyTorch）—— 横线/竖线分类，卷积核随训练变成边缘检测器 + 激活图可视化
   - [x] **Self-Attention**（PyTorch）—— 序列反转任务，注意力矩阵收敛成反对角线 = BERT/GPT 的核心机制
+  - [x] **Mamba / 选择性 SSM**（浏览器手写）—— 选择性扫描：input-dependent 门控决定记/忘，线性时间，注意力之后的前沿替代架构
 
 ### 重新生成 / 新增 RL 回放帧
 

@@ -159,6 +159,7 @@ Tianshou/                         # 仓库根（Tianshou 本体不动）
 - [x] 🐍 CNN — 卷积核 / 激活图可视化（横线vs竖线，`solvers/train_cnn.py`）
 - [ ] 🐍 RNN / LSTM — 序列隐状态
 - [x] 🐍 Transformer — 自注意力热图（序列反转，`solvers/train_transformer.py`）
+- [x] 🌐 Mamba / 选择性 SSM — 选择性扫描，门控记忆热图（浏览器手写 `algorithms/mamba.ts`）
 - [ ] 🐍 Autoencoder — 潜空间 / 重建
 - [ ] 🐍 GAN — 生成分布逐帧逼近
 

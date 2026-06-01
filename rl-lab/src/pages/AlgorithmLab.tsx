@@ -13,6 +13,7 @@ import { runKMeans } from "@/algorithms/kmeans";
 import { runDBSCAN } from "@/algorithms/dbscan";
 import { runPCA } from "@/algorithms/pca";
 import { runMLP } from "@/algorithms/mlp";
+import { runSelectiveSSM } from "@/algorithms/mamba";
 import cartpolePPO from "@/data/frames/cartpole-ppo.json";
 import pendulumSAC from "@/data/frames/pendulum-sac.json";
 import mountaincarPPO from "@/data/frames/mountaincar-ppo.json";
@@ -28,6 +29,7 @@ import kmeansSrc from "@/algorithms/kmeans.ts?raw";
 import dbscanSrc from "@/algorithms/dbscan.ts?raw";
 import pcaSrc from "@/algorithms/pca.ts?raw";
 import mlpSrc from "@/algorithms/mlp.ts?raw";
+import mambaSrc from "@/algorithms/mamba.ts?raw";
 import { useTrajectory } from "@/player/useTrajectory";
 import TrajectoryPlayer from "@/player/TrajectoryPlayer";
 import RegressionPlot from "@/visualizers/RegressionPlot";
@@ -37,6 +39,7 @@ import PCAPlot from "@/visualizers/PCAPlot";
 import EnvPlot from "@/visualizers/EnvPlot";
 import CnnPlot from "@/visualizers/CnnPlot";
 import AttentionPlot from "@/visualizers/AttentionPlot";
+import SsmPlot from "@/visualizers/SsmPlot";
 import MetricCurve from "@/visualizers/MetricCurve";
 import TutorialPanel from "@/components/TutorialPanel";
 import CodeViewer from "@/components/CodeViewer";
@@ -169,6 +172,17 @@ const DEMOS: Demo[] = [
     metricKey: "accuracy",
     metricLabel: "token 准确率",
     metricColor: "#b388ff",
+  },
+  {
+    key: "mamba-ssm",
+    label: "Mamba (SSM)",
+    group: "深度学习",
+    build: (seed) => runSelectiveSSM({ seed }),
+    Viz: SsmPlot,
+    metricKey: "gate",
+    metricLabel: "选择门 Δ（随扫描位置）",
+    metricColor: "#00ff88",
+    source: { code: mambaSrc, path: "algorithms/mamba.ts" },
   },
   {
     key: "cartpole-ppo",

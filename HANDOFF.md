@@ -57,6 +57,7 @@ Frame      = { iter: number, state: <家族相关>, metrics?: {[k]: number} }
 | `env` | `EnvState` | `EnvPlot`（按 `meta.envId` 切 CartPole/MountainCar/Pendulum） | RL 回放 |
 | `cnn` | `CnnState` | `CnnPlot` | 卷积核 + 激活图 |
 | `attention` | `AttentionState` | `AttentionPlot` | 自注意力热图 |
+| `ssm` | `SSMState` | `SsmPlot` | Mamba 选择性扫描（浏览器端） |
 
 > 注意：`family` 只是元信息。**实际用哪个可视化器，由 `AlgorithmLab.tsx` 的 `DEMOS` 表里每条的 `Viz` 字段决定**（所以同属 `scatter-boundary` 的回归和分类能用不同 Viz）。
 
@@ -132,7 +133,7 @@ npx vite build          # 构建
 
 **已完成**：M1 脚手架 ✅ · M2 监督/无监督（8 个浏览器算法）✅ · M3 RL 接入（CartPole/MountainCar/Pendulum 回放）✅ · M4 深度学习（MLP + CNN + Self-Attention）✅
 
-`/lab` 现有 **14 个 demo**：线性回归、逻辑回归、感知机、决策树、KNN、K-Means、DBSCAN、PCA、MLP、CNN、Self-Attention、CartPole、MountainCar、Pendulum。
+`/lab` 现有 **15 个 demo**：线性回归、逻辑回归、感知机、决策树、KNN、K-Means、DBSCAN、PCA、MLP、CNN、Self-Attention、Mamba(SSM)、CartPole、MountainCar、Pendulum。
 
 **可继续的方向（按价值排序）**：
 - 🐍 经典 ML 补全：SVM、随机森林、GBDT、GMM(EM)、t-SNE、层次聚类（走 4B 管线）

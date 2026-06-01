@@ -12,6 +12,8 @@ export interface TrajectoryMeta {
   hyperparams?: Record<string, string | number>;
   /** 教学要点：这个算法在动画里到底在“干什么” */
   insight?: string;
+  /** env 家族：指明用哪个环境渲染器（CartPole-v1 / MountainCar-v0 / Pendulum-v1） */
+  envId?: string;
 }
 
 /** 时间轴上的一帧：算法在第 iter 步的可画状态 + 标量指标 */
@@ -78,4 +80,10 @@ export interface PCAState {
   axis: Point2D;
   /** 上一帧的主轴，用于画收敛轨迹（可选） */
   prevAxis?: Point2D;
+}
+
+/** env 家族：RL 环境某一步的观测 + 动作（由 Python 录制管线导出） */
+export interface EnvState {
+  observation: number[];
+  action?: number | number[];
 }

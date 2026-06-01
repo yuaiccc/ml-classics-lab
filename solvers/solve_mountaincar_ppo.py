@@ -150,6 +150,23 @@ def main() -> None:
     else:
         print("  ✗ 未达到目标")
 
+    from frames_io import maybe_record
+
+    maybe_record(
+        algorithm,
+        task,
+        meta={
+            "id": "mountaincar-ppo",
+            "title": "MountainCar · PPO（真实 rollout）",
+            "family": "env",
+            "algorithm": "PPO",
+            "envId": "MountainCar-v0",
+            "description": "PPO 攻克稀疏奖励的 MountainCar：学会“先退后冲”利用动量荡上山顶。",
+            "insight": "观测 = [位置, 速度]。随机策略 + 熵正则化提供持续探索，偶然到达山顶后迅速学会非直觉的借力策略。",
+            "hyperparams": {"lr": "3e-4", "gamma": 0.99, "ent_coef": 0.05},
+        },
+    )
+
     env.close()
 
 

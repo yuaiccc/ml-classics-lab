@@ -3,7 +3,7 @@
 import { ComponentType, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, RefreshCw, Lightbulb } from "lucide-react";
-import { Trajectory } from "@/player/types";
+import { Trajectory, TrajectoryMeta } from "@/player/types";
 import { runLinearRegressionGD } from "@/algorithms/gradient-descent";
 import { runLogisticRegression } from "@/algorithms/logistic-regression";
 import { runPerceptron } from "@/algorithms/perceptron";
@@ -12,12 +12,14 @@ import { runKNN } from "@/algorithms/knn";
 import { runKMeans } from "@/algorithms/kmeans";
 import { runDBSCAN } from "@/algorithms/dbscan";
 import { runPCA } from "@/algorithms/pca";
+import cartpolePPO from "@/data/frames/cartpole-ppo.json";
 import { useTrajectory } from "@/player/useTrajectory";
 import TrajectoryPlayer from "@/player/TrajectoryPlayer";
 import RegressionPlot from "@/visualizers/RegressionPlot";
 import BoundaryPlot from "@/visualizers/BoundaryPlot";
 import ClustersPlot from "@/visualizers/ClustersPlot";
 import PCAPlot from "@/visualizers/PCAPlot";
+import EnvPlot from "@/visualizers/EnvPlot";
 import MetricCurve from "@/visualizers/MetricCurve";
 
 interface Demo {
@@ -26,7 +28,7 @@ interface Demo {
   group: string;
   build: (seed?: number) => Trajectory;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  Viz: ComponentType<{ state: any }>;
+  Viz: ComponentType<{ state: any; meta?: TrajectoryMeta }>;
   metricKey: string;
   metricLabel: string;
   metricColor?: string;
@@ -108,6 +110,16 @@ const DEMOS: Demo[] = [
     metricLabel: "主轴方向方差",
     metricColor: "#ffab40",
   },
+  {
+    key: "cartpole-ppo",
+    label: "CartPole · PPO",
+    group: "强化学习 · env",
+    build: () => cartpolePPO as unknown as Trajectory,
+    Viz: EnvPlot,
+    metricKey: "return",
+    metricLabel: "累计回报 Return",
+    metricColor: "#00ff88",
+  },
 ];
 
 const GROUPS = [...new Set(DEMOS.map((d) => d.group))];
@@ -172,7 +184,7 @@ export default function AlgorithmLab() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         <div className="lg:col-span-2 flex flex-col gap-4">
-          <Viz state={player.frame.state} />
+          <Viz state={player.frame.state} meta={meta} />
           <TrajectoryPlayer
             index={player.index}
             last={player.last}

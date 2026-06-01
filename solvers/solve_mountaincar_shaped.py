@@ -147,6 +147,24 @@ def main() -> None:
     else:
         print("  ✗ 未达到目标")
 
+    from frames_io import maybe_record
+
+    # 录制用原始 MountainCar-v0（不带奖励塑形），保证回放是真实环境行为
+    maybe_record(
+        algorithm,
+        "MountainCar-v0",
+        meta={
+            "id": "mountaincar-shaped",
+            "title": "MountainCar · DQN + Reward Shaping（真实 rollout）",
+            "family": "env",
+            "algorithm": "DQN+Shaping",
+            "envId": "MountainCar-v0",
+            "description": "用势能奖励塑形破解稀疏奖励：训练时加 shaped reward，回放在原始环境上。",
+            "insight": "观测 = [位置, 速度]。奖励塑形给“朝目标移动/积累动量”额外正反馈，让 DQN 也能学会上山。",
+            "hyperparams": {"lr": "1e-3", "gamma": 0.99},
+        },
+    )
+
 
 if __name__ == "__main__":
     main()

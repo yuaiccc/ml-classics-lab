@@ -170,6 +170,23 @@ def main() -> None:
     else:
         print("  ✗ 效果一般，可尝试增加训练轮次")
 
+    from frames_io import maybe_record
+
+    maybe_record(
+        algorithm,
+        task,
+        meta={
+            "id": "pendulum-sac",
+            "title": "Pendulum · SAC（真实 rollout）",
+            "family": "env",
+            "algorithm": "SAC",
+            "envId": "Pendulum-v1",
+            "description": "SAC 在连续动作空间上把摆杆甩起并稳定在竖直向上位置。",
+            "insight": "观测 = [cosθ, sinθ, 角速度]，动作是连续力矩。SAC 用高斯策略 + 自动温度调节，学出精确的连续控制。",
+            "hyperparams": {"lr": "3e-4", "gamma": 0.99, "tau": 0.005},
+        },
+    )
+
     env.close()
 
 

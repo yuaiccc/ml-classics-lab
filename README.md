@@ -61,8 +61,24 @@ npm run dev        # http://localhost:5180
   - 分类：逻辑回归、感知机、决策树（CART/Gini）、KNN
   - 聚类：K-Means、DBSCAN
   - 降维：PCA（幂迭代）
-- [ ] **M3** 把 RL 脚本接入统一播放器（Python 预计算帧）
+- [x] **M3** RL 接入统一播放器：Python 录制管线 → JSON 帧 → 前端 `env` 家族回放
+  - 已生成并验证：**CartPole · PPO**（真实 rollout，撑满 500 步）
+  - 其余 4 个脚本已接好录制开关，可自行生成（见下）
 - [ ] **M4** 深度学习（MLP → CNN → Transformer 注意力）
+
+### 重新生成 / 新增 RL 回放帧
+
+每个 `solvers/solve_*.py` 都内置了录制开关。在 `tianshou` 环境里加环境变量运行即可，
+训练结束后会把一条真实 episode 导出到 `rl-lab/src/data/frames/<id>.json` 供前端 `/lab` 回放：
+
+```bash
+conda activate tianshou
+RECORD_FRAMES=1 python solvers/solve_pendulum_sac.py      # → pendulum-sac.json
+RECORD_FRAMES=1 python solvers/solve_mountaincar_ppo.py   # → mountaincar-ppo.json
+```
+
+前端 `env` 渲染器已支持 CartPole / MountainCar / Pendulum 三种环境，生成 JSON 后
+在 `rl-lab/src/pages/AlgorithmLab.tsx` 的 `DEMOS` 里加一条 import 即可显示。
 
 ---
 

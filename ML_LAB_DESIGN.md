@@ -176,10 +176,13 @@ Tianshou/                         # 仓库根（Tianshou 本体不动）
 
 | 里程碑 | 内容 | 产出 |
 |--------|------|------|
-| **M1 搭骨架** | 定义 frame schema + 通用播放器；用**梯度下降**+**K-Means**两个纯前端算法打通整链路 | 地基可用，动画跑通 |
-| **M2 监督/无监督** | 补齐浏览器端：逻辑回归、感知机、决策树、KNN、PCA、DBSCAN | 🌐 类基本铺满 |
-| **M3 接入 RL** | 建 Python 预计算管线，把现有 5 个 RL 脚本接入统一播放器 | 新旧统一 |
+| **M1 搭骨架** ✅ | 定义 frame schema + 通用播放器；用**梯度下降**+**K-Means**两个纯前端算法打通整链路 | 地基可用，动画跑通 |
+| **M2 监督/无监督** ✅ | 浏览器端 8 种：线性/逻辑回归、感知机、决策树、KNN、K-Means、DBSCAN、PCA | 🌐 类基本铺满 |
+| **M3 接入 RL** ✅ | Python 录制管线（`solvers/frames_io.py`）→ JSON 帧 → 前端 `env` 家族回放；CartPole·PPO 已生成验证，其余 4 脚本接好录制开关 | 新旧统一 |
 | **M4 深度学习** | MLP → CNN → Transformer 注意力 | 四类齐全 |
+
+> M3 录制管线：`RECORD_FRAMES=1 python solvers/solve_*.py`，训练后录一条 episode 导出
+> `rl-lab/src/data/frames/<id>.json`（统一帧契约），前端按 `meta.envId` 选渲染器回放。
 
 > M1 是关键：所有算法都依赖 frame 契约 + 播放器，先用两个最经典的过程动画验证它够不够通用。
 

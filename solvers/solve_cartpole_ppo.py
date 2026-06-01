@@ -167,6 +167,24 @@ def main() -> None:
     else:
         print("  ✗ 未达到目标，可尝试增加训练轮次或调整超参数")
 
+    # ==================== 录制 rollout 供前端回放（M3）====================
+    from frames_io import maybe_record
+
+    maybe_record(
+        algorithm,
+        task,
+        meta={
+            "id": "cartpole-ppo",
+            "title": "CartPole · PPO（真实 rollout）",
+            "family": "env",
+            "algorithm": "PPO",
+            "envId": "CartPole-v1",
+            "description": "训练好的 PPO 策略在 CartPole-v1 上的一条真实回放：靠左右推车保持杆子竖直。",
+            "insight": "观测 = [小车位置, 小车速度, 杆角度, 杆角速度]。策略每步根据这 4 个量决定向左/向右推，把杆角度稳在 0 附近。撑满 500 步即满分。",
+            "hyperparams": {"lr": "2.5e-4", "gamma": 0.99, "eps_clip": 0.2},
+        },
+    )
+
     env.close()
 
 

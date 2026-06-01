@@ -136,6 +136,23 @@ def main() -> None:
     else:
         print("  ✗ 未达到目标，DQN 在稀疏奖励问题上需要更多探索")
 
+    from frames_io import maybe_record
+
+    maybe_record(
+        algorithm,
+        task,
+        meta={
+            "id": "mountaincar-dqn",
+            "title": "MountainCar · DQN（真实 rollout）",
+            "family": "env",
+            "algorithm": "DQN",
+            "envId": "MountainCar-v0",
+            "description": "DQN 在稀疏奖励的 MountainCar 上的一条回放（通常学不到有效策略，可对比 PPO）。",
+            "insight": "观测 = [位置, 速度]。稀疏奖励下 DQN 的 ε-贪心探索往往触发不了到达山顶的正信号。",
+            "hyperparams": {"lr": "1e-3", "gamma": 0.99, "n_step": 4},
+        },
+    )
+
     env.close()
 
 

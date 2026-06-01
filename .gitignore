@@ -11,8 +11,9 @@ __pycache__/
 venv/
 *.egg-info/
 
-# 预计算的帧数据（大文件，见 ML_LAB_DESIGN.md §7）
-frames/
+# 根目录下大体积预计算帧（见 ML_LAB_DESIGN.md §7）；
+# 注意：前端 import 的小样例帧 rl-lab/src/data/frames/*.json 需入库，故只忽略根目录
+/frames/
 
 # 训练产物
 *.pth

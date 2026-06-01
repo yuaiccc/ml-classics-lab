@@ -65,8 +65,22 @@ export function runPerceptron(opts: PerceptronOptions = {}): Trajectory<Boundary
       family: "scatter-boundary",
       algorithm: "Perceptron",
       description: "最古老的线性分类器：只在分错的点上更新，把边界往正确方向推。",
-      insight:
-        "与逻辑回归不同，感知机不看概率，只问“分对没有”。每遇到一个误分类点，就沿该点方向推一下权重（边界）。线性可分时有限步内必然收敛到 0 错误。",
+      tutorial: {
+        problem: "同样是把两类点用一条直线分开——这是最古老的线性分类器。",
+        intuition:
+          "它不看概率，只问“分对了没有”。每遇到一个被分错的点，就把分界线朝那个点的方向“推”一下。只要两类本来就能被一条直线分开，推有限次后必然全部分对。",
+        watch: [
+          "只有遇到分错的点才更新，边界是一跳一跳地移动（不像逻辑回归那样平滑）",
+          "右侧“误分类点数”阶梯式下降",
+          "降到 0 之后边界就不再动了——这就是收敛",
+        ],
+        concepts: [
+          { term: "线性可分", explain: "存在一条直线能把两类点完全分开" },
+          { term: "在线更新", explain: "一个样本一个样本地修正，而不是一次看全部" },
+          { term: "收敛", explain: "误分类降为 0，参数不再变化" },
+        ],
+        tryThis: "用播放器的“下一步”按钮单步走，观察每一步是哪个点触发了边界移动。",
+      },
       hyperparams: { lr, maxUpdates },
     },
     frames,

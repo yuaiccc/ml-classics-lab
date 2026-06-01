@@ -72,8 +72,22 @@ export function runLinearRegressionGD(
       family: "scatter-boundary",
       algorithm: "Gradient Descent",
       description: `拟合带噪声的 y = ${trueSlope}x + ${trueIntercept}，梯度下降逐步逼近真实直线。`,
-      insight:
-        "权重从 (0, 0) 出发，每步沿损失下降最快的方向更新。直线先快速旋转贴合斜率，再微调截距，loss 单调下降直至收敛。",
+      tutorial: {
+        problem: "给一堆散点，找一条最能代表它们整体趋势的直线。",
+        intuition:
+          "一条直线由斜率和截距两个数决定。一开始随便画一条（水平线），算出它离所有点的总误差，再朝“误差变小”的方向一点点调这两个数——这就是梯度下降。",
+        watch: [
+          "绿色直线从水平开始，逐帧旋转、平移去贴合点云",
+          "左上角方程里的斜率/截距数字一直在变",
+          "右侧 MSE Loss 曲线一路下降，说明拟合越来越准",
+        ],
+        concepts: [
+          { term: "MSE 均方误差", explain: "每个点到直线竖直距离的平方，再取平均，越小越准" },
+          { term: "梯度下降", explain: "沿着让误差下降最快的方向，小步多次地更新参数" },
+          { term: "学习率 lr", explain: "每一步迈多大；太大容易震荡，太小收敛很慢" },
+        ],
+        tryThis: "点“重新生成数据”换一组点，再拖时间轴看直线如何从水平转到贴合。",
+      },
       hyperparams: { lr, steps, n, noise },
     },
     frames,

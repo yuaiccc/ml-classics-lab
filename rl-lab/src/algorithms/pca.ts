@@ -67,8 +67,22 @@ export function runPCA(opts: PCAOptions = {}): Trajectory<PCAState> {
       family: "pca",
       algorithm: "PCA (Power Iteration)",
       description: "各向异性点云。用幂迭代让一个随机方向逐步转到方差最大的主成分方向。",
-      insight:
-        "PCA 要找“数据散得最开”的方向。幂迭代每步把当前向量乘以协方差矩阵再归一化，方向会不断向最大特征值对应的特征向量（第一主成分）旋转，Rayleigh 商（沿该方向方差）单调上升至收敛。",
+      tutorial: {
+        problem: "找出数据“散得最开”的方向（主成分），这是降维、压缩、去相关的基础。",
+        intuition:
+          "用幂迭代：随便给一个方向，反复把它乘以协方差矩阵再归一化，方向就会自动转到方差最大的那条轴上。",
+        watch: [
+          "绿色主轴从一个随机方向开始，逐帧旋转",
+          "紫色虚线是上一帧的方向，能看出旋转幅度越来越小",
+          "右侧方差曲线上升到平台 = 收敛到第一主成分",
+        ],
+        concepts: [
+          { term: "主成分", explain: "数据方差最大的方向，最能代表数据的伸展" },
+          { term: "协方差矩阵", explain: "描述各维度如何一起变化的方阵" },
+          { term: "幂迭代", explain: "反复乘矩阵+归一化，收敛到最大特征向量的简单方法" },
+        ],
+        tryThis: "点“重新生成数据”换点云朝向，看主轴每次都能转到那条长轴上。",
+      },
       hyperparams: { steps, points: n },
     },
     frames,

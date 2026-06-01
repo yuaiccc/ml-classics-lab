@@ -51,8 +51,22 @@ export function runKNN(opts: KNNOptions = {}): Trajectory<BoundaryState> {
       family: "scatter-boundary",
       algorithm: "KNN",
       description: "同心圆数据。横轴是 k：看近邻数如何影响决策边界的平滑程度。",
-      insight:
-        "KNN 不训练，直接看“最近的 k 个邻居谁多”。k=1 边界锯齿、易过拟合（贴着每个点）；k 增大边界变平滑但可能欠拟合。这是偏差-方差权衡最直观的演示。",
+      tutorial: {
+        problem: "不做任何训练，直接靠“问最近的几个邻居”来给新点分类。",
+        intuition:
+          "要判断某个位置属于哪一类，就找离它最近的 k 个已知点，哪类多就算哪类。k 越大，边界越平滑、越不受个别点影响。",
+        watch: [
+          "横轴是 k（不是时间）：k 从 1 一路增到 41",
+          "k=1 时边界锯齿、紧贴每个点；k 大时边界变平滑",
+          "留一法准确率随 k 变化，太小太大都不是最优",
+        ],
+        concepts: [
+          { term: "k 近邻", explain: "最近的 k 个样本投票决定类别" },
+          { term: "偏差-方差权衡", explain: "k小→方差大易过拟合；k大→偏差大易欠拟合" },
+          { term: "留一法准确率", explain: "预测每个点时排除它自己，更公正地评估" },
+        ],
+        tryThis: "把进度分别拉到 k=1 和 k=41，对比边界的锯齿 vs 平滑。",
+      },
       hyperparams: { kRange: `${kValues[0]}–${kValues[kValues.length - 1]}`, points: points.length },
     },
     frames,

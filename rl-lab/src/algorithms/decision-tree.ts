@@ -87,8 +87,22 @@ export function runDecisionTree(opts: DTreeOptions = {}): Trajectory<BoundarySta
       family: "scatter-boundary",
       algorithm: "Decision Tree",
       description: "同心圆数据（线性不可分）。每加深一层，用 Gini 增益挑最优轴对齐切分。",
-      insight:
-        "决策边界永远是横平竖直的矩形块。深度 0 只有一个多数类；每加深一层就多几刀切分，逐步逼近环形分布。深度过大会过拟合——边界变得支离破碎。",
+      tutorial: {
+        problem: "用一连串“如果…就…”的规则给点分类，连同心圆这种弯曲分布也能处理。",
+        intuition:
+          "每一步挑一个最能把两类分开的横切或竖切（按 Gini 不纯度评分），把平面切成一块块矩形。切得越细，就越能逼近弯曲的真实边界。",
+        watch: [
+          "决策边界永远是横平竖直的方块（轴对齐切分）",
+          "深度每加 1，就多切几刀，中间橙色区域被逐步框出来",
+          "训练准确率随深度上升——但太深会过拟合，把噪声也学进去",
+        ],
+        concepts: [
+          { term: "Gini 不纯度", explain: "一个区域里两类混得有多乱，越纯越接近 0" },
+          { term: "轴对齐切分", explain: "每一刀只沿 x 或 y 方向切" },
+          { term: "过拟合", explain: "切太细把噪声也当规律，换数据就失灵" },
+        ],
+        tryThis: "拖时间轴看深度从 0 到 6，边界如何从一整块逐步细化成环形。",
+      },
       hyperparams: { maxDepth, points: points.length },
     },
     frames,

@@ -21,6 +21,7 @@ import ClustersPlot from "@/visualizers/ClustersPlot";
 import PCAPlot from "@/visualizers/PCAPlot";
 import EnvPlot from "@/visualizers/EnvPlot";
 import MetricCurve from "@/visualizers/MetricCurve";
+import TutorialPanel from "@/components/TutorialPanel";
 
 interface Demo {
   key: string;
@@ -143,12 +144,22 @@ export default function AlgorithmLab() {
         <ArrowLeft className="w-4 h-4" /> 返回看板
       </Link>
 
-      <header className="mb-6">
+      <header className="mb-5">
         <h1 className="text-2xl font-bold text-slate-200 mb-1">算法过程动画 · 实验台</h1>
         <p className="text-slate-500 text-sm">
-          统一帧契约 + 通用播放器，浏览器端实时计算，可拖时间轴 / 单步 / 调速 / 换数据
+          每个经典算法配一段过程动画，边看边学。下面选一个算法，按 ▶️ 播放看它怎么一步步收敛。
         </p>
       </header>
+
+      {/* 小白使用说明 */}
+      <div className="glass rounded-xl p-4 mb-5 text-xs text-slate-400 leading-relaxed">
+        <span className="text-[#00ff88] font-semibold">怎么用：</span>
+        ① 选一个算法 → ② 按 <span className="text-slate-200">▶️ 播放</span> 看动画，或拖
+        <span className="text-slate-200"> 进度条 </span>手动逐帧；③ 用
+        <span className="text-slate-200"> ⏭ 下一步 </span>单步慢看；④ 点
+        <span className="text-slate-200"> 重新生成数据 </span>换一组随机数据再看。
+        每个算法下方都有「解决什么问题 / 直觉 / 看点 / 概念」的小白讲解。
+      </div>
 
       {/* 算法切换（按类别分组） */}
       <div className="flex flex-col gap-2.5 mb-5">
@@ -172,10 +183,16 @@ export default function AlgorithmLab() {
         ))}
       </div>
 
-      <div className="flex justify-end mb-4">
+      <div className="flex items-end justify-between gap-4 mb-4">
+        <div>
+          <h2 className="text-lg font-bold text-slate-100">{meta.title}</h2>
+          {meta.description && (
+            <p className="text-sm text-slate-500 mt-0.5">{meta.description}</p>
+          )}
+        </div>
         <button
           onClick={() => setSeed((s) => s + 1)}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs border border-slate-700 text-slate-300 hover:border-[#00e5ff]/50 hover:text-[#00e5ff] transition-all"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs border border-slate-700 text-slate-300 hover:border-[#00e5ff]/50 hover:text-[#00e5ff] transition-all shrink-0"
           title="换一组随机数据重新计算"
         >
           <RefreshCw className="w-3.5 h-3.5" /> 重新生成数据
@@ -210,7 +227,8 @@ export default function AlgorithmLab() {
             color={demo.metricColor}
           />
 
-          {meta.insight && (
+          {/* 没有完整教程时，退回显示简短 insight */}
+          {!meta.tutorial && meta.insight && (
             <div className="glass rounded-xl p-4">
               <div className="flex items-center gap-1.5 text-xs text-[#ffab40] mb-2">
                 <Lightbulb className="w-3.5 h-3.5" /> 算法在做什么
@@ -234,6 +252,13 @@ export default function AlgorithmLab() {
           )}
         </div>
       </div>
+
+      {/* 小白教程（整页宽，长内容更好读） */}
+      {meta.tutorial && (
+        <div className="mt-5">
+          <TutorialPanel tutorial={meta.tutorial} />
+        </div>
+      )}
     </div>
   );
 }

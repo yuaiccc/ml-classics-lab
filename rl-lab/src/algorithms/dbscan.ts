@@ -88,8 +88,22 @@ export function runDBSCAN(opts: DBSCANOptions = {}): Trajectory<ClusterState> {
       family: "clusters",
       algorithm: "DBSCAN",
       description: "3 个高斯团 + 均匀噪声。按密度可达性把点连成簇，孤立点判为噪声（灰色）。",
-      insight:
-        "不像 K-Means 要预先指定簇数，DBSCAN 自动定簇数。核心点（邻域内 ≥ minPts 个点）发起扩展，密度可达的点并入同簇；密度不够又没邻居的点是噪声。簇随迭代一个个长出来。",
+      tutorial: {
+        problem: "同样是无标签聚类，但能发现任意形状的簇、识别噪声点，而且不用提前指定簇数。",
+        intuition:
+          "从一个“核心点”（周围足够密集）出发，把密度可达的点像滚雪球一样连成一簇；既不密集又连不上任何簇的孤立点，就判为噪声。",
+        watch: [
+          "簇一个个地长出来（每一帧多发现一个簇）",
+          "灰色点是噪声，不属于任何簇",
+          "全程不需要像 K-Means 那样预先告诉它有几个簇",
+        ],
+        concepts: [
+          { term: "核心点", explain: "邻域(eps)内点数 ≥ minPts 的点，能发起扩展" },
+          { term: "密度可达", explain: "通过一连串核心点能一路连过去" },
+          { term: "噪声点", explain: "既不是核心点、也连不到任何簇的孤立点" },
+        ],
+        tryThis: "点“重新生成数据”，数一数它自动发现了几个簇、几个灰色噪声点。",
+      },
       hyperparams: { eps, minPts, points: n },
     },
     frames,

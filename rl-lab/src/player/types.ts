@@ -3,6 +3,20 @@
 
 export type Family = "scatter-boundary" | "clusters" | "curves" | "env" | "pca";
 
+/** 小白教程内容：把每个算法做成一节可读的小课。 */
+export interface Tutorial {
+  /** 一句话：这个算法解决什么问题 */
+  problem: string;
+  /** 大白话直觉理解 */
+  intuition: string;
+  /** 看动画时该注意什么（要点列表，引导观察） */
+  watch: string[];
+  /** 关键概念名词解释 */
+  concepts: { term: string; explain: string }[];
+  /** 鼓励动手交互的提示 */
+  tryThis?: string;
+}
+
 export interface TrajectoryMeta {
   id: string;
   title: string;
@@ -10,8 +24,10 @@ export interface TrajectoryMeta {
   algorithm: string;
   description?: string;
   hyperparams?: Record<string, string | number>;
-  /** 教学要点：这个算法在动画里到底在“干什么” */
+  /** 教学要点：这个算法在动画里到底在“干什么”（tutorial 缺省时的回退） */
   insight?: string;
+  /** 小白教程（优先于 insight 渲染） */
+  tutorial?: Tutorial;
   /** env 家族：指明用哪个环境渲染器（CartPole-v1 / MountainCar-v0 / Pendulum-v1） */
   envId?: string;
 }

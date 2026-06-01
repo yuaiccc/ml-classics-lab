@@ -98,8 +98,22 @@ export function runKMeans(opts: KMeansOptions = {}): Trajectory<ClusterState> {
       family: "clusters",
       algorithm: "K-Means",
       description: `${k} 个簇，质心随迭代移动直至稳定。`,
-      insight:
-        "每轮两步：①把每个点分给最近的质心（着色变化）；②把质心移到各簇均值（叉号移动）。inertia（簇内平方和）单调下降，质心不再移动即收敛。",
+      tutorial: {
+        problem: "数据没有标签，自动把它们分成 k 个组（簇）。",
+        intuition:
+          "先随机放下 k 个“质心”，然后重复两步：①每个点归到离它最近的质心；②每个质心移动到自己那群点的中心。反复直到质心不再动。",
+        watch: [
+          "叉号（质心）每一轮移动一次",
+          "点的颜色（归属）随之变化",
+          "右侧 Inertia（簇内平方和）单调下降，到平了就是收敛",
+        ],
+        concepts: [
+          { term: "质心 centroid", explain: "一个簇的中心点（该簇所有点的平均）" },
+          { term: "Inertia", explain: "所有点到各自质心距离的平方和，越小簇越紧凑" },
+          { term: "Lloyd 算法", explain: "“分配-更新”两步交替迭代，就是 K-Means 的标准做法" },
+        ],
+        tryThis: "点“重新生成数据”换团簇布局，看质心从随机位置一步步走到团簇中心。",
+      },
       hyperparams: { k, points: raw.length, maxIter },
     },
     frames,

@@ -134,26 +134,26 @@ Tianshou/                         # 仓库根（Tianshou 本体不动）
 图标含义：🌐 浏览器 TS 实现　🐍 Python 预计算　可视化家族见 §3
 
 ### 监督学习（supervised → `scatter-boundary`）
-- [ ] 🌐 线性回归 Linear Regression — 梯度下降拟合线逐帧贴合
-- [ ] 🌐 逻辑回归 Logistic Regression — 决策边界成形
-- [ ] 🌐 感知机 Perceptron — 每遇误分类点更新边界
-- [ ] 🌐 KNN — 邻居/Voronoi 区域（非迭代，展示 k 影响）
-- [ ] 🌐 决策树 Decision Tree — 递归切分动画
+- [x] 🌐 线性回归 Linear Regression — 梯度下降拟合线逐帧贴合
+- [x] 🌐 逻辑回归 Logistic Regression — 决策边界成形
+- [x] 🌐 感知机 Perceptron — 每遇误分类点更新边界
+- [x] 🌐 KNN — k 从小到大，展示偏差-方差权衡
+- [x] 🌐 决策树 Decision Tree — 按深度逐层加深切分
 - [ ] 🐍 SVM — 间隔/支持向量（SMO 迭代或仅终态）
 - [ ] 🐍 朴素贝叶斯 Naive Bayes — 类条件分布
 - [ ] 🐍 随机森林 Random Forest — 逐棵树加入
 - [ ] 🐍 梯度提升 GBDT / XGBoost — 残差逐轮拟合
 
 ### 无监督学习（unsupervised → `clusters` / `curves`）
-- [ ] 🌐 K-Means — 质心逐帧移动（★里程碑 1）
-- [ ] 🌐 PCA — 主成分轴 + 投影
-- [ ] 🌐 DBSCAN — 密度可达扩张
+- [x] 🌐 K-Means — 质心逐帧移动
+- [x] 🌐 PCA — 幂迭代求第一主成分，方向逐帧收敛
+- [x] 🌐 DBSCAN — 密度可达扩张，簇逐个长出 + 噪声识别
 - [ ] 🐍 层次聚类 Hierarchical — 树状图生长
 - [ ] 🐍 高斯混合 GMM (EM) — 椭圆逐帧拟合
 - [ ] 🐍 t-SNE / UMAP — 高维点逐帧展开
 
 ### 深度学习基础（deep → `scatter-boundary` / `curves`）
-- [ ] 🌐 梯度下降 Gradient Descent — loss 曲面下降轨迹（★里程碑 1）
+- [x] 🌐 梯度下降 Gradient Descent — 线性回归拟合线逐帧贴合
 - [ ] 🐍 MLP — 决策边界随 epoch 演化
 - [ ] 🐍 CNN — 卷积核 / 激活图可视化
 - [ ] 🐍 RNN / LSTM — 序列隐状态

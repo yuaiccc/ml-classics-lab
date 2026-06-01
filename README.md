@@ -56,7 +56,11 @@ npm run dev        # http://localhost:5180
 参见 [ML_LAB_DESIGN.md §5 算法清单](ML_LAB_DESIGN.md) 与 §6 里程碑：
 
 - [x] **M1** 帧契约 + 通用播放器（梯度下降 / K-Means 验证）
-- [ ] **M2** 监督/无监督浏览器端算法（逻辑回归、感知机、决策树、KNN、PCA、DBSCAN）
+- [x] **M2** 监督/无监督浏览器端算法 —— 实验台 `/lab` 现有 **8 种**：
+  - 回归：线性回归（梯度下降）
+  - 分类：逻辑回归、感知机、决策树（CART/Gini）、KNN
+  - 聚类：K-Means、DBSCAN
+  - 降维：PCA（幂迭代）
 - [ ] **M3** 把 RL 脚本接入统一播放器（Python 预计算帧）
 - [ ] **M4** 深度学习（MLP → CNN → Transformer 注意力）
 

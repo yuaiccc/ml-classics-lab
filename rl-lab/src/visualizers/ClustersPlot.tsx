@@ -28,8 +28,8 @@ export default function ClustersPlot({ state }: { state: ClusterState }) {
           cx={s.sx(p.x)}
           cy={s.sy(p.y)}
           r={3.5}
-          fill={CLUSTER_COLORS[p.cluster % CLUSTER_COLORS.length]}
-          opacity={0.65}
+          fill={p.cluster < 0 ? "#475569" : CLUSTER_COLORS[p.cluster % CLUSTER_COLORS.length]}
+          opacity={p.cluster < 0 ? 0.5 : 0.65}
         />
       ))}
 

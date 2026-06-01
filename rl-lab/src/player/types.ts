@@ -1,7 +1,7 @@
 // 统一的「帧轨迹」契约 —— 所有算法的过程动画都归约到这个结构。
 // 设计见 ML_LAB_DESIGN.md §1、§3。
 
-export type Family = "scatter-boundary" | "clusters" | "curves" | "env";
+export type Family = "scatter-boundary" | "clusters" | "curves" | "env" | "pca";
 
 export interface TrajectoryMeta {
   id: string;
@@ -43,8 +43,39 @@ export interface ClusterPoint extends Point2D {
   cluster: number;
 }
 
-/** clusters：点 + 当前归属 + 当前质心 */
+/** clusters：点 + 当前归属 + 当前质心。cluster = -1 表示噪声点（DBSCAN）。 */
 export interface ClusterState {
   points: ClusterPoint[];
   centroids: Point2D[];
+}
+
+export interface LabeledPoint extends Point2D {
+  label: number;
+}
+
+/** 决策边界网格：row-major，values[r*cols+c] ∈ [0,1] 表示该格点预测为类别 1 的得分/概率 */
+export interface BoundaryGrid {
+  x0: number;
+  y0: number;
+  x1: number;
+  y1: number;
+  cols: number;
+  rows: number;
+  values: number[];
+}
+
+/** classification 家族：带标签的点 + 决策边界网格（+ 可选线性边界叠加） */
+export interface BoundaryState {
+  points: LabeledPoint[];
+  grid: BoundaryGrid;
+  line?: { slope: number; intercept: number };
+}
+
+/** pca 家族：数据点 + 均值 + 当前估计的主成分方向（单位向量） */
+export interface PCAState {
+  points: Point2D[];
+  mean: Point2D;
+  axis: Point2D;
+  /** 上一帧的主轴，用于画收敛轨迹（可选） */
+  prevAxis?: Point2D;
 }

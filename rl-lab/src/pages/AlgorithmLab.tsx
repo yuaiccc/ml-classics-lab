@@ -1,52 +1,116 @@
-// M1 验证页：把帧契约 + 播放器 + 可视化器串起来，跑梯度下降 / K-Means 两个 demo。
-// 新增算法 = 往 DEMOS 里加一条 builder（产出 Trajectory），无需改播放器。
-import { useMemo, useState } from "react";
+// 算法过程动画实验台：帧契约 + 通用播放器 + 各家族可视化器。
+// 加新算法 = 往 DEMOS 加一条（builder 产出 Trajectory + 指定 Viz 组件），播放器自动复用。
+import { ComponentType, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, RefreshCw, Lightbulb } from "lucide-react";
 import { Trajectory } from "@/player/types";
 import { runLinearRegressionGD } from "@/algorithms/gradient-descent";
+import { runLogisticRegression } from "@/algorithms/logistic-regression";
+import { runPerceptron } from "@/algorithms/perceptron";
+import { runDecisionTree } from "@/algorithms/decision-tree";
+import { runKNN } from "@/algorithms/knn";
 import { runKMeans } from "@/algorithms/kmeans";
+import { runDBSCAN } from "@/algorithms/dbscan";
+import { runPCA } from "@/algorithms/pca";
 import { useTrajectory } from "@/player/useTrajectory";
 import TrajectoryPlayer from "@/player/TrajectoryPlayer";
 import RegressionPlot from "@/visualizers/RegressionPlot";
+import BoundaryPlot from "@/visualizers/BoundaryPlot";
 import ClustersPlot from "@/visualizers/ClustersPlot";
+import PCAPlot from "@/visualizers/PCAPlot";
 import MetricCurve from "@/visualizers/MetricCurve";
 
 interface Demo {
   key: string;
   label: string;
+  group: string;
   build: (seed?: number) => Trajectory;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  Viz: ComponentType<{ state: any }>;
   metricKey: string;
   metricLabel: string;
+  metricColor?: string;
 }
 
 const DEMOS: Demo[] = [
   {
     key: "linreg",
-    label: "梯度下降 · 线性回归",
+    label: "线性回归",
+    group: "监督 · 回归",
     build: (seed) => runLinearRegressionGD({ seed }),
+    Viz: RegressionPlot,
     metricKey: "loss",
     metricLabel: "MSE Loss",
   },
   {
+    key: "logreg",
+    label: "逻辑回归",
+    group: "监督 · 分类",
+    build: (seed) => runLogisticRegression({ seed }),
+    Viz: BoundaryPlot,
+    metricKey: "loss",
+    metricLabel: "交叉熵 Loss",
+  },
+  {
+    key: "perceptron",
+    label: "感知机",
+    group: "监督 · 分类",
+    build: (seed) => runPerceptron({ seed }),
+    Viz: BoundaryPlot,
+    metricKey: "errors",
+    metricLabel: "误分类点数",
+    metricColor: "#ff5252",
+  },
+  {
+    key: "dtree",
+    label: "决策树",
+    group: "监督 · 分类",
+    build: (seed) => runDecisionTree({ seed }),
+    Viz: BoundaryPlot,
+    metricKey: "accuracy",
+    metricLabel: "训练准确率",
+  },
+  {
+    key: "knn",
+    label: "KNN",
+    group: "监督 · 分类",
+    build: (seed) => runKNN({ seed }),
+    Viz: BoundaryPlot,
+    metricKey: "accuracy",
+    metricLabel: "留一法准确率",
+  },
+  {
     key: "kmeans",
-    label: "K-Means 聚类",
+    label: "K-Means",
+    group: "无监督 · 聚类",
     build: (seed) => runKMeans({ seed }),
+    Viz: ClustersPlot,
     metricKey: "inertia",
     metricLabel: "Inertia（簇内平方和）",
   },
+  {
+    key: "dbscan",
+    label: "DBSCAN",
+    group: "无监督 · 聚类",
+    build: (seed) => runDBSCAN({ seed }),
+    Viz: ClustersPlot,
+    metricKey: "clusters",
+    metricLabel: "已发现簇数",
+    metricColor: "#b388ff",
+  },
+  {
+    key: "pca",
+    label: "PCA",
+    group: "无监督 · 降维",
+    build: (seed) => runPCA({ seed }),
+    Viz: PCAPlot,
+    metricKey: "variance",
+    metricLabel: "主轴方向方差",
+    metricColor: "#ffab40",
+  },
 ];
 
-function Viz({ traj, index }: { traj: Trajectory; index: number }) {
-  const state = traj.frames[index].state;
-  if (traj.meta.family === "scatter-boundary") {
-    return <RegressionPlot state={state as never} />;
-  }
-  if (traj.meta.family === "clusters") {
-    return <ClustersPlot state={state as never} />;
-  }
-  return <div className="text-slate-500 text-sm">暂无该家族的可视化器</div>;
-}
+const GROUPS = [...new Set(DEMOS.map((d) => d.group))];
 
 export default function AlgorithmLab() {
   const [demoKey, setDemoKey] = useState(DEMOS[0].key);
@@ -56,6 +120,7 @@ export default function AlgorithmLab() {
   const traj = useMemo(() => demo.build(seed), [demo, seed]);
   const player = useTrajectory(traj);
   const meta = traj.meta;
+  const Viz = demo.Viz;
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -69,28 +134,36 @@ export default function AlgorithmLab() {
       <header className="mb-6">
         <h1 className="text-2xl font-bold text-slate-200 mb-1">算法过程动画 · 实验台</h1>
         <p className="text-slate-500 text-sm">
-          M1 脚手架：统一帧契约 + 通用播放器，浏览器端实时计算可交互
+          统一帧契约 + 通用播放器，浏览器端实时计算，可拖时间轴 / 单步 / 调速 / 换数据
         </p>
       </header>
 
-      {/* 算法切换 + 重新生成 */}
-      <div className="flex items-center gap-2 mb-5 flex-wrap">
-        {DEMOS.map((d) => (
-          <button
-            key={d.key}
-            onClick={() => setDemoKey(d.key)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-all ${
-              demoKey === d.key
-                ? "filter-btn-active"
-                : "border-slate-700 text-slate-400 hover:border-slate-500"
-            }`}
-          >
-            {d.label}
-          </button>
+      {/* 算法切换（按类别分组） */}
+      <div className="flex flex-col gap-2.5 mb-5">
+        {GROUPS.map((g) => (
+          <div key={g} className="flex items-center gap-2 flex-wrap">
+            <span className="text-[11px] text-slate-600 font-mono w-24 shrink-0">{g}</span>
+            {DEMOS.filter((d) => d.group === g).map((d) => (
+              <button
+                key={d.key}
+                onClick={() => setDemoKey(d.key)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-all ${
+                  demoKey === d.key
+                    ? "filter-btn-active"
+                    : "border-slate-700 text-slate-400 hover:border-slate-500"
+                }`}
+              >
+                {d.label}
+              </button>
+            ))}
+          </div>
         ))}
+      </div>
+
+      <div className="flex justify-end mb-4">
         <button
           onClick={() => setSeed((s) => s + 1)}
-          className="ml-auto inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs border border-slate-700 text-slate-300 hover:border-[#00e5ff]/50 hover:text-[#00e5ff] transition-all"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs border border-slate-700 text-slate-300 hover:border-[#00e5ff]/50 hover:text-[#00e5ff] transition-all"
           title="换一组随机数据重新计算"
         >
           <RefreshCw className="w-3.5 h-3.5" /> 重新生成数据
@@ -99,7 +172,7 @@ export default function AlgorithmLab() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         <div className="lg:col-span-2 flex flex-col gap-4">
-          <Viz traj={traj} index={player.index} />
+          <Viz state={player.frame.state} />
           <TrajectoryPlayer
             index={player.index}
             last={player.last}
@@ -122,6 +195,7 @@ export default function AlgorithmLab() {
             index={player.index}
             metricKey={demo.metricKey}
             label={demo.metricLabel}
+            color={demo.metricColor}
           />
 
           {meta.insight && (
@@ -135,7 +209,7 @@ export default function AlgorithmLab() {
 
           {meta.hyperparams && (
             <div className="glass rounded-xl p-4">
-              <div className="text-xs text-slate-500 mb-2 font-mono">超参数</div>
+              <div className="text-xs text-slate-500 mb-2 font-mono">参数</div>
               <div className="grid grid-cols-2 gap-x-4 gap-y-1.5">
                 {Object.entries(meta.hyperparams).map(([k, v]) => (
                   <div key={k} className="flex justify-between text-xs">

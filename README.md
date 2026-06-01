@@ -9,6 +9,7 @@
 - **`rl-lab/`** —— 一个 React + Vite 前端，把实验结果做成可视化看板，并带一个「算法过程动画实验台」(`/lab`)，在浏览器里实时演示梯度下降、K-Means 等经典算法的收敛过程。
 
 完整的平台设计、统一帧契约、以及四大类（监督 / 无监督 / 深度学习 / 强化学习）的算法清单 checklist 见 [ML_LAB_DESIGN.md](ML_LAB_DESIGN.md)。
+**维护 / 二次开发请先读 [HANDOFF.md](HANDOFF.md)**（架构、如何加新算法、已知的坑）。
 
 ---
 
@@ -83,10 +84,10 @@ npm run dev        # http://localhost:5180
 - [x] **M3** RL 接入统一播放器：Python 录制管线 → JSON 帧 → 前端 `env` 家族回放
   - 已生成并验证：**CartPole·PPO**（撑满 500 步）、**MountainCar·PPO**（先退后冲登顶）、**Pendulum·SAC**（摆杆立稳）
   - 其余脚本（DQN / Shaped）已接好录制开关，可自行生成（见下）
-- [~] **M4** 深度学习（进行中）
+- [x] **M4** 深度学习
   - [x] **MLP**（手写反向传播）—— 在同心圆数据上学非线性边界，对比逻辑回归
   - [x] **CNN**（PyTorch）—— 横线/竖线分类，卷积核随训练变成边缘检测器 + 激活图可视化
-  - [ ] Transformer（注意力热图）—— 大模型时代的核心机制，下一步
+  - [x] **Self-Attention**（PyTorch）—— 序列反转任务，注意力矩阵收敛成反对角线 = BERT/GPT 的核心机制
 
 ### 重新生成 / 新增 RL 回放帧
 
@@ -98,6 +99,7 @@ conda activate tianshou
 RECORD_FRAMES=1 python solvers/solve_pendulum_sac.py      # → pendulum-sac.json
 RECORD_FRAMES=1 python solvers/solve_mountaincar_ppo.py   # → mountaincar-ppo.json
 python solvers/train_cnn.py                               # → cnn-shapes.json（CNN，纯 PyTorch）
+python solvers/train_transformer.py                       # → attention-reverse.json（自注意力）
 ```
 
 前端 `env` 渲染器已支持 CartPole / MountainCar / Pendulum 三种环境，生成 JSON 后

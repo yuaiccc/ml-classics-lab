@@ -17,6 +17,7 @@ import cartpolePPO from "@/data/frames/cartpole-ppo.json";
 import pendulumSAC from "@/data/frames/pendulum-sac.json";
 import mountaincarPPO from "@/data/frames/mountaincar-ppo.json";
 import cnnShapes from "@/data/frames/cnn-shapes.json";
+import attentionReverse from "@/data/frames/attention-reverse.json";
 // 算法源码（?raw 把文件当字符串导入，供前端「查看源码」展示）
 import linregSrc from "@/algorithms/gradient-descent.ts?raw";
 import logregSrc from "@/algorithms/logistic-regression.ts?raw";
@@ -35,6 +36,7 @@ import ClustersPlot from "@/visualizers/ClustersPlot";
 import PCAPlot from "@/visualizers/PCAPlot";
 import EnvPlot from "@/visualizers/EnvPlot";
 import CnnPlot from "@/visualizers/CnnPlot";
+import AttentionPlot from "@/visualizers/AttentionPlot";
 import MetricCurve from "@/visualizers/MetricCurve";
 import TutorialPanel from "@/components/TutorialPanel";
 import CodeViewer from "@/components/CodeViewer";
@@ -157,6 +159,16 @@ const DEMOS: Demo[] = [
     metricKey: "accuracy",
     metricLabel: "训练准确率",
     metricColor: "#00e5ff",
+  },
+  {
+    key: "attention-reverse",
+    label: "Self-Attention",
+    group: "深度学习",
+    build: () => attentionReverse as unknown as Trajectory,
+    Viz: AttentionPlot,
+    metricKey: "accuracy",
+    metricLabel: "token 准确率",
+    metricColor: "#b388ff",
   },
   {
     key: "cartpole-ppo",

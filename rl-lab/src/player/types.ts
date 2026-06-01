@@ -1,7 +1,14 @@
 // 统一的「帧轨迹」契约 —— 所有算法的过程动画都归约到这个结构。
 // 设计见 ML_LAB_DESIGN.md §1、§3。
 
-export type Family = "scatter-boundary" | "clusters" | "curves" | "env" | "pca" | "cnn";
+export type Family =
+  | "scatter-boundary"
+  | "clusters"
+  | "curves"
+  | "env"
+  | "pca"
+  | "cnn"
+  | "attention";
 
 /** 小白教程内容：把每个算法做成一节可读的小课。 */
 export interface Tutorial {
@@ -111,4 +118,12 @@ export interface CnnState {
   activations: number[][][]; // [F][h][w] 该样本的激活图
   label: number;
   pred: number;
+}
+
+/** attention 家族：某一训练 epoch 的自注意力权重矩阵（Python 导出） */
+export interface AttentionState {
+  tokens: number[]; // 输入 token id 序列
+  target: number[]; // 目标序列
+  pred: number[]; // 模型预测序列
+  attention: number[][]; // L×L 注意力权重（行=输出/查询位，列=输入/键位）
 }

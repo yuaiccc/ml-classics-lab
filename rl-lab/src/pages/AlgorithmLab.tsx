@@ -1,7 +1,6 @@
 // 算法过程动画实验台：帧契约 + 通用播放器 + 各家族可视化器。
 // 加新算法 = 往 DEMOS 加一条（builder 产出 Trajectory + 指定 Viz 组件），播放器自动复用。
 import { ComponentType, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
 import { RefreshCw, Lightbulb, Route } from "lucide-react";
 import { Trajectory, TrajectoryMeta } from "@/player/types";
 import { runLinearRegressionGD } from "@/algorithms/gradient-descent";
@@ -390,22 +389,14 @@ export default function AlgorithmLab() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <header className="mb-6 flex items-start justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">
-            <span className="neon-text text-[#00ff88]">算法过程动画</span>{" "}
-            <span className="text-slate-300">· 实验台</span>
-          </h1>
-          <p className="text-slate-500 text-sm mt-1.5">
-            26 个经典算法，按 AI 发展史排成一条学习路线（左侧）。选一个，按 ▶️ 看它怎么一步步收敛。
-          </p>
-        </div>
-        <Link
-          to="/dashboard"
-          className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs border border-slate-700 text-slate-400 hover:border-[#00e5ff]/50 hover:text-[#00e5ff] transition-all"
-        >
-          RL 实验看板 →
-        </Link>
+      <header className="mb-6">
+        <h1 className="text-3xl font-bold tracking-tight">
+          <span className="neon-text text-[#00ff88]">算法过程动画</span>{" "}
+          <span className="text-slate-300">· 实验台</span>
+        </h1>
+        <p className="text-slate-500 text-sm mt-1.5">
+          26 个经典算法，按 AI 发展史排成一条学习路线（左侧）—— 从感知机、SVM、聚类、深度学习、生成模型，到强化学习，一站式边看边学。选一个，按 ▶️ 看它怎么一步步收敛。
+        </p>
       </header>
 
       <div className="flex gap-6 items-start">

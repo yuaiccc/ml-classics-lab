@@ -112,6 +112,18 @@ export const BACKGROUNDS: Record<string, Background> = {
     realWorld: "让大模型不只是聊天，而是「能干活」——分解任务、调用工具、看结果再决策。这是 AutoGPT、Cursor、各类 AI Agent 的骨架。",
     uses: ["AI Agent", "工具调用 / Function Calling", "自动化工作流", "Copilot 类产品"],
   },
+  rag: {
+    realWorld: "大模型记不全知识、还会编（幻觉）。RAG 给它外挂知识库——先检索相关资料再回答，是企业知识库问答、AI 搜索、文档助手的主流方案。",
+    uses: ["企业知识库问答", "AI 搜索 (Perplexity)", "文档/客服助手", "防幻觉/可溯源"],
+  },
+  "agentic-rag": {
+    realWorld: "复杂问题的答案分散在多处，一次检索抓不全。Agentic RAG 让模型像侦探一样多轮检索、边查边想——这是 Deep Research、深度问答 Agent 的核心。",
+    uses: ["Deep Research", "多跳问答", "调研/情报分析", "复杂知识检索"],
+  },
+  yolo: {
+    realWorld: "让机器实时「看见」并框出画面里所有物体——自动驾驶认行人车辆、安防识别、工业质检、手机相册识物。YOLO 是实时目标检测的代名词。",
+    uses: ["自动驾驶感知", "安防/监控", "工业质检", "实时视频分析"],
+  },
   gan: {
     realWorld: "无中生有造出逼真数据——人脸生成（thispersondoesnotexist）、图像超分、艺术创作。生成式 AI 的开端。",
     uses: ["图像/人脸生成", "超分辨率", "数据增强", "艺术/设计"],

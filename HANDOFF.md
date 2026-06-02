@@ -65,7 +65,9 @@ Frame      = { iter: number, state: <家族相关>, metrics?: {[k]: number} }
 | `multiclass` | `MultiBoundaryState` | `MultiBoundaryPlot` | 真实数据多类决策边界（Iris） |
 | `curvefit` | `CurveFitState` | `CurveFitPlot` | 多项式拟合（过拟合/正则化） |
 | `roc` | `RocState` | `RocPlot` | 分类阈值评估（ROC/PR/混淆矩阵） |
-| `agent` | `AgentState` | `AgentPlot` | Agent ReAct 推理轨迹（本地 Qwen） |
+| `agent` | `AgentState` | `AgentPlot` | Agent ReAct 推理轨迹（本地 Qwen，含 Agentic RAG） |
+| `rag` | `RagState` | `RagPlot` | RAG 检索增强（本地 Qwen） |
+| `yolo` | `YoloState` | `YoloPlot` | YOLO 目标检测框（ultralytics） |
 
 > GAN / Diffusion 复用 `clusters` 家族的 `ClustersPlot`（真/假、生成/目标用 cluster 区分）；
 > SVM / AdaBoost 复用 `scatter-boundary` 的 `BoundaryPlot`。小型 MLP 反向传播在 `algorithms/nn.ts`。
@@ -156,7 +158,7 @@ npx vite build          # 构建
 > - `solvers/agent_react.py` → `agent-react.json`：qwen2.5 跑 ReAct（思考→行动→观察）+ 计算器工具的真实智能体轨迹。
 > 两者前端标「🦙 本地 Qwen」徽标（`ENGINE` 里 `ollama`）。需本地 Ollama 在 `11434` 且已拉对应模型；重跑脚本即可刷新数据。
 
-`/lab` 现有 **33 个 demo**，按 AI 发展时间线覆盖 1936(Iris)→2023：
+`/lab` 现有 **36 个 demo**，按 AI 发展时间线覆盖 1936(Iris)→2023：
 - 监督：线性/逻辑回归、感知机、SVM、决策树、AdaBoost、KNN
 - 无监督：K-Means、DBSCAN、PCA
 - 联想记忆：Hopfield(1982)

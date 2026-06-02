@@ -174,6 +174,9 @@ Tianshou/                         # 仓库根（Tianshou 本体不动）
 - [x] 🌐 Diffusion(2020) — DDPM 去噪生成双月形（`algorithms/diffusion.ts`）
 - [x] 🦙 本地 Qwen 语义嵌入 — qwen3-embedding 真实词向量 + MDS 还原语义簇（`solvers/embed_words.py`）
 - [x] 🦙 Agent · ReAct — qwen2.5 思考→行动→观察 + 计算器工具的真实智能体轨迹（`solvers/agent_react.py`）
+- [x] 🦙 RAG · 检索增强 — qwen 嵌入检索 + 生成有依据的回答（`solvers/rag.py`）
+- [x] 🦙 Agentic RAG · 多跳 — 智能体自己决定检索什么、多轮检索串线索（`solvers/agentic_rag.py`）
+- [x] 🔥 YOLO · 目标检测 — yolov8n 真实检测 + 置信度阈值动画（`solvers/yolo_detect.py`）
 - [ ] 🐍 Autoencoder — 潜空间 / 重建
 - [ ] 🐍 GAN — 生成分布逐帧逼近
 

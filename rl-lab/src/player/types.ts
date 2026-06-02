@@ -17,7 +17,9 @@ export type Family =
   | "multiclass"
   | "curvefit"
   | "roc"
-  | "agent";
+  | "agent"
+  | "rag"
+  | "yolo";
 
 /** 小白教程内容：把每个算法做成一节可读的小课。 */
 export interface Tutorial {
@@ -205,6 +207,36 @@ export interface AgentState {
   task: string;
   steps: AgentStep[];
   shown: number; // 已展开的步数
+}
+
+/** rag 家族：检索增强生成 —— 问题 + 按相似度排序的资料 + 生成答案 */
+export interface RagDoc {
+  text: string;
+  score: number;
+}
+export interface RagState {
+  query: string;
+  docs: RagDoc[]; // 按相似度降序
+  shown: number; // 已揭示的资料条数
+  topK: number;
+  answer: string; // 末帧才有
+}
+
+/** yolo 家族：目标检测 —— 一张图 + 边界框（随置信度阈值显隐） */
+export interface YoloBox {
+  x: number; // 归一化 [0,1] 左上角
+  y: number;
+  w: number;
+  h: number;
+  label: string;
+  conf: number;
+}
+export interface YoloState {
+  image: string; // 图片路径
+  imgW: number;
+  imgH: number;
+  threshold: number;
+  boxes: YoloBox[]; // 全部框；前端按 conf>=threshold 显示
 }
 
 /** roc 家族：分类阈值评估 —— 分数分布 + ROC 曲线 + 混淆矩阵 */

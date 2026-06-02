@@ -35,6 +35,9 @@ import mountaincarDQN from "@/data/frames/mountaincar-dqn.json";
 import mountaincarShaped from "@/data/frames/mountaincar-shaped.json";
 import cnnShapes from "@/data/frames/cnn-shapes.json";
 import agentReact from "@/data/agent-react.json";
+import ragData from "@/data/rag.json";
+import agenticRag from "@/data/agentic-rag.json";
+import yoloData from "@/data/yolo.json";
 import attentionReverse from "@/data/frames/attention-reverse.json";
 // 算法源码（?raw 把文件当字符串导入，供前端「查看源码」展示）
 import linregSrc from "@/algorithms/gradient-descent.ts?raw";
@@ -80,6 +83,8 @@ import MultiBoundaryPlot from "@/visualizers/MultiBoundaryPlot";
 import CurveFitPlot from "@/visualizers/CurveFitPlot";
 import RocPlot from "@/visualizers/RocPlot";
 import AgentPlot from "@/visualizers/AgentPlot";
+import RagPlot from "@/visualizers/RagPlot";
+import YoloPlot from "@/visualizers/YoloPlot";
 import MetricCurve from "@/visualizers/MetricCurve";
 import TutorialPanel from "@/components/TutorialPanel";
 import CodeViewer from "@/components/CodeViewer";
@@ -305,6 +310,16 @@ const DEMOS: Demo[] = [
     source: { code: rnnSrc, path: "algorithms/rnn.ts" },
   },
   {
+    key: "rag",
+    label: "RAG 检索增强",
+    group: "大模型时代",
+    build: () => ragData as unknown as Trajectory,
+    Viz: RagPlot,
+    metricKey: "topScore",
+    metricLabel: "最高相似度",
+    metricColor: "#00e5ff",
+  },
+  {
     key: "agent-react",
     label: "Agent · ReAct",
     group: "Agent 时代",
@@ -313,6 +328,26 @@ const DEMOS: Demo[] = [
     metricKey: "step",
     metricLabel: "推理步骤",
     metricColor: "#b388ff",
+  },
+  {
+    key: "agentic-rag",
+    label: "Agentic RAG · 多跳",
+    group: "Agent 时代",
+    build: () => agenticRag as unknown as Trajectory,
+    Viz: AgentPlot,
+    metricKey: "step",
+    metricLabel: "推理步骤",
+    metricColor: "#00ff88",
+  },
+  {
+    key: "yolo",
+    label: "YOLO 目标检测",
+    group: "深度学习",
+    build: () => yoloData as unknown as Trajectory,
+    Viz: YoloPlot,
+    metricKey: "detections",
+    metricLabel: "检测框数量（随阈值）",
+    metricColor: "#00e5ff",
   },
   {
     key: "cnn-shapes",
@@ -495,7 +530,7 @@ const TREE: TreeNode[] = [
       { label: "联想记忆", children: [{ key: "hopfield", era: "1982" }] },
       { label: "前馈 · 反向传播", children: [{ key: "mlp", era: "1986" }] },
       { label: "序列", children: [{ key: "rnn", era: "1997" }] },
-      { label: "视觉 · 卷积", children: [{ key: "cnn-shapes", era: "1998" }] },
+      { label: "视觉 · 卷积", children: [{ key: "cnn-shapes", era: "1998" }, { key: "yolo", era: "2016" }] },
       { label: "表示学习", children: [{ key: "word2vec", era: "2013" }] },
     ],
   },
@@ -505,11 +540,14 @@ const TREE: TreeNode[] = [
       { label: "注意力", children: [{ key: "attention-reverse", era: "2017" }] },
       { label: "后注意力 · 线性时间", children: [{ key: "mamba-ssm", era: "2023" }] },
       { label: "嵌入 · 语义（本地 Qwen）", children: [{ key: "qwen-embeddings" }] },
+      { label: "检索增强 RAG（本地 Qwen）", children: [{ key: "rag" }] },
     ],
   },
   {
     label: "Agent 时代",
-    children: [{ label: "ReAct · 工具调用（本地 Qwen）", children: [{ key: "agent-react" }] }],
+    children: [
+      { label: "ReAct · 工具调用（本地 Qwen）", children: [{ key: "agent-react" }, { key: "agentic-rag" }] },
+    ],
   },
   {
     label: "生成模型",
@@ -542,6 +580,8 @@ const byKey = Object.fromEntries(DEMOS.map((d) => [d.key, d]));
 const ENGINE: Record<string, "tianshou" | "pytorch" | "ollama"> = {
   "qwen-embeddings": "ollama",
   "agent-react": "ollama",
+  rag: "ollama",
+  "agentic-rag": "ollama",
   "cartpole-ppo": "tianshou",
   "mountaincar-dqn": "tianshou",
   "mountaincar-ppo": "tianshou",
@@ -549,6 +589,7 @@ const ENGINE: Record<string, "tianshou" | "pytorch" | "ollama"> = {
   "pendulum-sac": "tianshou",
   "cnn-shapes": "pytorch",
   "attention-reverse": "pytorch",
+  yolo: "pytorch",
 };
 
 // 直接对应 Google ML 速成课「数据 / 评估 / 泛化」模块的实验

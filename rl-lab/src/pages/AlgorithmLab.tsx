@@ -1,7 +1,7 @@
 // 算法过程动画实验台：帧契约 + 通用播放器 + 各家族可视化器。
 // 加新算法 = 往 DEMOS 加一条（builder 产出 Trajectory + 指定 Viz 组件），播放器自动复用。
 import { ComponentType, useMemo, useState } from "react";
-import { RefreshCw, Lightbulb, Route } from "lucide-react";
+import { RefreshCw, Lightbulb, GitBranch } from "lucide-react";
 import { Trajectory, TrajectoryMeta } from "@/player/types";
 import { runLinearRegressionGD } from "@/algorithms/gradient-descent";
 import { runLogisticRegression } from "@/algorithms/logistic-regression";
@@ -356,26 +356,75 @@ const DEMOS: Demo[] = [
   },
 ];
 
-// 学习路线：按 AI 发展史把实验排成一条课程线
-const CURRICULUM: { stage: string; keys: string[] }[] = [
-  { stage: "① 入门 · 拟合一条线", keys: ["linreg"] },
-  { stage: "② 监督学习 · 分类", keys: ["logreg", "perceptron", "svm", "dtree", "adaboost", "knn"] },
-  { stage: "③ 无监督学习", keys: ["kmeans", "dbscan", "pca"] },
-  { stage: "④ 早期神经网络 · 联想记忆", keys: ["hopfield", "mlp"] },
-  { stage: "⑤ 序列与卷积", keys: ["rnn", "cnn-shapes"] },
-  { stage: "⑥ 表示学习", keys: ["word2vec"] },
-  { stage: "⑦ 大模型时代", keys: ["attention-reverse", "mamba-ssm"] },
-  { stage: "⑧ 生成模型", keys: ["gan", "diffusion"] },
-  { stage: "⑨ 控制论（RL 之前）", keys: ["cartpole-control"] },
-  { stage: "⑩ 强化学习", keys: ["qlearning", "cartpole-ppo", "mountaincar-dqn", "mountaincar-ppo", "mountaincar-shaped", "pendulum-sac"] },
+// 发展脉络：按 AI 发展史组成一棵分叉树（分支=方法谱系，叶子=具体实验）
+interface TreeNode {
+  label?: string; // 分支名（无 key 时）
+  era?: string; // 年代标注
+  key?: string; // 叶子 = 某个 demo 的 key
+  children?: TreeNode[];
+}
+
+const TREE: TreeNode[] = [
+  {
+    label: "统计 · 符号学习",
+    children: [
+      { label: "线性模型", children: [{ key: "linreg" }, { key: "logreg" }, { key: "perceptron", era: "1958" }] },
+      { label: "间隔 · 核方法", children: [{ key: "svm", era: "1995" }] },
+      { label: "实例 · 树 · 集成", children: [{ key: "knn" }, { key: "dtree" }, { key: "adaboost", era: "1995" }] },
+      { label: "无监督", children: [{ key: "kmeans" }, { key: "dbscan" }, { key: "pca" }] },
+    ],
+  },
+  {
+    label: "联结主义 · 神经网络",
+    children: [
+      { label: "联想记忆", children: [{ key: "hopfield", era: "1982" }] },
+      { label: "前馈 · 反向传播", children: [{ key: "mlp", era: "1986" }] },
+      { label: "序列", children: [{ key: "rnn", era: "1997" }] },
+      { label: "视觉 · 卷积", children: [{ key: "cnn-shapes", era: "1998" }] },
+      { label: "表示学习", children: [{ key: "word2vec", era: "2013" }] },
+    ],
+  },
+  {
+    label: "大模型时代",
+    children: [
+      { label: "注意力", children: [{ key: "attention-reverse", era: "2017" }] },
+      { label: "后注意力 · 线性时间", children: [{ key: "mamba-ssm", era: "2023" }] },
+    ],
+  },
+  {
+    label: "生成模型",
+    children: [
+      { label: "对抗生成", children: [{ key: "gan", era: "2014" }] },
+      { label: "扩散", children: [{ key: "diffusion", era: "2020" }] },
+    ],
+  },
+  {
+    label: "决策与控制",
+    children: [
+      { label: "经典控制 · RL 之前", children: [{ key: "cartpole-control", era: "1960s" }] },
+      {
+        label: "强化学习",
+        children: [
+          { label: "价值法", children: [{ key: "qlearning", era: "1989" }, { key: "mountaincar-dqn", era: "2013" }] },
+          { label: "策略法", children: [{ key: "cartpole-ppo" }, { key: "mountaincar-ppo" }] },
+          { label: "Actor-Critic · 连续", children: [{ key: "pendulum-sac" }] },
+          { label: "奖励工程", children: [{ key: "mountaincar-shaped" }] },
+        ],
+      },
+    ],
+  },
 ];
 
 const byKey = Object.fromEntries(DEMOS.map((d) => [d.key, d]));
-let _n = 0;
-const NUMBERED = CURRICULUM.map((s) => ({
-  stage: s.stage,
-  items: s.keys.filter((k) => byKey[k]).map((k) => ({ key: k, n: ++_n, demo: byKey[k] })),
-}));
+
+// 把树拍平成叶子列表（供移动端下拉 + 计数）
+const LEAVES: TreeNode[] = [];
+(function walk(ns: TreeNode[]) {
+  for (const n of ns) {
+    if (n.key && byKey[n.key]) LEAVES.push(n);
+    else if (n.children) walk(n.children);
+  }
+})(TREE);
 
 export default function AlgorithmLab() {
   const [demoKey, setDemoKey] = useState(DEMOS[0].key);
@@ -387,6 +436,47 @@ export default function AlgorithmLab() {
   const meta = traj.meta;
   const Viz = demo.Viz;
 
+  // 递归渲染发展脉络树：分支=方法谱系，叶子=可点击的实验
+  const renderTree = (nodes: TreeNode[], depth = 0) =>
+    nodes.map((node, i) => {
+      if (node.key) {
+        const d = byKey[node.key];
+        if (!d) return null;
+        const active = demoKey === node.key;
+        return (
+          <button
+            key={node.key}
+            onClick={() => setDemoKey(node.key!)}
+            className={`w-full text-left text-xs px-2 py-1.5 rounded-md transition-all flex items-center gap-2 border ${
+              active
+                ? "bg-[rgba(0,255,136,0.12)] text-[#00ff88] border-[#00ff88]/30"
+                : "text-slate-400 hover:text-slate-200 hover:bg-white/[0.03] border-transparent"
+            }`}
+          >
+            <span className={active ? "text-[#00ff88]" : "text-slate-600"}>•</span>
+            <span className="flex-1">{d.label}</span>
+            {node.era && <span className="text-[10px] text-slate-600 font-mono">{node.era}</span>}
+          </button>
+        );
+      }
+      return (
+        <div key={(node.label ?? "") + i} className={depth === 0 ? "mb-3" : "mt-1.5"}>
+          <div
+            className={
+              depth === 0
+                ? "text-[11px] text-[#00e5ff]/80 font-semibold mb-1"
+                : "text-[11px] text-slate-500 mb-0.5"
+            }
+          >
+            {node.label}
+          </div>
+          <div className="ml-1.5 pl-2 border-l border-slate-800 flex flex-col gap-0.5">
+            {renderTree(node.children!, depth + 1)}
+          </div>
+        </div>
+      );
+    });
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <header className="mb-6">
@@ -395,37 +485,17 @@ export default function AlgorithmLab() {
           <span className="text-slate-300">· 实验台</span>
         </h1>
         <p className="text-slate-500 text-sm mt-1.5">
-          26 个经典算法，按 AI 发展史排成一条学习路线（左侧）—— 从感知机、SVM、聚类、深度学习、生成模型，到强化学习，一站式边看边学。选一个，按 ▶️ 看它怎么一步步收敛。
+          26 个经典算法，按 AI 发展脉络组成一棵树（左侧）—— 统计学习、联结主义、大模型、生成模型、强化学习各成一支，分支即方法谱系。选一个，按 ▶️ 看它怎么一步步收敛。
         </p>
       </header>
 
       <div className="flex gap-6 items-start">
-        {/* 左侧：学习路线课程导航 */}
-        <aside className="w-56 shrink-0 sticky top-6 max-h-[calc(100vh-3rem)] overflow-auto pr-1 hidden md:block">
+        {/* 左侧：AI 发展脉络树 */}
+        <aside className="w-60 shrink-0 sticky top-6 max-h-[calc(100vh-3rem)] overflow-auto pr-1 hidden md:block">
           <div className="text-xs text-slate-500 mb-3 font-semibold flex items-center gap-1.5">
-            <Route className="w-3.5 h-3.5 text-[#00ff88]" /> 学习路线
+            <GitBranch className="w-3.5 h-3.5 text-[#00ff88]" /> AI 发展脉络
           </div>
-          {NUMBERED.map((s) => (
-            <div key={s.stage} className="mb-3">
-              <div className="text-[11px] text-[#00e5ff]/80 font-mono mb-1">{s.stage}</div>
-              <div className="flex flex-col gap-0.5">
-                {s.items.map(({ key, n, demo: d }) => (
-                  <button
-                    key={key}
-                    onClick={() => setDemoKey(key)}
-                    className={`text-left text-xs px-2 py-1.5 rounded-md transition-all flex gap-2 border ${
-                      demoKey === key
-                        ? "bg-[rgba(0,255,136,0.12)] text-[#00ff88] border-[#00ff88]/30"
-                        : "text-slate-400 hover:text-slate-200 hover:bg-white/[0.03] border-transparent"
-                    }`}
-                  >
-                    <span className="text-slate-600 font-mono w-5 shrink-0 text-right">{n}</span>
-                    <span>{d.label}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          ))}
+          {renderTree(TREE)}
         </aside>
 
         {/* 主内容 */}
@@ -436,9 +506,9 @@ export default function AlgorithmLab() {
             onChange={(e) => setDemoKey(e.target.value)}
             className="md:hidden w-full mb-4 bg-[rgba(15,23,42,0.7)] border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200"
           >
-            {NUMBERED.flatMap((s) => s.items).map(({ key, n, demo: d }) => (
-              <option key={key} value={key}>
-                {n}. {d.label}
+            {LEAVES.map((node) => (
+              <option key={node.key} value={node.key}>
+                {byKey[node.key!].label}
               </option>
             ))}
           </select>

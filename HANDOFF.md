@@ -83,7 +83,7 @@ Frame      = { iter: number, state: <家族相关>, metrics?: {[k]: number} }
    - 数据集复用 `algorithms/datasets.ts`；随机数用 `algorithms/rng.ts`（seed 可复现）；分类边界网格用 `algorithms/grid.ts`。
    - `meta` 里**务必填 `tutorial`**（五段式：problem/intuition/watch/concepts/tryThis），这是教学核心。
 2. 如果是新家族，在 `types.ts` 加 State 类型 + `Family` 联合类型，并在 `src/visualizers/` 写对应可视化器。否则复用现有的。
-3. 在 [`src/pages/AlgorithmLab.tsx`](rl-lab/src/pages/AlgorithmLab.tsx) 的 `DEMOS` 数组加一条，**并把它的 key 加进 `CURRICULUM` 对应学习阶段**（否则不会出现在左侧导航）：
+3. 在 [`src/pages/AlgorithmLab.tsx`](rl-lab/src/pages/AlgorithmLab.tsx) 的 `DEMOS` 数组加一条，**并把它的 key 挂到 `TREE`（AI 发展脉络树）对应的方法谱系分支下**（否则不会出现在左侧导航）：
    ```ts
    {
      key: "foo", label: "Foo 算法", group: "监督 · 分类",
@@ -121,7 +121,7 @@ Frame      = { iter: number, state: <家族相关>, metrics?: {[k]: number} }
 - **`?raw` 导入**靠 `vite/client` 的类型声明（`src/vite-env.d.ts`），无需额外 d.ts。
 - **bundle > 500kB 警告**：prism 高亮库 + 内联源码字符串所致，学习 lab 可接受，别花时间消警告。
 - **`index.css` 有个 `@import must precede...` 警告**：字体 @import 写在 @tailwind 之后导致，预先存在、无害。
-- **路由结构**（`App.tsx`）：只有 `/` 和 `/lab` = 实验台 `AlgorithmLab`，是唯一入口。所有实验（含 RL）都统一在这里，按 `AlgorithmLab.tsx` 的 `CURRICULUM` 常量分阶段排成学习路线侧栏。**加新实验记得把 key 加进 `CURRICULUM` 对应阶段**，否则不出现在侧栏。
+- **路由结构**（`App.tsx`）：只有 `/` 和 `/lab` = 实验台 `AlgorithmLab`，是唯一入口。所有实验（含 RL）都统一在这里，左侧导航是一棵 **AI 发展脉络树**（`AlgorithmLab.tsx` 的 `TREE` 常量：分支=方法谱系如「价值法/策略法/Actor-Critic」，叶子=`demo.key`，`era` 字段标年代；`renderTree` 递归渲染）。**加新实验记得把 key 挂到 `TREE` 对应分支**，否则不出现在侧栏。
   - （早期那套独立 RL 卡片看板 `Home.tsx`/`ExperimentDetail.tsx`/`data/experiments.ts` 及 `*Viz` 组件已删除——RL 已并入统一实验台。）
 
 ---

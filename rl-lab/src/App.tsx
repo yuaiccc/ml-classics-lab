@@ -8,9 +8,10 @@ export default function App() {
     <Router>
       <div className="bg-grid min-h-screen">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/experiment/:id" element={<ExperimentDetail />} />
+          <Route path="/" element={<AlgorithmLab />} />
           <Route path="/lab" element={<AlgorithmLab />} />
+          <Route path="/dashboard" element={<Home />} />
+          <Route path="/experiment/:id" element={<ExperimentDetail />} />
         </Routes>
       </div>
     </Router>

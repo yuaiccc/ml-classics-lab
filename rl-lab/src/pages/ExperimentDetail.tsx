@@ -45,7 +45,7 @@ export default function ExperimentDetail() {
     return (
       <div className="max-w-5xl mx-auto px-4 py-20 text-center">
         <p className="text-slate-500">实验未找到</p>
-        <Link to="/" className="text-[#00ff88] text-sm mt-2 inline-block">
+        <Link to="/dashboard" className="text-[#00ff88] text-sm mt-2 inline-block">
           ← 返回总览
         </Link>
       </div>
@@ -58,7 +58,7 @@ export default function ExperimentDetail() {
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <Link
-        to="/"
+        to="/dashboard"
         className="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-[#00ff88] transition-colors mb-6"
       >
         <ArrowLeft className="w-4 h-4" />

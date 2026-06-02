@@ -2,7 +2,7 @@
 // 加新算法 = 往 DEMOS 加一条（builder 产出 Trajectory + 指定 Viz 组件），播放器自动复用。
 import { ComponentType, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, RefreshCw, Lightbulb } from "lucide-react";
+import { RefreshCw, Lightbulb, Route } from "lucide-react";
 import { Trajectory, TrajectoryMeta } from "@/player/types";
 import { runLinearRegressionGD } from "@/algorithms/gradient-descent";
 import { runLogisticRegression } from "@/algorithms/logistic-regression";
@@ -357,7 +357,26 @@ const DEMOS: Demo[] = [
   },
 ];
 
-const GROUPS = [...new Set(DEMOS.map((d) => d.group))];
+// 学习路线：按 AI 发展史把实验排成一条课程线
+const CURRICULUM: { stage: string; keys: string[] }[] = [
+  { stage: "① 入门 · 拟合一条线", keys: ["linreg"] },
+  { stage: "② 监督学习 · 分类", keys: ["logreg", "perceptron", "svm", "dtree", "adaboost", "knn"] },
+  { stage: "③ 无监督学习", keys: ["kmeans", "dbscan", "pca"] },
+  { stage: "④ 早期神经网络 · 联想记忆", keys: ["hopfield", "mlp"] },
+  { stage: "⑤ 序列与卷积", keys: ["rnn", "cnn-shapes"] },
+  { stage: "⑥ 表示学习", keys: ["word2vec"] },
+  { stage: "⑦ 大模型时代", keys: ["attention-reverse", "mamba-ssm"] },
+  { stage: "⑧ 生成模型", keys: ["gan", "diffusion"] },
+  { stage: "⑨ 控制论（RL 之前）", keys: ["cartpole-control"] },
+  { stage: "⑩ 强化学习", keys: ["qlearning", "cartpole-ppo", "mountaincar-dqn", "mountaincar-ppo", "mountaincar-shaped", "pendulum-sac"] },
+];
+
+const byKey = Object.fromEntries(DEMOS.map((d) => [d.key, d]));
+let _n = 0;
+const NUMBERED = CURRICULUM.map((s) => ({
+  stage: s.stage,
+  items: s.keys.filter((k) => byKey[k]).map((k) => ({ key: k, n: ++_n, demo: byKey[k] })),
+}));
 
 export default function AlgorithmLab() {
   const [demoKey, setDemoKey] = useState(DEMOS[0].key);
@@ -370,54 +389,70 @@ export default function AlgorithmLab() {
   const Viz = demo.Viz;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <Link
-        to="/"
-        className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-[#00ff88] transition-colors mb-6"
-      >
-        <ArrowLeft className="w-4 h-4" /> 返回看板
-      </Link>
-
-      <header className="mb-5">
-        <h1 className="text-2xl font-bold text-slate-200 mb-1">算法过程动画 · 实验台</h1>
-        <p className="text-slate-500 text-sm">
-          每个经典算法配一段过程动画，边看边学。下面选一个算法，按 ▶️ 播放看它怎么一步步收敛。
-        </p>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <header className="mb-6 flex items-start justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">
+            <span className="neon-text text-[#00ff88]">算法过程动画</span>{" "}
+            <span className="text-slate-300">· 实验台</span>
+          </h1>
+          <p className="text-slate-500 text-sm mt-1.5">
+            26 个经典算法，按 AI 发展史排成一条学习路线（左侧）。选一个，按 ▶️ 看它怎么一步步收敛。
+          </p>
+        </div>
+        <Link
+          to="/dashboard"
+          className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs border border-slate-700 text-slate-400 hover:border-[#00e5ff]/50 hover:text-[#00e5ff] transition-all"
+        >
+          RL 实验看板 →
+        </Link>
       </header>
 
-      {/* 小白使用说明 */}
-      <div className="glass rounded-xl p-4 mb-5 text-xs text-slate-400 leading-relaxed">
-        <span className="text-[#00ff88] font-semibold">怎么用：</span>
-        ① 选一个算法 → ② 按 <span className="text-slate-200">▶️ 播放</span> 看动画，或拖
-        <span className="text-slate-200"> 进度条 </span>手动逐帧；③ 用
-        <span className="text-slate-200"> ⏭ 下一步 </span>单步慢看；④ 点
-        <span className="text-slate-200"> 重新生成数据 </span>换一组随机数据再看。
-        每个算法下方都有「解决什么问题 / 直觉 / 看点 / 概念」的小白讲解。
-      </div>
-
-      {/* 算法切换（按类别分组） */}
-      <div className="flex flex-col gap-2.5 mb-5">
-        {GROUPS.map((g) => (
-          <div key={g} className="flex items-center gap-2 flex-wrap">
-            <span className="text-[11px] text-slate-600 font-mono w-24 shrink-0">{g}</span>
-            {DEMOS.filter((d) => d.group === g).map((d) => (
-              <button
-                key={d.key}
-                onClick={() => setDemoKey(d.key)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-mono border transition-all ${
-                  demoKey === d.key
-                    ? "filter-btn-active"
-                    : "border-slate-700 text-slate-400 hover:border-slate-500"
-                }`}
-              >
-                {d.label}
-              </button>
-            ))}
+      <div className="flex gap-6 items-start">
+        {/* 左侧：学习路线课程导航 */}
+        <aside className="w-56 shrink-0 sticky top-6 max-h-[calc(100vh-3rem)] overflow-auto pr-1 hidden md:block">
+          <div className="text-xs text-slate-500 mb-3 font-semibold flex items-center gap-1.5">
+            <Route className="w-3.5 h-3.5 text-[#00ff88]" /> 学习路线
           </div>
-        ))}
-      </div>
+          {NUMBERED.map((s) => (
+            <div key={s.stage} className="mb-3">
+              <div className="text-[11px] text-[#00e5ff]/80 font-mono mb-1">{s.stage}</div>
+              <div className="flex flex-col gap-0.5">
+                {s.items.map(({ key, n, demo: d }) => (
+                  <button
+                    key={key}
+                    onClick={() => setDemoKey(key)}
+                    className={`text-left text-xs px-2 py-1.5 rounded-md transition-all flex gap-2 border ${
+                      demoKey === key
+                        ? "bg-[rgba(0,255,136,0.12)] text-[#00ff88] border-[#00ff88]/30"
+                        : "text-slate-400 hover:text-slate-200 hover:bg-white/[0.03] border-transparent"
+                    }`}
+                  >
+                    <span className="text-slate-600 font-mono w-5 shrink-0 text-right">{n}</span>
+                    <span>{d.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+        </aside>
 
-      <div className="flex items-end justify-between gap-4 mb-4">
+        {/* 主内容 */}
+        <main className="flex-1 min-w-0">
+          {/* 移动端：下拉选实验 */}
+          <select
+            value={demoKey}
+            onChange={(e) => setDemoKey(e.target.value)}
+            className="md:hidden w-full mb-4 bg-[rgba(15,23,42,0.7)] border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200"
+          >
+            {NUMBERED.flatMap((s) => s.items).map(({ key, n, demo: d }) => (
+              <option key={key} value={key}>
+                {n}. {d.label}
+              </option>
+            ))}
+          </select>
+
+          <div className="flex items-end justify-between gap-4 mb-4">
         <div>
           <h2 className="text-lg font-bold text-slate-100">{meta.title}</h2>
           {meta.description && (
@@ -494,12 +529,14 @@ export default function AlgorithmLab() {
         </div>
       )}
 
-      {/* 真实源码（浏览器端纯手写实现，无机器学习库） */}
-      {demo.source && (
-        <div className="mt-5">
-          <CodeViewer code={demo.source.code} path={demo.source.path} language="tsx" />
-        </div>
-      )}
+          {/* 真实源码（浏览器端纯手写实现，无机器学习库） */}
+          {demo.source && (
+            <div className="mt-5">
+              <CodeViewer code={demo.source.code} path={demo.source.path} language="tsx" />
+            </div>
+          )}
+        </main>
+      </div>
     </div>
   );
 }

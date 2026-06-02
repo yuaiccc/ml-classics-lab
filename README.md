@@ -26,7 +26,9 @@ cd rl-lab && npm install && npm run dev   # 打开 http://localhost:5180
 - **过程动画**：按 ▶️ 播放，看算法怎么一步步收敛；可拖进度条、单步慢看、调速、换数据
 - **小白讲解**（动画下方）：解决什么问题 / 直觉理解 / 看动画注意什么 / 关键概念 / 动手试试
 
-建议顺序：**线性回归 →（看懂梯度下降）→ 逻辑回归 / 感知机 →（看懂决策边界）→ 决策树 / KNN →（看懂非线性）→ K-Means / DBSCAN →（无监督聚类）→ PCA →（降维）→ CartPole·PPO（强化学习）**。
+建议顺序：**线性回归 →（看懂梯度下降）→ 逻辑回归 / 感知机 / SVM →（看懂决策边界）→ 决策树 / KNN / AdaBoost →（看懂非线性/集成）→ K-Means / DBSCAN / PCA →（无监督）→ MLP / RNN / CNN / Self-Attention / Mamba →（深度学习时间线）→ GAN / Diffusion →（生成模型）→ Q-Learning / CartPole（强化学习）**。
+
+`/lab` 共 **26 个 demo**，按 AI 发展史排开——从 **1958 感知机** 一路到 **2017 Transformer、2020 Diffusion、2023 Mamba**，覆盖符号/统计学习、联想记忆、深度学习、生成模型、强化学习几乎所有里程碑。其中 8 个里程碑实验（SVM / AdaBoost / Hopfield / RNN / Word2Vec / GAN / Diffusion / Q-Learning）全部浏览器端手写、含真实训练、零 ML 库。
 
 学有余力再回头看 `solvers/` 里的 Python 代码和 [ML_LAB_DESIGN.md](ML_LAB_DESIGN.md) 的算法清单。
 

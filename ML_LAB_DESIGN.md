@@ -139,7 +139,8 @@ Tianshou/                         # 仓库根（Tianshou 本体不动）
 - [x] 🌐 感知机 Perceptron — 每遇误分类点更新边界
 - [x] 🌐 KNN — k 从小到大，展示偏差-方差权衡
 - [x] 🌐 决策树 Decision Tree — 按深度逐层加深切分
-- [ ] 🐍 SVM — 间隔/支持向量（SMO 迭代或仅终态）
+- [x] 🌐 SVM — 最大间隔（Pegasos），决策边界 + 间隔宽度（`algorithms/svm.ts`）
+- [x] 🌐 AdaBoost — 决策树桩集成，边界逐轮精化（`algorithms/adaboost.ts`）
 - [ ] 🐍 朴素贝叶斯 Naive Bayes — 类条件分布
 - [ ] 🐍 随机森林 Random Forest — 逐棵树加入
 - [ ] 🐍 梯度提升 GBDT / XGBoost — 残差逐轮拟合
@@ -160,6 +161,11 @@ Tianshou/                         # 仓库根（Tianshou 本体不动）
 - [ ] 🐍 RNN / LSTM — 序列隐状态
 - [x] 🐍 Transformer — 自注意力热图（序列反转，`solvers/train_transformer.py`）
 - [x] 🌐 Mamba / 选择性 SSM — 选择性扫描，门控记忆热图（浏览器手写 `algorithms/mamba.ts`）
+- [x] 🌐 RNN — 香草 RNN + BPTT 学奇偶，隐藏状态热图（`algorithms/rnn.ts`）
+- [x] 🌐 Word2Vec — skip-gram 2D 词向量聚类（`algorithms/word2vec.ts`）
+- [x] 🌐 Hopfield(1982) — 联想记忆，能量下降回忆图案（`algorithms/hopfield.ts`）
+- [x] 🌐 GAN(2014) — 对抗生成，点云逼近目标分布（`algorithms/gan.ts`）
+- [x] 🌐 Diffusion(2020) — DDPM 去噪生成双月形（`algorithms/diffusion.ts`）
 - [ ] 🐍 Autoencoder — 潜空间 / 重建
 - [ ] 🐍 GAN — 生成分布逐帧逼近
 
@@ -170,7 +176,7 @@ Tianshou/                         # 仓库根（Tianshou 本体不动）
 - [x] 🐍 PPO（MountainCar）— `solve_mountaincar_ppo.py`，已生成 env 回放帧 ✅
 - [x] 🐍 SAC（Pendulum）— `solve_pendulum_sac.py`，已生成 env 回放帧 ✅
 - [x] 🌐 经典控制对照 — CartPole 状态反馈/LQR（`algorithms/cartpole-control.ts`，演示 RL 之前的解法）
-- [ ] 🌐 Q-Learning / Sarsa — GridWorld 价值热图动画
+- [x] 🌐 Q-Learning — GridWorld 价值热图 + 策略箭头（`algorithms/qlearning.ts`）
 - [ ] 🐍 A2C / DDPG / TD3 — 复用 Tianshou
 
 ---

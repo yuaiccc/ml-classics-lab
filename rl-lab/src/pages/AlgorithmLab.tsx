@@ -15,6 +15,14 @@ import { runPCA } from "@/algorithms/pca";
 import { runMLP } from "@/algorithms/mlp";
 import { runSelectiveSSM } from "@/algorithms/mamba";
 import { runCartPoleControl } from "@/algorithms/cartpole-control";
+import { runSVM } from "@/algorithms/svm";
+import { runAdaBoost } from "@/algorithms/adaboost";
+import { runQLearning } from "@/algorithms/qlearning";
+import { runGAN } from "@/algorithms/gan";
+import { runDiffusion } from "@/algorithms/diffusion";
+import { runHopfield } from "@/algorithms/hopfield";
+import { runRNN } from "@/algorithms/rnn";
+import { runWord2Vec } from "@/algorithms/word2vec";
 import cartpolePPO from "@/data/frames/cartpole-ppo.json";
 import pendulumSAC from "@/data/frames/pendulum-sac.json";
 import mountaincarPPO from "@/data/frames/mountaincar-ppo.json";
@@ -34,6 +42,14 @@ import pcaSrc from "@/algorithms/pca.ts?raw";
 import mlpSrc from "@/algorithms/mlp.ts?raw";
 import mambaSrc from "@/algorithms/mamba.ts?raw";
 import cartpoleControlSrc from "@/algorithms/cartpole-control.ts?raw";
+import svmSrc from "@/algorithms/svm.ts?raw";
+import adaboostSrc from "@/algorithms/adaboost.ts?raw";
+import qlearningSrc from "@/algorithms/qlearning.ts?raw";
+import ganSrc from "@/algorithms/gan.ts?raw";
+import diffusionSrc from "@/algorithms/diffusion.ts?raw";
+import hopfieldSrc from "@/algorithms/hopfield.ts?raw";
+import rnnSrc from "@/algorithms/rnn.ts?raw";
+import word2vecSrc from "@/algorithms/word2vec.ts?raw";
 import { useTrajectory } from "@/player/useTrajectory";
 import TrajectoryPlayer from "@/player/TrajectoryPlayer";
 import RegressionPlot from "@/visualizers/RegressionPlot";
@@ -44,6 +60,10 @@ import EnvPlot from "@/visualizers/EnvPlot";
 import CnnPlot from "@/visualizers/CnnPlot";
 import AttentionPlot from "@/visualizers/AttentionPlot";
 import SsmPlot from "@/visualizers/SsmPlot";
+import GridWorldPlot from "@/visualizers/GridWorldPlot";
+import HopfieldPlot from "@/visualizers/HopfieldPlot";
+import RnnPlot from "@/visualizers/RnnPlot";
+import Word2VecPlot from "@/visualizers/Word2VecPlot";
 import MetricCurve from "@/visualizers/MetricCurve";
 import TutorialPanel from "@/components/TutorialPanel";
 import CodeViewer from "@/components/CodeViewer";
@@ -115,6 +135,26 @@ const DEMOS: Demo[] = [
     source: { code: knnSrc, path: "algorithms/knn.ts" },
   },
   {
+    key: "svm",
+    label: "SVM 支持向量机",
+    group: "监督 · 分类",
+    build: (seed) => runSVM({ seed }),
+    Viz: BoundaryPlot,
+    metricKey: "margin",
+    metricLabel: "间隔宽度 margin",
+    source: { code: svmSrc, path: "algorithms/svm.ts" },
+  },
+  {
+    key: "adaboost",
+    label: "AdaBoost 集成",
+    group: "监督 · 分类",
+    build: (seed) => runAdaBoost({ seed }),
+    Viz: BoundaryPlot,
+    metricKey: "accuracy",
+    metricLabel: "训练准确率",
+    source: { code: adaboostSrc, path: "algorithms/adaboost.ts" },
+  },
+  {
     key: "kmeans",
     label: "K-Means",
     group: "无监督 · 聚类",
@@ -147,6 +187,17 @@ const DEMOS: Demo[] = [
     source: { code: pcaSrc, path: "algorithms/pca.ts" },
   },
   {
+    key: "hopfield",
+    label: "Hopfield 联想记忆",
+    group: "联想记忆（1982）",
+    build: (seed) => runHopfield({ seed }),
+    Viz: HopfieldPlot,
+    metricKey: "overlap",
+    metricLabel: "与目标图案吻合度",
+    metricColor: "#00ff88",
+    source: { code: hopfieldSrc, path: "algorithms/hopfield.ts" },
+  },
+  {
     key: "mlp",
     label: "MLP 神经网络",
     group: "深度学习",
@@ -156,6 +207,17 @@ const DEMOS: Demo[] = [
     metricLabel: "交叉熵 Loss",
     metricColor: "#b388ff",
     source: { code: mlpSrc, path: "algorithms/mlp.ts" },
+  },
+  {
+    key: "rnn",
+    label: "RNN 序列记忆",
+    group: "深度学习",
+    build: (seed) => runRNN({ seed }),
+    Viz: RnnPlot,
+    metricKey: "accuracy",
+    metricLabel: "奇偶判断准确率",
+    metricColor: "#00e5ff",
+    source: { code: rnnSrc, path: "algorithms/rnn.ts" },
   },
   {
     key: "cnn-shapes",
@@ -189,6 +251,39 @@ const DEMOS: Demo[] = [
     source: { code: mambaSrc, path: "algorithms/mamba.ts" },
   },
   {
+    key: "word2vec",
+    label: "Word2Vec 词向量",
+    group: "深度学习",
+    build: (seed) => runWord2Vec({ seed }),
+    Viz: Word2VecPlot,
+    metricKey: "loss",
+    metricLabel: "skip-gram Loss",
+    metricColor: "#ffab40",
+    source: { code: word2vecSrc, path: "algorithms/word2vec.ts" },
+  },
+  {
+    key: "gan",
+    label: "GAN 对抗生成",
+    group: "生成模型",
+    build: (seed) => runGAN({ seed }),
+    Viz: ClustersPlot,
+    metricKey: "realness",
+    metricLabel: "判别器对假点的「像真」分",
+    metricColor: "#00ff88",
+    source: { code: ganSrc, path: "algorithms/gan.ts" },
+  },
+  {
+    key: "diffusion",
+    label: "Diffusion 扩散",
+    group: "生成模型",
+    build: (seed) => runDiffusion({ seed }),
+    Viz: ClustersPlot,
+    metricKey: "noiseLevel",
+    metricLabel: "噪声水平（去噪进度）",
+    metricColor: "#00e5ff",
+    source: { code: diffusionSrc, path: "algorithms/diffusion.ts" },
+  },
+  {
     key: "cartpole-control",
     label: "CartPole · 经典控制",
     group: "经典控制（RL 之前）",
@@ -198,6 +293,17 @@ const DEMOS: Demo[] = [
     metricLabel: "杆偏离角度（°）",
     metricColor: "#ffab40",
     source: { code: cartpoleControlSrc, path: "algorithms/cartpole-control.ts" },
+  },
+  {
+    key: "qlearning",
+    label: "Q-Learning（GridWorld）",
+    group: "强化学习 · 表格法",
+    build: (seed) => runQLearning({ seed }),
+    Viz: GridWorldPlot,
+    metricKey: "greedyReturn",
+    metricLabel: "贪心策略回报",
+    metricColor: "#00ff88",
+    source: { code: qlearningSrc, path: "algorithms/qlearning.ts" },
   },
   {
     key: "cartpole-ppo",

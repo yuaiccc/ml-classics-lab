@@ -58,6 +58,13 @@ Frame      = { iter: number, state: <家族相关>, metrics?: {[k]: number} }
 | `cnn` | `CnnState` | `CnnPlot` | 卷积核 + 激活图 |
 | `attention` | `AttentionState` | `AttentionPlot` | 自注意力热图 |
 | `ssm` | `SSMState` | `SsmPlot` | Mamba 选择性扫描（浏览器端） |
+| `gridworld` | `GridWorldState` | `GridWorldPlot` | 表格 Q-Learning 价值热图 |
+| `hopfield` | `HopfieldState` | `HopfieldPlot` | Hopfield 联想记忆图案 |
+| `rnn` | `RnnState` | `RnnPlot` | RNN 隐藏状态轨迹 |
+| `embedding` | `EmbeddingState` | `Word2VecPlot` | 词向量 2D 散点 |
+
+> GAN / Diffusion 复用 `clusters` 家族的 `ClustersPlot`（真/假、生成/目标用 cluster 区分）；
+> SVM / AdaBoost 复用 `scatter-boundary` 的 `BoundaryPlot`。小型 MLP 反向传播在 `algorithms/nn.ts`。
 
 > 注意：`family` 只是元信息。**实际用哪个可视化器，由 `AlgorithmLab.tsx` 的 `DEMOS` 表里每条的 `Viz` 字段决定**（所以同属 `scatter-boundary` 的回归和分类能用不同 Viz）。
 
@@ -133,7 +140,16 @@ npx vite build          # 构建
 
 **已完成**：M1 脚手架 ✅ · M2 监督/无监督（8 个浏览器算法）✅ · M3 RL 接入（CartPole/MountainCar/Pendulum 回放）✅ · M4 深度学习（MLP + CNN + Self-Attention）✅
 
-`/lab` 现有 **18 个 demo**：线性回归、逻辑回归、感知机、决策树、KNN、K-Means、DBSCAN、PCA、MLP、CNN、Self-Attention、Mamba(SSM)、CartPole·经典控制、CartPole·PPO、MountainCar·DQN/PPO/Shaped、Pendulum·SAC。
+`/lab` 现有 **26 个 demo**，按 AI 发展时间线覆盖 1958→2023：
+- 监督：线性/逻辑回归、感知机、SVM、决策树、AdaBoost、KNN
+- 无监督：K-Means、DBSCAN、PCA
+- 联想记忆：Hopfield(1982)
+- 深度学习：MLP、RNN、CNN、Self-Attention、Mamba、Word2Vec
+- 生成模型：GAN、Diffusion
+- 经典控制：CartPole 状态反馈
+- 强化学习：Q-Learning(GridWorld 表格法)、CartPole·PPO、MountainCar·DQN/PPO/Shaped、Pendulum·SAC
+
+> 这 8 个里程碑实验（SVM/AdaBoost/Hopfield/RNN/Word2Vec/GAN/Diffusion/Q-Learning）全部**浏览器端手写**（含训练），无任何 ML 库。
 
 **可继续的方向（按价值排序）**：
 - 🐍 经典 ML 补全：SVM、随机森林、GBDT、GMM(EM)、t-SNE、层次聚类（走 4B 管线）

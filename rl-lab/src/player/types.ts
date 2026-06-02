@@ -9,7 +9,11 @@ export type Family =
   | "pca"
   | "cnn"
   | "attention"
-  | "ssm";
+  | "ssm"
+  | "gridworld"
+  | "hopfield"
+  | "rnn"
+  | "embedding";
 
 /** 小白教程内容：把每个算法做成一节可读的小课。 */
 export interface Tutorial {
@@ -136,4 +140,36 @@ export interface SSMState {
   gates: number[]; // 每个位置的选择门 Δ ∈ [0,1]（input-dependent）
   memory: number[][]; // [L][C] 每个时刻的记忆向量（C 个信号通道）
   output: number[]; // 每个时刻输出的 token id（=记忆里最强的信号）
+}
+
+/** gridworld 家族（表格 Q-Learning）：价值热图 + 贪心策略箭头 */
+export interface GridWorldState {
+  rows: number;
+  cols: number;
+  values: number[]; // 每格 V(s)=max_a Q(s,a)
+  policy: number[]; // 每格贪心动作 0=上 1=右 2=下 3=左，终止格=-1
+  goal: number; // 目标格索引
+  pit: number; // 陷阱格索引
+}
+
+/** hopfield 家族：N×N 二值图案的联想记忆回忆过程 */
+export interface HopfieldState {
+  size: number; // 图案边长 N
+  cells: number[]; // 当前状态，长度 N*N，值 ∈ {-1,+1}
+  target: number[]; // 想回忆出的目标图案
+}
+
+/** rnn 家族：某一训练 epoch 下，一个样本序列的隐藏状态轨迹 */
+export interface RnnState {
+  inputs: number[]; // 输入序列（0/1 比特）
+  hidden: number[][]; // [T][H] 每步隐藏状态
+  target: number; // 目标（如奇偶）
+  pred: number; // 预测
+}
+
+/** embedding 家族（Word2Vec）：词向量 2D 位置（随训练移动） */
+export interface EmbeddingState {
+  words: string[]; // 词
+  positions: { x: number; y: number }[]; // 对应 2D 向量
+  groups: number[]; // 词所属语义组（着色用）
 }

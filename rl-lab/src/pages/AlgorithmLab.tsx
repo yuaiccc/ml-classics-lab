@@ -29,6 +29,8 @@ import { runRegularization } from "@/algorithms/regularization";
 import { runROC } from "@/algorithms/roc";
 import { runQwenEmbeddings } from "@/algorithms/qwen-embeddings";
 import { runYoloVersions } from "@/algorithms/yolo-versions";
+import { runRagLive, runAgentLive, runAgenticRagLive, runEmbeddingsLive, Progress } from "@/algorithms/live-llm";
+import { ollamaReachable } from "@/lib/ollama";
 import cartpolePPO from "@/data/frames/cartpole-ppo.json";
 import pendulumSAC from "@/data/frames/pendulum-sac.json";
 import mountaincarPPO from "@/data/frames/mountaincar-ppo.json";
@@ -103,6 +105,9 @@ interface Demo {
   metricKey: string;
   metricLabel: string;
   metricColor?: string;
+  /** 实时运行器：调用本地 Ollama，边跑边 emit 预览，返回完整 Trajectory */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  live?: (emit: (state: any, p: Progress) => void) => Promise<Trajectory>;
   metricKey2?: string;
   metricLabel2?: string;
   metricColor2?: string;
@@ -316,6 +321,7 @@ const DEMOS: Demo[] = [
     label: "RAG 检索增强",
     group: "大模型时代",
     build: () => ragData as unknown as Trajectory,
+    live: runRagLive,
     Viz: RagPlot,
     metricKey: "topScore",
     metricLabel: "最高相似度",
@@ -326,6 +332,7 @@ const DEMOS: Demo[] = [
     label: "Agent · ReAct",
     group: "Agent 时代",
     build: () => agentReact as unknown as Trajectory,
+    live: runAgentLive,
     Viz: AgentPlot,
     metricKey: "step",
     metricLabel: "推理步骤",
@@ -336,6 +343,7 @@ const DEMOS: Demo[] = [
     label: "Agentic RAG · 多跳",
     group: "Agent 时代",
     build: () => agenticRag as unknown as Trajectory,
+    live: runAgenticRagLive,
     Viz: AgentPlot,
     metricKey: "step",
     metricLabel: "推理步骤",
@@ -408,6 +416,7 @@ const DEMOS: Demo[] = [
     label: "本地 Qwen 语义嵌入",
     group: "大模型时代",
     build: (seed) => runQwenEmbeddings({ seed }),
+    live: runEmbeddingsLive,
     Viz: Word2VecPlot,
     metricKey: "stress",
     metricLabel: "MDS 布局误差 stress",
@@ -627,10 +636,49 @@ export default function AlgorithmLab() {
   const [seed, setSeed] = useState(1234);
   const demo = DEMOS.find((d) => d.key === demoKey)!;
 
-  const traj = useMemo(() => demo.build(seed), [demo, seed]);
+  const buildTraj = useMemo(() => demo.build(seed), [demo, seed]);
+
+  // 实时运行（真·调用本地 Ollama Qwen）状态。把 demoKey 绑进结果，渲染时按 key 匹配，
+  // 避免切换实验后的那次渲染用「旧 state + 新 Viz」而崩。
+  const [liveResult, setLiveResult] = useState<{ key: string; traj: Trajectory } | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [livePreview, setLivePreview] = useState<{ key: string; state: any; p: Progress } | null>(null);
+  const [running, setRunning] = useState<string | null>(null); // 正在跑的 demoKey
+  const [liveError, setLiveError] = useState<{ key: string; msg: string } | null>(null);
+
+  // 只采用属于「当前实验」的实时数据
+  const myLiveTraj = liveResult && liveResult.key === demoKey ? liveResult.traj : null;
+  const myPreview = livePreview && livePreview.key === demoKey ? livePreview : null;
+  const isRunning = running === demoKey;
+  const myError = liveError && liveError.key === demoKey ? liveError.msg : null;
+
+  const traj = myLiveTraj ?? buildTraj;
   const player = useTrajectory(traj);
   const meta = traj.meta;
   const Viz = demo.Viz;
+
+  const runLive = async () => {
+    if (!demo.live || isRunning) return;
+    const key = demoKey;
+    setRunning(key);
+    setLiveError(null);
+    setLivePreview(null);
+    setLiveResult(null);
+    if (!(await ollamaReachable())) {
+      setLiveError({ key, msg: "连不上本地 Ollama。请确认 Ollama 在 localhost:11434 运行，且本前端是用 npm run dev 起的（带 /ollama 代理）。" });
+      setRunning((r) => (r === key ? null : r));
+      return;
+    }
+    try {
+      const t = await demo.live((state, p) => setLivePreview({ key, state, p }));
+      setLiveResult({ key, traj: t });
+    } catch (e) {
+      setLiveError({ key, msg: e instanceof Error ? e.message : String(e) });
+    } finally {
+      setRunning((r) => (r === key ? null : r));
+      setLivePreview((lp) => (lp && lp.key === key ? null : lp));
+    }
+  };
 
   // 递归渲染发展脉络树：分支=方法谱系，叶子=可点击的实验
   const renderTree = (nodes: TreeNode[], depth = 0) =>
@@ -780,32 +828,68 @@ export default function AlgorithmLab() {
             <p className="text-sm text-slate-500 mt-0.5">{meta.description}</p>
           )}
         </div>
-        <button
-          onClick={() => setSeed((s) => s + 1)}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs border border-slate-700 text-slate-300 hover:border-[#00e5ff]/50 hover:text-[#00e5ff] transition-all shrink-0"
-          title="换一组随机数据重新计算"
-        >
-          <RefreshCw className="w-3.5 h-3.5" /> 重新生成数据
-        </button>
+        {demo.live ? (
+          <button
+            onClick={runLive}
+            disabled={isRunning}
+            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs border transition-all shrink-0 ${
+              isRunning
+                ? "border-slate-700 text-slate-500 cursor-wait"
+                : "border-[#ff5252]/50 text-[#ff5252] hover:bg-[rgba(255,82,82,0.1)]"
+            }`}
+            title="真的调用你本地 Ollama 的 Qwen 跑一遍（非预计算）"
+          >
+            <span className={isRunning ? "animate-pulse" : ""}>🔴</span>{" "}
+            {isRunning ? "运行中…" : myLiveTraj ? "再跑一次" : "实时运行（本地 Qwen）"}
+          </button>
+        ) : (
+          <button
+            onClick={() => setSeed((s) => s + 1)}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs border border-slate-700 text-slate-300 hover:border-[#00e5ff]/50 hover:text-[#00e5ff] transition-all shrink-0"
+            title="换一组随机数据重新计算"
+          >
+            <RefreshCw className="w-3.5 h-3.5" /> 重新生成数据
+          </button>
+        )}
       </div>
+
+      {/* 实时运行提示条 */}
+      {demo.live && (
+        <div className="mb-4 text-xs rounded-lg px-3 py-2 bg-[rgba(255,82,82,0.06)] border border-[#ff5252]/20 text-slate-400">
+          {myError ? (
+            <span className="text-[#ff5252]">⚠ {myError}</span>
+          ) : isRunning && myPreview ? (
+            <span>
+              <span className="text-[#ff5252] animate-pulse">🔴 实时运行中</span> · {myPreview.p.label}
+              {myPreview.p.total > 1 && ` （${myPreview.p.step}/${myPreview.p.total}）`}
+            </span>
+          ) : myLiveTraj ? (
+            <span className="text-[#00ff88]">✓ 以上是刚才用本地 Qwen 实时跑出来的结果（非预计算）。点「再跑一次」重跑。</span>
+          ) : (
+            <span>下方是示例结果。点右上角 <span className="text-[#ff5252]">🔴 实时运行</span> 用你本地 Ollama 的 Qwen 真的跑一遍（生成类约 20-30s/步）。</span>
+          )}
+        </div>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         <div className="lg:col-span-2 flex flex-col gap-4">
-          <Viz state={player.frame.state} meta={meta} />
-          <TrajectoryPlayer
-            index={player.index}
-            last={player.last}
-            playing={player.playing}
-            speed={player.speed}
-            iter={player.frame.iter}
-            onPlay={player.play}
-            onPause={player.pause}
-            onReset={player.reset}
-            onStepFwd={player.stepFwd}
-            onStepBack={player.stepBack}
-            onSeek={player.seek}
-            onSpeed={player.setSpeed}
-          />
+          <Viz state={isRunning && myPreview ? myPreview.state : player.frame.state} meta={meta} />
+          {!(isRunning && myPreview) && (
+            <TrajectoryPlayer
+              index={player.index}
+              last={player.last}
+              playing={player.playing}
+              speed={player.speed}
+              iter={player.frame.iter}
+              onPlay={player.play}
+              onPause={player.pause}
+              onReset={player.reset}
+              onStepFwd={player.stepFwd}
+              onStepBack={player.stepBack}
+              onSeek={player.seek}
+              onSpeed={player.setSpeed}
+            />
+          )}
         </div>
 
         <div className="flex flex-col gap-4">

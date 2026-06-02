@@ -8,6 +8,7 @@ const M = 40;
 
 export default function Word2VecPlot({ state }: { state: EmbeddingState }) {
   const { words, positions, groups } = state;
+  if (!positions || !words || !groups) return null; // 防御：异常 state 不崩
   const s = makeScale(positions, W, H, M);
 
   return (

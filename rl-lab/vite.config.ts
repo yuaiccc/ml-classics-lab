@@ -8,6 +8,14 @@ export default defineConfig({
   server: {
     port: 5180,
     strictPort: true,
+    // 同源代理到本地 Ollama，避免浏览器跨域；让大模型实验真·实时调用本地 Qwen
+    proxy: {
+      "/ollama": {
+        target: "http://localhost:11434",
+        changeOrigin: true,
+        rewrite: (p) => p.replace(/^\/ollama/, ""),
+      },
+    },
   },
   build: {
     sourcemap: 'hidden',

@@ -121,6 +121,17 @@ Frame      = { iter: number, state: <家族相关>, metrics?: {[k]: number} }
 
 ---
 
+## 4C. 大模型实验「真·实时」运行（调本地 Ollama）
+
+RAG / Agent / Agentic RAG / Qwen 嵌入这 4 个**真的实时调用本地 Ollama 的 Qwen**，不是回放 JSON：
+- 浏览器经 **Vite 代理**调 Ollama：`vite.config.ts` 里 `/ollama` → `http://localhost:11434`（同源，免跨域）。客户端在 `src/lib/ollama.ts`（`embed` / `generate`）。
+- 实时运行器在 `src/algorithms/live-llm.ts`（`runRagLive` / `runAgentLive` / `runAgenticRagLive` / `runEmbeddingsLive`），边调用边 `emit(state, progress)` 实时预览，返回完整 `Trajectory`（meta 复用对应 JSON / `QWEN_EMB_META`）。
+- `Demo` 加可选 `live?` 字段；这些 demo 显示「🔴 实时运行」按钮。默认仍展示预计算 JSON（即时加载 + 教程），点按钮才真跑。
+- **关键坑**：实时数据 `liveResult` / `livePreview` 都绑定 `demoKey`，**渲染时按 key 匹配**——否则切换实验时那一帧会用「旧 state + 新 Viz」直接崩。加新 live 实验照此处理。
+- 需本地 Ollama 在 `11434` 跑、且前端用 `npm run dev`（带代理）；生产构建无代理。
+
+---
+
 ## 5. 已知的坑（务必知道）
 
 - **端口 5180 写死**（`vite.config.ts` strictPort）。被占用会启动失败，先 `pkill -f vite`。

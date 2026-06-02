@@ -14,7 +14,9 @@ export type Family =
   | "hopfield"
   | "rnn"
   | "embedding"
-  | "multiclass";
+  | "multiclass"
+  | "curvefit"
+  | "roc";
 
 /** 小白教程内容：把每个算法做成一节可读的小课。 */
 export interface Tutorial {
@@ -182,4 +184,27 @@ export interface MultiBoundaryState {
   classNames: string[];
   xName: string;
   yName: string;
+}
+
+/** curvefit 家族：多项式拟合（过拟合/正则化）—— 训练点 + 拟合曲线 + 真实函数 */
+export interface CurveFitState {
+  train: { x: number; y: number }[];
+  test: { x: number; y: number }[];
+  fit: { x: number; y: number }[]; // 采样的拟合曲线
+  truth: { x: number; y: number }[]; // 真实函数曲线
+  caption: string; // 当前阶数 / λ 等说明
+}
+
+/** roc 家族：分类阈值评估 —— 分数分布 + ROC 曲线 + 混淆矩阵 */
+export interface RocState {
+  threshold: number;
+  pos: number[]; // 正类样本分数
+  neg: number[]; // 负类样本分数
+  roc: { fpr: number; tpr: number }[]; // 完整 ROC 曲线
+  current: { fpr: number; tpr: number };
+  confusion: { tp: number; fp: number; fn: number; tn: number };
+  precision: number;
+  recall: number;
+  f1: number;
+  auc: number;
 }

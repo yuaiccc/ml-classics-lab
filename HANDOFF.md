@@ -63,6 +63,8 @@ Frame      = { iter: number, state: <家族相关>, metrics?: {[k]: number} }
 | `rnn` | `RnnState` | `RnnPlot` | RNN 隐藏状态轨迹 |
 | `embedding` | `EmbeddingState` | `Word2VecPlot` | 词向量 2D 散点 |
 | `multiclass` | `MultiBoundaryState` | `MultiBoundaryPlot` | 真实数据多类决策边界（Iris） |
+| `curvefit` | `CurveFitState` | `CurveFitPlot` | 多项式拟合（过拟合/正则化） |
+| `roc` | `RocState` | `RocPlot` | 分类阈值评估（ROC/PR/混淆矩阵） |
 
 > GAN / Diffusion 复用 `clusters` 家族的 `ClustersPlot`（真/假、生成/目标用 cluster 区分）；
 > SVM / AdaBoost 复用 `scatter-boundary` 的 `BoundaryPlot`。小型 MLP 反向传播在 `algorithms/nn.ts`。
@@ -144,7 +146,9 @@ npx vite build          # 构建
 
 > **真实数据集**：除合成玩具数据外，已内嵌 **Iris**（`src/data/iris.ts`，来自 UCI，公开数据）。Iris·Softmax / Iris·KNN 在真实 150 样本上做三分类。环境无 Kaggle 凭证；要用 Kaggle 数据集须把 `kaggle.json` 放 `~/.kaggle/`，公开集（Iris/MNIST 等）可直接从官方/镜像 URL 拉。
 
-`/lab` 现有 **28 个 demo**，按 AI 发展时间线覆盖 1936(Iris)→2023：
+> **评估与泛化**（对齐 Google ML Crash Course 的「数据/评估」支柱）：过拟合与泛化、L2 正则化、ROC/精确率-召回率。`MetricCurve` 支持可选第二条曲线（`metricKey2`），用于训练 vs 测试误差对照。
+
+`/lab` 现有 **31 个 demo**，按 AI 发展时间线覆盖 1936(Iris)→2023：
 - 监督：线性/逻辑回归、感知机、SVM、决策树、AdaBoost、KNN
 - 无监督：K-Means、DBSCAN、PCA
 - 联想记忆：Hopfield(1982)

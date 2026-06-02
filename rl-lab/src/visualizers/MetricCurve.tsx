@@ -1,4 +1,5 @@
 // 标量指标曲线（loss / inertia / reward ...），当前帧用竖线标出。
+// 支持可选的第二条曲线（如训练 vs 测试误差）。
 import {
   LineChart,
   Line,
@@ -8,6 +9,7 @@ import {
   ReferenceLine,
   Tooltip,
   CartesianGrid,
+  Legend,
 } from "recharts";
 import { Frame } from "@/player/types";
 
@@ -17,6 +19,9 @@ interface Props {
   metricKey: string;
   label: string;
   color?: string;
+  metricKey2?: string;
+  label2?: string;
+  color2?: string;
 }
 
 export default function MetricCurve({
@@ -25,17 +30,21 @@ export default function MetricCurve({
   metricKey,
   label,
   color = "#00ff88",
+  metricKey2,
+  label2,
+  color2 = "#ff5252",
 }: Props) {
   const data = frames.map((f) => ({
     iter: f.iter,
     value: f.metrics?.[metricKey] ?? null,
+    value2: metricKey2 ? f.metrics?.[metricKey2] ?? null : null,
   }));
   const currentIter = frames[index]?.iter ?? 0;
 
   return (
     <div className="glass rounded-xl p-4">
       <div className="text-xs text-slate-500 mb-2 font-mono">{label}</div>
-      <ResponsiveContainer width="100%" height={180}>
+      <ResponsiveContainer width="100%" height={metricKey2 ? 200 : 180}>
         <LineChart data={data} margin={{ top: 4, right: 8, bottom: 0, left: -8 }}>
           <CartesianGrid stroke="rgba(255,255,255,0.05)" />
           <XAxis dataKey="iter" stroke="#475569" fontSize={11} />
@@ -49,15 +58,28 @@ export default function MetricCurve({
             }}
             labelStyle={{ color: "#94a3b8" }}
           />
-          <ReferenceLine x={currentIter} stroke={color} strokeDasharray="3 3" />
+          {metricKey2 && <Legend wrapperStyle={{ fontSize: 11 }} />}
+          <ReferenceLine x={currentIter} stroke="#94a3b8" strokeDasharray="3 3" />
           <Line
             type="monotone"
             dataKey="value"
+            name={label}
             stroke={color}
             strokeWidth={2}
             dot={false}
             isAnimationActive={false}
           />
+          {metricKey2 && (
+            <Line
+              type="monotone"
+              dataKey="value2"
+              name={label2 ?? metricKey2}
+              stroke={color2}
+              strokeWidth={2}
+              dot={false}
+              isAnimationActive={false}
+            />
+          )}
         </LineChart>
       </ResponsiveContainer>
     </div>

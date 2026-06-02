@@ -142,6 +142,11 @@ Tianshou/                         # 仓库根（Tianshou 本体不动）
 - [x] 🌐 SVM — 最大间隔（Pegasos），决策边界 + 间隔宽度（`algorithms/svm.ts`）
 - [x] 🌐 AdaBoost — 决策树桩集成，边界逐轮精化（`algorithms/adaboost.ts`）
 - [x] 🌐 **Iris 真实数据集** — Softmax/KNN 三分类，真实 150 样本（`data/iris.ts`，UCI）
+
+### 数据 · 评估 · 泛化（对齐 Google ML Crash Course）
+- [x] 🌐 过拟合与泛化 — 多项式阶数↑，训练误差降/测试误差 U 形（`algorithms/overfitting.ts`）
+- [x] 🌐 正则化 L2 — 岭回归，λ 控制复杂度防过拟合（`algorithms/regularization.ts`）
+- [x] 🌐 分类评估 ROC/PR — 阈值 + 混淆矩阵 + 精确率/召回率/AUC（`algorithms/roc.ts`）
 - [ ] 🐍 朴素贝叶斯 Naive Bayes — 类条件分布
 - [ ] 🐍 随机森林 Random Forest — 逐棵树加入
 - [ ] 🐍 梯度提升 GBDT / XGBoost — 残差逐轮拟合

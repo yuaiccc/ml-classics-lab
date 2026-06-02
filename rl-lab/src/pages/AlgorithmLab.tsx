@@ -24,6 +24,9 @@ import { runRNN } from "@/algorithms/rnn";
 import { runWord2Vec } from "@/algorithms/word2vec";
 import { runIrisSoftmax } from "@/algorithms/iris-softmax";
 import { runIrisKNN } from "@/algorithms/iris-knn";
+import { runOverfitting } from "@/algorithms/overfitting";
+import { runRegularization } from "@/algorithms/regularization";
+import { runROC } from "@/algorithms/roc";
 import cartpolePPO from "@/data/frames/cartpole-ppo.json";
 import pendulumSAC from "@/data/frames/pendulum-sac.json";
 import mountaincarPPO from "@/data/frames/mountaincar-ppo.json";
@@ -53,6 +56,9 @@ import rnnSrc from "@/algorithms/rnn.ts?raw";
 import word2vecSrc from "@/algorithms/word2vec.ts?raw";
 import irisSoftmaxSrc from "@/algorithms/iris-softmax.ts?raw";
 import irisKnnSrc from "@/algorithms/iris-knn.ts?raw";
+import overfittingSrc from "@/algorithms/overfitting.ts?raw";
+import regularizationSrc from "@/algorithms/regularization.ts?raw";
+import rocSrc from "@/algorithms/roc.ts?raw";
 import { useTrajectory } from "@/player/useTrajectory";
 import TrajectoryPlayer from "@/player/TrajectoryPlayer";
 import RegressionPlot from "@/visualizers/RegressionPlot";
@@ -68,6 +74,8 @@ import HopfieldPlot from "@/visualizers/HopfieldPlot";
 import RnnPlot from "@/visualizers/RnnPlot";
 import Word2VecPlot from "@/visualizers/Word2VecPlot";
 import MultiBoundaryPlot from "@/visualizers/MultiBoundaryPlot";
+import CurveFitPlot from "@/visualizers/CurveFitPlot";
+import RocPlot from "@/visualizers/RocPlot";
 import MetricCurve from "@/visualizers/MetricCurve";
 import TutorialPanel from "@/components/TutorialPanel";
 import CodeViewer from "@/components/CodeViewer";
@@ -82,6 +90,9 @@ interface Demo {
   metricKey: string;
   metricLabel: string;
   metricColor?: string;
+  metricKey2?: string;
+  metricLabel2?: string;
+  metricColor2?: string;
   /** 算法源码（浏览器端 TS 实现），用于「查看源码」 */
   source?: { code: string; path: string };
 }
@@ -159,6 +170,48 @@ const DEMOS: Demo[] = [
     metricLabel: "留一法准确率",
     metricColor: "#b388ff",
     source: { code: irisKnnSrc, path: "algorithms/iris-knn.ts" },
+  },
+  {
+    key: "overfitting",
+    label: "过拟合与泛化",
+    group: "评估与泛化",
+    build: (seed) => runOverfitting({ seed }),
+    Viz: CurveFitPlot,
+    metricKey: "testError",
+    metricLabel: "误差（训练 vs 测试）",
+    metricColor: "#ff5252",
+    metricKey2: "trainError",
+    metricLabel2: "训练误差",
+    metricColor2: "#00e5ff",
+    source: { code: overfittingSrc, path: "algorithms/overfitting.ts" },
+  },
+  {
+    key: "regularization",
+    label: "正则化 L2",
+    group: "评估与泛化",
+    build: (seed) => runRegularization({ seed }),
+    Viz: CurveFitPlot,
+    metricKey: "testError",
+    metricLabel: "误差（训练 vs 测试）",
+    metricColor: "#ff5252",
+    metricKey2: "trainError",
+    metricLabel2: "训练误差",
+    metricColor2: "#00e5ff",
+    source: { code: regularizationSrc, path: "algorithms/regularization.ts" },
+  },
+  {
+    key: "roc",
+    label: "ROC / 精确率-召回率",
+    group: "评估与泛化",
+    build: (seed) => runROC({ seed }),
+    Viz: RocPlot,
+    metricKey: "precision",
+    metricLabel: "精确率 vs 召回率",
+    metricColor: "#00ff88",
+    metricKey2: "recall",
+    metricLabel2: "召回率",
+    metricColor2: "#ffab40",
+    source: { code: rocSrc, path: "algorithms/roc.ts" },
   },
   {
     key: "svm",
@@ -403,6 +456,13 @@ const TREE: TreeNode[] = [
     ],
   },
   {
+    label: "数据 · 评估 · 泛化",
+    children: [
+      { label: "泛化", children: [{ key: "overfitting" }, { key: "regularization" }] },
+      { label: "分类评估", children: [{ key: "roc" }] },
+    ],
+  },
+  {
     label: "联结主义 · 神经网络",
     children: [
       { label: "联想记忆", children: [{ key: "hopfield", era: "1982" }] },
@@ -629,6 +689,9 @@ export default function AlgorithmLab() {
             metricKey={demo.metricKey}
             label={demo.metricLabel}
             color={demo.metricColor}
+            metricKey2={demo.metricKey2}
+            label2={demo.metricLabel2}
+            color2={demo.metricColor2}
           />
 
           {/* 没有完整教程时，退回显示简短 insight */}

@@ -445,6 +445,18 @@ const TREE: TreeNode[] = [
 
 const byKey = Object.fromEntries(DEMOS.map((d) => [d.key, d]));
 
+// 实验由什么驱动：tianshou=用清华 Tianshou 的 RL 算法；pytorch=纯 PyTorch 训练；
+// 其余（不在表里的）都是浏览器端纯手写、零库。
+const ENGINE: Record<string, "tianshou" | "pytorch"> = {
+  "cartpole-ppo": "tianshou",
+  "mountaincar-dqn": "tianshou",
+  "mountaincar-ppo": "tianshou",
+  "mountaincar-shaped": "tianshou",
+  "pendulum-sac": "tianshou",
+  "cnn-shapes": "pytorch",
+  "attention-reverse": "pytorch",
+};
+
 // 把树拍平成叶子列表（供移动端下拉 + 计数）
 const LEAVES: TreeNode[] = [];
 (function walk(ns: TreeNode[]) {
@@ -483,6 +495,11 @@ export default function AlgorithmLab() {
           >
             <span className={active ? "text-[#00ff88]" : "text-slate-600"}>•</span>
             <span className="flex-1">{d.label}</span>
+            {ENGINE[node.key] === "tianshou" && (
+              <span className="text-[9px] font-mono px-1 rounded bg-[rgba(0,229,255,0.15)] text-[#00e5ff] border border-[#00e5ff]/30">
+                ts
+              </span>
+            )}
             {node.era && <span className="text-[10px] text-slate-600 font-mono">{node.era}</span>}
           </button>
         );
@@ -543,7 +560,36 @@ export default function AlgorithmLab() {
 
           <div className="flex items-end justify-between gap-4 mb-4">
         <div>
-          <h2 className="text-lg font-bold text-slate-100">{meta.title}</h2>
+          <div className="flex items-center gap-2 flex-wrap">
+            <h2 className="text-lg font-bold text-slate-100">{meta.title}</h2>
+            {ENGINE[demoKey] === "tianshou" && (
+              <a
+                href="https://github.com/thu-ml/tianshou"
+                target="_blank"
+                rel="noreferrer"
+                title="该实验的 RL 算法由清华 Tianshou 提供（PPO/DQN/SAC + 训练基建）"
+                className="inline-flex items-center gap-1 text-[11px] font-mono px-1.5 py-0.5 rounded bg-[rgba(0,229,255,0.12)] text-[#00e5ff] border border-[#00e5ff]/30 hover:bg-[rgba(0,229,255,0.2)] transition-all"
+              >
+                ⚡ Tianshou 驱动
+              </a>
+            )}
+            {ENGINE[demoKey] === "pytorch" && (
+              <span
+                title="该实验由纯 PyTorch 训练（非 Tianshou）"
+                className="inline-flex items-center gap-1 text-[11px] font-mono px-1.5 py-0.5 rounded bg-[rgba(255,171,64,0.12)] text-[#ffab40] border border-[#ffab40]/30"
+              >
+                🔥 PyTorch
+              </span>
+            )}
+            {!ENGINE[demoKey] && (
+              <span
+                title="浏览器端纯手写实现，未使用任何机器学习库"
+                className="inline-flex items-center gap-1 text-[11px] font-mono px-1.5 py-0.5 rounded bg-[rgba(0,255,136,0.1)] text-[#00ff88]/80 border border-[#00ff88]/25"
+              >
+                🌐 浏览器手写
+              </span>
+            )}
+          </div>
           {meta.description && (
             <p className="text-sm text-slate-500 mt-0.5">{meta.description}</p>
           )}

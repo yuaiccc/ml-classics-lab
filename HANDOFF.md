@@ -154,6 +154,7 @@ npx vite build          # 构建
 - 强化学习：Q-Learning(GridWorld 表格法)、CartPole·PPO、MountainCar·DQN/PPO/Shaped、Pendulum·SAC
 
 > 这 8 个里程碑实验（SVM/AdaBoost/Hopfield/RNN/Word2Vec/GAN/Diffusion/Q-Learning）全部**浏览器端手写**（含训练），无任何 ML 库。
+> 每个实验在前端会标注「引擎」徽标：`AlgorithmLab.tsx` 的 `ENGINE` 映射决定——`tianshou`(5 个深度 RL) / `pytorch`(CNN、Self-Attention) / 其余默认「🌐 浏览器手写」。Tianshou 徽标链到 thu-ml/tianshou。加新的 Python 实验记得在 `ENGINE` 里登记。
 
 **可继续的方向（按价值排序）**：
 - 🐍 经典 ML 补全：SVM、随机森林、GBDT、GMM(EM)、t-SNE、层次聚类（走 4B 管线）

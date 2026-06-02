@@ -141,6 +141,7 @@ Tianshou/                         # 仓库根（Tianshou 本体不动）
 - [x] 🌐 决策树 Decision Tree — 按深度逐层加深切分
 - [x] 🌐 SVM — 最大间隔（Pegasos），决策边界 + 间隔宽度（`algorithms/svm.ts`）
 - [x] 🌐 AdaBoost — 决策树桩集成，边界逐轮精化（`algorithms/adaboost.ts`）
+- [x] 🌐 **Iris 真实数据集** — Softmax/KNN 三分类，真实 150 样本（`data/iris.ts`，UCI）
 - [ ] 🐍 朴素贝叶斯 Naive Bayes — 类条件分布
 - [ ] 🐍 随机森林 Random Forest — 逐棵树加入
 - [ ] 🐍 梯度提升 GBDT / XGBoost — 残差逐轮拟合

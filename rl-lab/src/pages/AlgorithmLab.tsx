@@ -22,6 +22,8 @@ import { runDiffusion } from "@/algorithms/diffusion";
 import { runHopfield } from "@/algorithms/hopfield";
 import { runRNN } from "@/algorithms/rnn";
 import { runWord2Vec } from "@/algorithms/word2vec";
+import { runIrisSoftmax } from "@/algorithms/iris-softmax";
+import { runIrisKNN } from "@/algorithms/iris-knn";
 import cartpolePPO from "@/data/frames/cartpole-ppo.json";
 import pendulumSAC from "@/data/frames/pendulum-sac.json";
 import mountaincarPPO from "@/data/frames/mountaincar-ppo.json";
@@ -49,6 +51,8 @@ import diffusionSrc from "@/algorithms/diffusion.ts?raw";
 import hopfieldSrc from "@/algorithms/hopfield.ts?raw";
 import rnnSrc from "@/algorithms/rnn.ts?raw";
 import word2vecSrc from "@/algorithms/word2vec.ts?raw";
+import irisSoftmaxSrc from "@/algorithms/iris-softmax.ts?raw";
+import irisKnnSrc from "@/algorithms/iris-knn.ts?raw";
 import { useTrajectory } from "@/player/useTrajectory";
 import TrajectoryPlayer from "@/player/TrajectoryPlayer";
 import RegressionPlot from "@/visualizers/RegressionPlot";
@@ -63,6 +67,7 @@ import GridWorldPlot from "@/visualizers/GridWorldPlot";
 import HopfieldPlot from "@/visualizers/HopfieldPlot";
 import RnnPlot from "@/visualizers/RnnPlot";
 import Word2VecPlot from "@/visualizers/Word2VecPlot";
+import MultiBoundaryPlot from "@/visualizers/MultiBoundaryPlot";
 import MetricCurve from "@/visualizers/MetricCurve";
 import TutorialPanel from "@/components/TutorialPanel";
 import CodeViewer from "@/components/CodeViewer";
@@ -132,6 +137,28 @@ const DEMOS: Demo[] = [
     metricKey: "accuracy",
     metricLabel: "留一法准确率",
     source: { code: knnSrc, path: "algorithms/knn.ts" },
+  },
+  {
+    key: "iris-softmax",
+    label: "Iris · Softmax",
+    group: "真实数据",
+    build: () => runIrisSoftmax(),
+    Viz: MultiBoundaryPlot,
+    metricKey: "accuracy",
+    metricLabel: "分类准确率",
+    metricColor: "#00e5ff",
+    source: { code: irisSoftmaxSrc, path: "algorithms/iris-softmax.ts" },
+  },
+  {
+    key: "iris-knn",
+    label: "Iris · KNN",
+    group: "真实数据",
+    build: () => runIrisKNN(),
+    Viz: MultiBoundaryPlot,
+    metricKey: "accuracy",
+    metricLabel: "留一法准确率",
+    metricColor: "#b388ff",
+    source: { code: irisKnnSrc, path: "algorithms/iris-knn.ts" },
   },
   {
     key: "svm",
@@ -372,6 +399,7 @@ const TREE: TreeNode[] = [
       { label: "间隔 · 核方法", children: [{ key: "svm", era: "1995" }] },
       { label: "实例 · 树 · 集成", children: [{ key: "knn" }, { key: "dtree" }, { key: "adaboost", era: "1995" }] },
       { label: "无监督", children: [{ key: "kmeans" }, { key: "dbscan" }, { key: "pca" }] },
+      { label: "真实数据 · Iris", children: [{ key: "iris-softmax", era: "1936" }, { key: "iris-knn" }] },
     ],
   },
   {

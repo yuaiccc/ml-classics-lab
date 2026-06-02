@@ -13,7 +13,8 @@ export type Family =
   | "gridworld"
   | "hopfield"
   | "rnn"
-  | "embedding";
+  | "embedding"
+  | "multiclass";
 
 /** 小白教程内容：把每个算法做成一节可读的小课。 */
 export interface Tutorial {
@@ -172,4 +173,13 @@ export interface EmbeddingState {
   words: string[]; // 词
   positions: { x: number; y: number }[]; // 对应 2D 向量
   groups: number[]; // 词所属语义组（着色用）
+}
+
+/** multiclass 家族：真实数据多分类的决策边界（grid.values = 预测的类别索引） */
+export interface MultiBoundaryState {
+  points: { x: number; y: number; label: number }[];
+  grid: BoundaryGrid; // values 存预测类别索引 0/1/2...
+  classNames: string[];
+  xName: string;
+  yName: string;
 }

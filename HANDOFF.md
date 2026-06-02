@@ -62,6 +62,7 @@ Frame      = { iter: number, state: <家族相关>, metrics?: {[k]: number} }
 | `hopfield` | `HopfieldState` | `HopfieldPlot` | Hopfield 联想记忆图案 |
 | `rnn` | `RnnState` | `RnnPlot` | RNN 隐藏状态轨迹 |
 | `embedding` | `EmbeddingState` | `Word2VecPlot` | 词向量 2D 散点 |
+| `multiclass` | `MultiBoundaryState` | `MultiBoundaryPlot` | 真实数据多类决策边界（Iris） |
 
 > GAN / Diffusion 复用 `clusters` 家族的 `ClustersPlot`（真/假、生成/目标用 cluster 区分）；
 > SVM / AdaBoost 复用 `scatter-boundary` 的 `BoundaryPlot`。小型 MLP 反向传播在 `algorithms/nn.ts`。
@@ -141,7 +142,9 @@ npx vite build          # 构建
 
 **已完成**：M1 脚手架 ✅ · M2 监督/无监督（8 个浏览器算法）✅ · M3 RL 接入（CartPole/MountainCar/Pendulum 回放）✅ · M4 深度学习（MLP + CNN + Self-Attention）✅
 
-`/lab` 现有 **26 个 demo**，按 AI 发展时间线覆盖 1958→2023：
+> **真实数据集**：除合成玩具数据外，已内嵌 **Iris**（`src/data/iris.ts`，来自 UCI，公开数据）。Iris·Softmax / Iris·KNN 在真实 150 样本上做三分类。环境无 Kaggle 凭证；要用 Kaggle 数据集须把 `kaggle.json` 放 `~/.kaggle/`，公开集（Iris/MNIST 等）可直接从官方/镜像 URL 拉。
+
+`/lab` 现有 **28 个 demo**，按 AI 发展时间线覆盖 1936(Iris)→2023：
 - 监督：线性/逻辑回归、感知机、SVM、决策树、AdaBoost、KNN
 - 无监督：K-Means、DBSCAN、PCA
 - 联想记忆：Hopfield(1982)

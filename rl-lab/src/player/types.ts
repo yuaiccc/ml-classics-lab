@@ -16,7 +16,8 @@ export type Family =
   | "embedding"
   | "multiclass"
   | "curvefit"
-  | "roc";
+  | "roc"
+  | "agent";
 
 /** 小白教程内容：把每个算法做成一节可读的小课。 */
 export interface Tutorial {
@@ -193,6 +194,17 @@ export interface CurveFitState {
   fit: { x: number; y: number }[]; // 采样的拟合曲线
   truth: { x: number; y: number }[]; // 真实函数曲线
   caption: string; // 当前阶数 / λ 等说明
+}
+
+/** agent 家族：大模型智能体的 ReAct 推理轨迹（逐步展开） */
+export interface AgentStep {
+  type: "task" | "thought" | "action" | "observation" | "answer";
+  text: string;
+}
+export interface AgentState {
+  task: string;
+  steps: AgentStep[];
+  shown: number; // 已展开的步数
 }
 
 /** roc 家族：分类阈值评估 —— 分数分布 + ROC 曲线 + 混淆矩阵 */

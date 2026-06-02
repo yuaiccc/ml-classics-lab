@@ -27,12 +27,14 @@ import { runIrisKNN } from "@/algorithms/iris-knn";
 import { runOverfitting } from "@/algorithms/overfitting";
 import { runRegularization } from "@/algorithms/regularization";
 import { runROC } from "@/algorithms/roc";
+import { runQwenEmbeddings } from "@/algorithms/qwen-embeddings";
 import cartpolePPO from "@/data/frames/cartpole-ppo.json";
 import pendulumSAC from "@/data/frames/pendulum-sac.json";
 import mountaincarPPO from "@/data/frames/mountaincar-ppo.json";
 import mountaincarDQN from "@/data/frames/mountaincar-dqn.json";
 import mountaincarShaped from "@/data/frames/mountaincar-shaped.json";
 import cnnShapes from "@/data/frames/cnn-shapes.json";
+import agentReact from "@/data/agent-react.json";
 import attentionReverse from "@/data/frames/attention-reverse.json";
 // 算法源码（?raw 把文件当字符串导入，供前端「查看源码」展示）
 import linregSrc from "@/algorithms/gradient-descent.ts?raw";
@@ -59,6 +61,7 @@ import irisKnnSrc from "@/algorithms/iris-knn.ts?raw";
 import overfittingSrc from "@/algorithms/overfitting.ts?raw";
 import regularizationSrc from "@/algorithms/regularization.ts?raw";
 import rocSrc from "@/algorithms/roc.ts?raw";
+import qwenEmbSrc from "@/algorithms/qwen-embeddings.ts?raw";
 import { useTrajectory } from "@/player/useTrajectory";
 import TrajectoryPlayer from "@/player/TrajectoryPlayer";
 import RegressionPlot from "@/visualizers/RegressionPlot";
@@ -76,6 +79,7 @@ import Word2VecPlot from "@/visualizers/Word2VecPlot";
 import MultiBoundaryPlot from "@/visualizers/MultiBoundaryPlot";
 import CurveFitPlot from "@/visualizers/CurveFitPlot";
 import RocPlot from "@/visualizers/RocPlot";
+import AgentPlot from "@/visualizers/AgentPlot";
 import MetricCurve from "@/visualizers/MetricCurve";
 import TutorialPanel from "@/components/TutorialPanel";
 import CodeViewer from "@/components/CodeViewer";
@@ -299,6 +303,16 @@ const DEMOS: Demo[] = [
     source: { code: rnnSrc, path: "algorithms/rnn.ts" },
   },
   {
+    key: "agent-react",
+    label: "Agent · ReAct",
+    group: "Agent 时代",
+    build: () => agentReact as unknown as Trajectory,
+    Viz: AgentPlot,
+    metricKey: "step",
+    metricLabel: "推理步骤",
+    metricColor: "#b388ff",
+  },
+  {
     key: "cnn-shapes",
     label: "CNN 卷积网络",
     group: "深度学习",
@@ -339,6 +353,17 @@ const DEMOS: Demo[] = [
     metricLabel: "skip-gram Loss",
     metricColor: "#ffab40",
     source: { code: word2vecSrc, path: "algorithms/word2vec.ts" },
+  },
+  {
+    key: "qwen-embeddings",
+    label: "本地 Qwen 语义嵌入",
+    group: "大模型时代",
+    build: (seed) => runQwenEmbeddings({ seed }),
+    Viz: Word2VecPlot,
+    metricKey: "stress",
+    metricLabel: "MDS 布局误差 stress",
+    metricColor: "#b388ff",
+    source: { code: qwenEmbSrc, path: "algorithms/qwen-embeddings.ts" },
   },
   {
     key: "gan",
@@ -477,7 +502,12 @@ const TREE: TreeNode[] = [
     children: [
       { label: "注意力", children: [{ key: "attention-reverse", era: "2017" }] },
       { label: "后注意力 · 线性时间", children: [{ key: "mamba-ssm", era: "2023" }] },
+      { label: "嵌入 · 语义（本地 Qwen）", children: [{ key: "qwen-embeddings" }] },
     ],
+  },
+  {
+    label: "Agent 时代",
+    children: [{ label: "ReAct · 工具调用（本地 Qwen）", children: [{ key: "agent-react" }] }],
   },
   {
     label: "生成模型",
@@ -507,7 +537,9 @@ const byKey = Object.fromEntries(DEMOS.map((d) => [d.key, d]));
 
 // 实验由什么驱动：tianshou=用清华 Tianshou 的 RL 算法；pytorch=纯 PyTorch 训练；
 // 其余（不在表里的）都是浏览器端纯手写、零库。
-const ENGINE: Record<string, "tianshou" | "pytorch"> = {
+const ENGINE: Record<string, "tianshou" | "pytorch" | "ollama"> = {
+  "qwen-embeddings": "ollama",
+  "agent-react": "ollama",
   "cartpole-ppo": "tianshou",
   "mountaincar-dqn": "tianshou",
   "mountaincar-ppo": "tianshou",
@@ -639,6 +671,14 @@ export default function AlgorithmLab() {
                 className="inline-flex items-center gap-1 text-[11px] font-mono px-1.5 py-0.5 rounded bg-[rgba(255,171,64,0.12)] text-[#ffab40] border border-[#ffab40]/30"
               >
                 🔥 PyTorch
+              </span>
+            )}
+            {ENGINE[demoKey] === "ollama" && (
+              <span
+                title="数据来自本地 Ollama 的 Qwen 模型（真实大模型嵌入）"
+                className="inline-flex items-center gap-1 text-[11px] font-mono px-1.5 py-0.5 rounded bg-[rgba(179,136,255,0.14)] text-[#b388ff] border border-[#b388ff]/30"
+              >
+                🦙 本地 Qwen
               </span>
             )}
             {!ENGINE[demoKey] && (

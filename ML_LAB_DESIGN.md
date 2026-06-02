@@ -172,6 +172,8 @@ Tianshou/                         # 仓库根（Tianshou 本体不动）
 - [x] 🌐 Hopfield(1982) — 联想记忆，能量下降回忆图案（`algorithms/hopfield.ts`）
 - [x] 🌐 GAN(2014) — 对抗生成，点云逼近目标分布（`algorithms/gan.ts`）
 - [x] 🌐 Diffusion(2020) — DDPM 去噪生成双月形（`algorithms/diffusion.ts`）
+- [x] 🦙 本地 Qwen 语义嵌入 — qwen3-embedding 真实词向量 + MDS 还原语义簇（`solvers/embed_words.py`）
+- [x] 🦙 Agent · ReAct — qwen2.5 思考→行动→观察 + 计算器工具的真实智能体轨迹（`solvers/agent_react.py`）
 - [ ] 🐍 Autoencoder — 潜空间 / 重建
 - [ ] 🐍 GAN — 生成分布逐帧逼近
 

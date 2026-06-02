@@ -38,9 +38,10 @@ export default function RnnPlot({ state }: { state: RnnState }) {
         )}
 
         <text x={LEFT} y={Hh - 8} fill="#64748b" fontSize={12} className="font-mono">
-          目标奇偶: <tspan fill="#00e5ff">{target}</tspan>　预测:{" "}
+          目标奇偶: <tspan fill="#00e5ff">{target}</tspan>
+          <tspan fill="#475569"> · </tspan>预测:{" "}
           <tspan fill={pred === target ? "#00ff88" : "#ff5252"}>{pred}</tspan>
-          <tspan fill="#475569">　（绿=正激活 / 紫=负激活）</tspan>
+          <tspan fill="#475569"> （绿=正激活 / 紫=负激活）</tspan>
         </text>
       </svg>
     </div>

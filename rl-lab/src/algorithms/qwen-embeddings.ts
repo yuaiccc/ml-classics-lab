@@ -23,7 +23,7 @@ export function runQwenEmbeddings(opts: QwenEmbOptions = {}): Trajectory<Embeddi
   // 目标距离：单位向量间 ||a-b|| = sqrt(2-2cos)
   const D = sim.map((row) => row.map((s) => Math.sqrt(Math.max(0, 2 - 2 * s))));
 
-  let pos = Array.from({ length: n }, () => ({ x: (rng() * 2 - 1) * 0.6, y: (rng() * 2 - 1) * 0.6 }));
+  const pos = Array.from({ length: n }, () => ({ x: (rng() * 2 - 1) * 0.6, y: (rng() * 2 - 1) * 0.6 }));
 
   const stress = () => {
     let s = 0;

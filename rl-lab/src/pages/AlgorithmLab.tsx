@@ -776,19 +776,11 @@ export default function AlgorithmLab() {
         </div>
       </div>
 
-      {/* 现实意义（解决什么实际问题 + 应用 + 配图） */}
-      {BACKGROUNDS[demoKey] && (
-        <div className="mt-5">
-          <BackgroundPanel bg={BACKGROUNDS[demoKey]} />
-        </div>
-      )}
-
-      {/* 小白教程（整页宽，长内容更好读） */}
-      {meta.tutorial && (
-        <div className="mt-5">
-          <TutorialPanel tutorial={meta.tutorial} />
-        </div>
-      )}
+          {/* 现实意义 + 小白教程：宽屏并排，行长更舒适、减少纵向滚动 */}
+          <div className="mt-5 grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
+            {BACKGROUNDS[demoKey] && <BackgroundPanel bg={BACKGROUNDS[demoKey]} />}
+            {meta.tutorial && <TutorialPanel tutorial={meta.tutorial} />}
+          </div>
 
           {/* 真实源码（浏览器端纯手写实现，无机器学习库） */}
           {demo.source && (

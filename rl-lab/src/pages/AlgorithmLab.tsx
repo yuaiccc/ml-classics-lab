@@ -83,6 +83,8 @@ import AgentPlot from "@/visualizers/AgentPlot";
 import MetricCurve from "@/visualizers/MetricCurve";
 import TutorialPanel from "@/components/TutorialPanel";
 import CodeViewer from "@/components/CodeViewer";
+import BackgroundPanel from "@/components/BackgroundPanel";
+import { BACKGROUNDS } from "@/data/backgrounds";
 
 interface Demo {
   key: string;
@@ -549,6 +551,9 @@ const ENGINE: Record<string, "tianshou" | "pytorch" | "ollama"> = {
   "attention-reverse": "pytorch",
 };
 
+// 直接对应 Google ML 速成课「数据 / 评估 / 泛化」模块的实验
+const GOOGLE_ML = new Set(["overfitting", "regularization", "roc"]);
+
 // 把树拍平成叶子列表（供移动端下拉 + 计数）
 const LEAVES: TreeNode[] = [];
 (function walk(ns: TreeNode[]) {
@@ -689,6 +694,17 @@ export default function AlgorithmLab() {
                 🌐 浏览器手写
               </span>
             )}
+            {GOOGLE_ML.has(demoKey) && (
+              <a
+                href="https://developers.google.com/machine-learning/crash-course?hl=zh-cn"
+                target="_blank"
+                rel="noreferrer"
+                title="对应 Google 机器学习速成课的「数据 / 评估 / 泛化」模块"
+                className="inline-flex items-center gap-1 text-[11px] font-mono px-1.5 py-0.5 rounded bg-[rgba(66,133,244,0.15)] text-[#4285f4] border border-[#4285f4]/40 hover:bg-[rgba(66,133,244,0.25)] transition-all"
+              >
+                📘 Google ML 速成课
+              </a>
+            )}
           </div>
           {meta.description && (
             <p className="text-sm text-slate-500 mt-0.5">{meta.description}</p>
@@ -759,6 +775,13 @@ export default function AlgorithmLab() {
           )}
         </div>
       </div>
+
+      {/* 现实意义（解决什么实际问题 + 应用 + 配图） */}
+      {BACKGROUNDS[demoKey] && (
+        <div className="mt-5">
+          <BackgroundPanel bg={BACKGROUNDS[demoKey]} />
+        </div>
+      )}
 
       {/* 小白教程（整页宽，长内容更好读） */}
       {meta.tutorial && (

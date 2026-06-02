@@ -86,6 +86,8 @@ Frame      = { iter: number, state: <家族相关>, metrics?: {[k]: number} }
 1. 在 `src/algorithms/foo.ts` 写 `export function runFoo(opts): Trajectory<XxxState>`，每个迭代 push 一帧。
    - 数据集复用 `algorithms/datasets.ts`；随机数用 `algorithms/rng.ts`（seed 可复现）；分类边界网格用 `algorithms/grid.ts`。
    - `meta` 里**务必填 `tutorial`**（五段式：problem/intuition/watch/concepts/tryThis），这是教学核心。
+   - **现实意义**：在 `src/data/backgrounds.ts` 的 `BACKGROUNDS[id]` 里补一条（`realWorld` 解决什么实际问题 + `uses` 应用标签 + 可选 `images` 配图，图放 `public/`）。前端自动渲染「现实意义」面板。
+   - Google ML 速成课对应的实验在 `AlgorithmLab.tsx` 的 `GOOGLE_ML` 集合里登记，会显示 📘 徽标。
 2. 如果是新家族，在 `types.ts` 加 State 类型 + `Family` 联合类型，并在 `src/visualizers/` 写对应可视化器。否则复用现有的。
 3. 在 [`src/pages/AlgorithmLab.tsx`](rl-lab/src/pages/AlgorithmLab.tsx) 的 `DEMOS` 数组加一条，**并把它的 key 挂到 `TREE`（AI 发展脉络树）对应的方法谱系分支下**（否则不会出现在左侧导航）：
    ```ts

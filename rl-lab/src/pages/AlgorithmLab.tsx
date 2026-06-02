@@ -28,6 +28,7 @@ import { runOverfitting } from "@/algorithms/overfitting";
 import { runRegularization } from "@/algorithms/regularization";
 import { runROC } from "@/algorithms/roc";
 import { runQwenEmbeddings } from "@/algorithms/qwen-embeddings";
+import { runYoloVersions } from "@/algorithms/yolo-versions";
 import cartpolePPO from "@/data/frames/cartpole-ppo.json";
 import pendulumSAC from "@/data/frames/pendulum-sac.json";
 import mountaincarPPO from "@/data/frames/mountaincar-ppo.json";
@@ -85,6 +86,7 @@ import RocPlot from "@/visualizers/RocPlot";
 import AgentPlot from "@/visualizers/AgentPlot";
 import RagPlot from "@/visualizers/RagPlot";
 import YoloPlot from "@/visualizers/YoloPlot";
+import VersionsPlot from "@/visualizers/VersionsPlot";
 import MetricCurve from "@/visualizers/MetricCurve";
 import TutorialPanel from "@/components/TutorialPanel";
 import CodeViewer from "@/components/CodeViewer";
@@ -350,6 +352,16 @@ const DEMOS: Demo[] = [
     metricColor: "#00e5ff",
   },
   {
+    key: "yolo-versions",
+    label: "YOLO 版本演进",
+    group: "深度学习",
+    build: () => runYoloVersions(),
+    Viz: VersionsPlot,
+    metricKey: "map",
+    metricLabel: "COCO mAP（随版本，近似）",
+    metricColor: "#00e5ff",
+  },
+  {
     key: "cnn-shapes",
     label: "CNN 卷积网络",
     group: "深度学习",
@@ -530,7 +542,7 @@ const TREE: TreeNode[] = [
       { label: "联想记忆", children: [{ key: "hopfield", era: "1982" }] },
       { label: "前馈 · 反向传播", children: [{ key: "mlp", era: "1986" }] },
       { label: "序列", children: [{ key: "rnn", era: "1997" }] },
-      { label: "视觉 · 卷积", children: [{ key: "cnn-shapes", era: "1998" }, { key: "yolo", era: "2016" }] },
+      { label: "视觉 · 卷积", children: [{ key: "cnn-shapes", era: "1998" }, { key: "yolo", era: "2016" }, { key: "yolo-versions", era: "v1→v12" }] },
       { label: "表示学习", children: [{ key: "word2vec", era: "2013" }] },
     ],
   },
@@ -594,6 +606,12 @@ const ENGINE: Record<string, "tianshou" | "pytorch" | "ollama"> = {
 
 // 直接对应 Google ML 速成课「数据 / 评估 / 泛化」模块的实验
 const GOOGLE_ML = new Set(["overfitting", "regularization", "roc"]);
+
+// 定义/资料引自 Wikipedia 的实验 → 词条链接
+const WIKI: Record<string, string> = {
+  "yolo-versions": "https://en.wikipedia.org/wiki/You_Only_Look_Once",
+  yolo: "https://en.wikipedia.org/wiki/You_Only_Look_Once",
+};
 
 // 把树拍平成叶子列表（供移动端下拉 + 计数）
 const LEAVES: TreeNode[] = [];
@@ -744,6 +762,17 @@ export default function AlgorithmLab() {
                 className="inline-flex items-center gap-1 text-[11px] font-mono px-1.5 py-0.5 rounded bg-[rgba(66,133,244,0.15)] text-[#4285f4] border border-[#4285f4]/40 hover:bg-[rgba(66,133,244,0.25)] transition-all"
               >
                 📘 Google ML 速成课
+              </a>
+            )}
+            {WIKI[demoKey] && (
+              <a
+                href={WIKI[demoKey]}
+                target="_blank"
+                rel="noreferrer"
+                title="定义/资料引自 Wikipedia"
+                className="inline-flex items-center gap-1 text-[11px] font-mono px-1.5 py-0.5 rounded bg-[rgba(148,163,184,0.12)] text-slate-300 border border-slate-500/40 hover:bg-[rgba(148,163,184,0.2)] transition-all"
+              >
+                📚 Wikipedia
               </a>
             )}
           </div>

@@ -6,7 +6,7 @@
 这个仓库分两部分：
 
 - **`solvers/`** —— 用 [Tianshou](https://github.com/thu-ml/tianshou) 复现强化学习经典环境的脚本（每个脚本是一个独立可跑的实验 + 笔记）。
-- **`rl-lab/`** —— 一个 React + Vite 前端「**算法过程动画实验台**」（主页即是）。左侧是一棵 **AI 发展脉络树**（分支=方法谱系，叶子=实验，带年代），36 个实验（含 RAG/Agentic RAG/YOLO、真实数据 Iris、评估泛化、本地 Qwen 嵌入与 Agent、监督/无监督/深度学习/生成模型/强化学习）统一在一个时间轴播放器里边看边学。
+- **`rl-lab/`** —— 一个 React + Vite 前端「**算法过程动画实验台**」（主页即是）。左侧是一棵 **AI 发展脉络树**（分支=方法谱系，叶子=实验，带年代），37 个实验（含 YOLO 版本演进、RAG/Agentic RAG、真实数据 Iris、评估泛化、本地 Qwen 嵌入与 Agent、监督/无监督/深度学习/生成模型/强化学习）统一在一个时间轴播放器里边看边学。
 
 完整的平台设计、统一帧契约、以及四大类（监督 / 无监督 / 深度学习 / 强化学习）的算法清单 checklist 见 [ML_LAB_DESIGN.md](ML_LAB_DESIGN.md)。
 **维护 / 二次开发请先读 [HANDOFF.md](HANDOFF.md)**（架构、如何加新算法、已知的坑）。
@@ -28,7 +28,7 @@ cd rl-lab && npm install && npm run dev   # 打开 http://localhost:5180
 
 建议顺序：**线性回归 →（看懂梯度下降）→ 逻辑回归 / 感知机 / SVM →（看懂决策边界）→ 决策树 / KNN / AdaBoost →（看懂非线性/集成）→ K-Means / DBSCAN / PCA →（无监督）→ MLP / RNN / CNN / Self-Attention / Mamba →（深度学习时间线）→ GAN / Diffusion →（生成模型）→ Q-Learning / CartPole（强化学习）**。
 
-`/lab` 共 **36 个实验**（含真实数据 Iris、评估泛化、本地 Qwen 大模型嵌入与 Agent），按 AI 发展史排开——从 **1958 感知机** 一路到 **2017 Transformer、2020 Diffusion、2023 Mamba**，覆盖符号/统计学习、联想记忆、深度学习、生成模型、强化学习几乎所有里程碑。其中 8 个里程碑实验（SVM / AdaBoost / Hopfield / RNN / Word2Vec / GAN / Diffusion / Q-Learning）全部浏览器端手写、含真实训练、零 ML 库。
+`/lab` 共 **37 个实验**（含真实数据 Iris、评估泛化、本地 Qwen 大模型嵌入与 Agent），按 AI 发展史排开——从 **1958 感知机** 一路到 **2017 Transformer、2020 Diffusion、2023 Mamba**，覆盖符号/统计学习、联想记忆、深度学习、生成模型、强化学习几乎所有里程碑。其中 8 个里程碑实验（SVM / AdaBoost / Hopfield / RNN / Word2Vec / GAN / Diffusion / Q-Learning）全部浏览器端手写、含真实训练、零 ML 库。
 
 学有余力再回头看 `solvers/` 里的 Python 代码和 [ML_LAB_DESIGN.md](ML_LAB_DESIGN.md) 的算法清单。
 

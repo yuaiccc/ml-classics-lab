@@ -19,7 +19,8 @@ export type Family =
   | "roc"
   | "agent"
   | "rag"
-  | "yolo";
+  | "yolo"
+  | "versions";
 
 /** 小白教程内容：把每个算法做成一节可读的小课。 */
 export interface Tutorial {
@@ -237,6 +238,23 @@ export interface YoloState {
   imgH: number;
   threshold: number;
   boxes: YoloBox[]; // 全部框；前端按 conf>=threshold 显示
+}
+
+/** versions 家族：版本演进对比（如 YOLO v1→v12），时间轴 = 版本 */
+export interface VersionItem {
+  name: string;
+  year: string;
+  org: string;
+  innovation: string;
+  metric: number; // 代表性指标（如 COCO mAP）
+  tag?: string; // 额外标记，如 "NMS-free"
+}
+export interface VersionsState {
+  items: VersionItem[];
+  current: number;
+  metricLabel: string;
+  wikiDef: string; // Wikipedia 权威定义
+  wikiUrl: string;
 }
 
 /** roc 家族：分类阈值评估 —— 分数分布 + ROC 曲线 + 混淆矩阵 */

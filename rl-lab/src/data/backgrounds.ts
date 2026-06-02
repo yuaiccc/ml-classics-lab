@@ -124,6 +124,10 @@ export const BACKGROUNDS: Record<string, Background> = {
     realWorld: "让机器实时「看见」并框出画面里所有物体——自动驾驶认行人车辆、安防识别、工业质检、手机相册识物。YOLO 是实时目标检测的代名词。",
     uses: ["自动驾驶感知", "安防/监控", "工业质检", "实时视频分析"],
   },
+  "yolo-versions": {
+    realWorld: "YOLO 从 2016 v1 进化到 2025 v12，是「一个想法如何被一代代人接力打磨」的活样本：从开创单次检测，到引入锚框、多尺度，再到 anchor-free、去 NMS 端到端、引入注意力。",
+    uses: ["技术选型(选哪代)", "了解 CV 发展史", "论文综述", "模型升级决策"],
+  },
   gan: {
     realWorld: "无中生有造出逼真数据——人脸生成（thispersondoesnotexist）、图像超分、艺术创作。生成式 AI 的开端。",
     uses: ["图像/人脸生成", "超分辨率", "数据增强", "艺术/设计"],

@@ -18,3 +18,16 @@ export interface AttnKVConfig {
 export interface AttnKVState {
   config: AttnKVConfig;
 }
+
+// —— 位置编码 ——
+export type PosEncVariant = "none" | "sinusoidal" | "rope" | "nope" | "yarn";
+export interface PosEncState {
+  dim: number; // 演示维度（如 32）
+  maxPos: number; // 位置轴长度（如 64）
+}
+
+// —— 归一化 ——
+export type NormVariant = "layernorm" | "rmsnorm" | "qknorm" | "prepost";
+export interface NormState {
+  vectors: number[][]; // 若干 d 维玩具激活向量（这里 d=3）
+}

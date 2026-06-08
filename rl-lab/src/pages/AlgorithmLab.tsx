@@ -43,6 +43,13 @@ import ragData from "@/data/rag.json";
 import agenticRag from "@/data/agentic-rag.json";
 import yoloData from "@/data/yolo.json";
 import attentionReverse from "@/data/frames/attention-reverse.json";
+import { bridgeMlLab } from "@/algorithms/ml-lab-bridge";
+import mnistCnnKernels from "@/data/frames/mnist-cnn-kernels.json";
+import mnistGan from "@/data/frames/mnist-gan.json";
+import mnistVae from "@/data/frames/mnist-vae.json";
+import mnistAutoencoder from "@/data/frames/mnist-autoencoder.json";
+import imdbLstm from "@/data/frames/imdb-lstm.json";
+import imdbTransformer from "@/data/frames/imdb-transformer.json";
 // 算法源码（?raw 把文件当字符串导入，供前端「查看源码」展示）
 import linregSrc from "@/algorithms/gradient-descent.ts?raw";
 import logregSrc from "@/algorithms/logistic-regression.ts?raw";
@@ -90,10 +97,15 @@ import AgentPlot from "@/visualizers/AgentPlot";
 import RagPlot from "@/visualizers/RagPlot";
 import YoloPlot from "@/visualizers/YoloPlot";
 import VersionsPlot from "@/visualizers/VersionsPlot";
+import ImageGrid from "@/visualizers/ImageGrid";
+import AttentionHeatmap from "@/visualizers/AttentionHeatmap";
+import Cifar10Plot from "@/visualizers/Cifar10Plot";
 import MetricCurve from "@/visualizers/MetricCurve";
 import TutorialPanel from "@/components/TutorialPanel";
 import CodeViewer from "@/components/CodeViewer";
 import BackgroundPanel from "@/components/BackgroundPanel";
+import PaperRefs from "@/components/PaperRefs";
+import { PAPERS } from "@/data/papers";
 import { BACKGROUNDS } from "@/data/backgrounds";
 
 interface Demo {
@@ -401,6 +413,79 @@ const DEMOS: Demo[] = [
     metricColor: "#b388ff",
   },
   {
+    key: "mnist-cnn-kernels",
+    label: "MNIST · CNN 卷积核",
+    group: "深度学习",
+    build: () => bridgeMlLab(mnistCnnKernels),
+    Viz: ImageGrid,
+    metricKey: "val_accuracy",
+    metricLabel: "验证准确率",
+    metricColor: "#00e5ff",
+  },
+  {
+    key: "mnist-autoencoder",
+    label: "MNIST · 自编码器",
+    group: "深度学习",
+    build: () => bridgeMlLab(mnistAutoencoder),
+    Viz: ImageGrid,
+    metricKey: "recon_loss",
+    metricLabel: "重建损失",
+    metricColor: "#ffab40",
+  },
+  {
+    key: "mnist-vae",
+    label: "MNIST · 变分自编码器 VAE",
+    group: "生成模型",
+    build: () => bridgeMlLab(mnistVae),
+    Viz: ImageGrid,
+    metricKey: "elbo_loss",
+    metricLabel: "ELBO 损失",
+    metricColor: "#b388ff",
+  },
+  {
+    key: "mnist-gan",
+    label: "MNIST · GAN 生成",
+    group: "生成模型",
+    build: () => bridgeMlLab(mnistGan),
+    Viz: ImageGrid,
+    metricKey: "g_loss",
+    metricLabel: "生成器损失",
+    metricColor: "#00ff88",
+    metricKey2: "d_loss",
+    metricLabel2: "判别器损失",
+    metricColor2: "#ff5252",
+  },
+  {
+    key: "imdb-transformer",
+    label: "IMDb · Tiny Transformer 注意力",
+    group: "深度学习",
+    build: () => bridgeMlLab(imdbTransformer),
+    Viz: AttentionHeatmap,
+    metricKey: "val_accuracy",
+    metricLabel: "验证准确率",
+    metricColor: "#00e5ff",
+  },
+  {
+    key: "imdb-lstm",
+    label: "IMDb · LSTM 隐状态",
+    group: "深度学习",
+    build: () => bridgeMlLab(imdbLstm),
+    Viz: ImageGrid,
+    metricKey: "val_accuracy",
+    metricLabel: "验证准确率",
+    metricColor: "#ffab40",
+  },
+  {
+    key: "cifar10-cnn",
+    label: "CIFAR-10 · CNN 十分类",
+    group: "深度学习",
+    build: () => ({ meta: { id: "cifar10-cnn", title: "CIFAR-10 · CNN 十分类", family: "cnn", algorithm: "CNN" }, frames: [{ iter: 0, state: {}, metrics: {} }] }) as unknown as Trajectory,
+    Viz: Cifar10Plot,
+    metricKey: "accuracy",
+    metricLabel: "测试准确率",
+    metricColor: "#00e5ff",
+  },
+  {
     key: "mamba-ssm",
     label: "Mamba (SSM)",
     group: "深度学习",
@@ -563,6 +648,8 @@ const TREE: TreeNode[] = [
       { label: "前馈 · 反向传播", children: [{ key: "mlp", era: "1986" }] },
       { label: "序列", children: [{ key: "rnn", era: "1997" }] },
       { label: "视觉 · 卷积", children: [{ key: "cnn-shapes", era: "1998" }, { key: "yolo", era: "2016" }, { key: "yolo-versions", era: "v1→v12" }] },
+      { label: "真实数据集 · 视觉", children: [{ key: "mnist-cnn-kernels", era: "MNIST" }, { key: "mnist-autoencoder" }, { key: "cifar10-cnn", era: "CIFAR-10" }] },
+      { label: "真实数据集 · 文本", children: [{ key: "imdb-lstm", era: "IMDb" }, { key: "imdb-transformer" }] },
       { label: "表示学习", children: [{ key: "word2vec", era: "2013" }] },
     ],
   },
@@ -585,7 +672,8 @@ const TREE: TreeNode[] = [
   {
     label: "生成模型",
     children: [
-      { label: "对抗生成", children: [{ key: "gan", era: "2014" }] },
+      { label: "对抗生成", children: [{ key: "gan", era: "2014" }, { key: "mnist-gan", era: "MNIST" }] },
+      { label: "变分自编码", children: [{ key: "mnist-vae", era: "2013" }] },
       { label: "扩散", children: [{ key: "diffusion", era: "2020" }] },
     ],
   },
@@ -624,6 +712,13 @@ const ENGINE: Record<string, "tianshou" | "pytorch" | "ollama" | "deerflow"> = {
   "cnn-shapes": "pytorch",
   "attention-reverse": "pytorch",
   yolo: "pytorch",
+  "mnist-cnn-kernels": "pytorch",
+  "mnist-autoencoder": "pytorch",
+  "mnist-vae": "pytorch",
+  "mnist-gan": "pytorch",
+  "imdb-transformer": "pytorch",
+  "imdb-lstm": "pytorch",
+  "cifar10-cnn": "pytorch",
 };
 
 // 直接对应 Google ML 速成课「数据 / 评估 / 泛化」模块的实验
@@ -954,6 +1049,7 @@ export default function AlgorithmLab() {
           {/* 现实意义 + 小白教程：宽屏并排，行长更舒适、减少纵向滚动 */}
           <div className="mt-5 grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
             {BACKGROUNDS[demoKey] && <BackgroundPanel bg={BACKGROUNDS[demoKey]} />}
+            {PAPERS[demoKey] && <PaperRefs refs={PAPERS[demoKey]} />}
             {meta.tutorial && <TutorialPanel tutorial={meta.tutorial} />}
           </div>
 

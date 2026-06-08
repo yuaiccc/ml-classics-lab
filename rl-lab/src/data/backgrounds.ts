@@ -92,6 +92,34 @@ export const BACKGROUNDS: Record<string, Background> = {
     realWorld: "让机器「看懂」图像——自动学出边缘/纹理/物体。人脸识别、医学影像、自动驾驶视觉的基础。",
     uses: ["图像分类/识别", "医学影像诊断", "自动驾驶感知", "人脸识别"],
   },
+  "mnist-cnn-kernels": {
+    realWorld: "MNIST 手写数字是深度学习的标准入门基准。这里用真实训练的 CNN，把它学到的卷积核和某个数字的激活图直接可视化——看清「机器到底学到了什么特征」。",
+    uses: ["手写识别 (OCR)", "卷积特征可视化", "CNN 教学", "模型可解释性"],
+  },
+  "mnist-autoencoder": {
+    realWorld: "自编码器把图像压缩成低维编码再重建——无监督表示学习、降噪、异常检测的基础。这里展示真实 MNIST 的重建逐 epoch 变清晰。",
+    uses: ["降维/表示学习", "图像降噪", "异常检测", "预训练"],
+  },
+  "mnist-vae": {
+    realWorld: "VAE 是生成模型的里程碑——学一个连续的「潜空间」，能采样生成全新的手写数字。它是 Stable Diffusion 等现代生成模型的思想前身。",
+    uses: ["图像生成", "潜空间插值", "数据增强", "生成模型基础"],
+  },
+  "mnist-gan": {
+    realWorld: "GAN 让生成器和判别器对抗博弈，从噪声「无中生有」造出逼真手写数字。这里展示真实训练中生成质量逐步提升的过程。",
+    uses: ["图像生成", "数据增强", "超分辨率", "对抗训练教学"],
+  },
+  "imdb-transformer": {
+    realWorld: "在真实 IMDb 影评上训练一个 Tiny Transformer 做情感分类，并把自注意力热力图画出来——直观看到模型「读句子时关注了哪些词」。这是理解 GPT/BERT 的钥匙。",
+    uses: ["情感分析", "文本分类", "注意力可解释性", "Transformer 教学"],
+  },
+  "imdb-lstm": {
+    realWorld: "LSTM 是 Transformer 之前的序列建模主力。这里在真实 IMDb 影评上训练，可视化隐状态随阅读句子的演化。",
+    uses: ["情感分析", "序列建模", "RNN/LSTM 教学", "文本分类"],
+  },
+  "cifar10-cnn": {
+    realWorld: "CIFAR-10 是自然图像（飞机/猫/船…）十分类基准，比 MNIST 难得多。真实 CNN 在这上面的表现展示了卷积网络处理彩色自然图像的能力。",
+    uses: ["图像分类", "自然图像识别", "CNN 基准", "迁移学习起点"],
+  },
   word2vec: {
     realWorld: "把词变成有「语义算术」的向量（king − man + woman ≈ queen）——开启了 NLP 的向量时代，是搜索/推荐/大模型的前身。",
     uses: ["语义搜索", "推荐系统", "NLP 特征", "词义相似度"],

@@ -24,3 +24,8 @@ tensorboard/
 .DS_Store
 .idea/
 .vscode/
+
+# ml-lab (Tianshou 演进版前端 + Python runners)
+ml-lab/node_modules/
+ml-lab/dist/
+ml-lab/.vite/

@@ -1,0 +1,581 @@
+{
+  "meta": {
+    "id": "mountaincar-ppo",
+    "title": "MountainCar · PPO",
+    "algorithm": "PPO",
+    "category": "rl",
+    "source": "python",
+    "abstract": "PPO 用随机策略的天然探索能力攻克 MountainCar 稀疏奖励，训练奖励从 -200 收敛到 >= -110。",
+    "description": "稀疏奖励难题：每步 -1。PPO 的随机策略 + 较大熵系数提供探索，逐步学会借动量荡上山顶。",
+    "hyperparams": {
+      "lr": 0.0003,
+      "gamma": 0.99,
+      "gae_lambda": 0.98,
+      "ent_coef": 0.05,
+      "batch_size": 64,
+      "num_training_envs": 16
+    },
+    "insight": "对比 DQN：PPO 的随机策略天然探索，无需人工奖励塑形即可突破稀疏奖励困境。"
+  },
+  "frames": [
+    {
+      "iter": 1,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -200.0,
+        "reward_std": 0.0,
+        "length": 200.0,
+        "env_step": 0.0
+      }
+    },
+    {
+      "iter": 2,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -200.0,
+        "reward_std": 0.0,
+        "length": 200.0,
+        "env_step": 10240.0
+      }
+    },
+    {
+      "iter": 3,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -200.0,
+        "reward_std": 0.0,
+        "length": 200.0,
+        "env_step": 20480.0
+      }
+    },
+    {
+      "iter": 4,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -200.0,
+        "reward_std": 0.0,
+        "length": 200.0,
+        "env_step": 30720.0
+      }
+    },
+    {
+      "iter": 5,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -200.0,
+        "reward_std": 0.0,
+        "length": 200.0,
+        "env_step": 40960.0
+      }
+    },
+    {
+      "iter": 6,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -200.0,
+        "reward_std": 0.0,
+        "length": 200.0,
+        "env_step": 51200.0
+      }
+    },
+    {
+      "iter": 7,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -200.0,
+        "reward_std": 0.0,
+        "length": 200.0,
+        "env_step": 61440.0
+      }
+    },
+    {
+      "iter": 8,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -200.0,
+        "reward_std": 0.0,
+        "length": 200.0,
+        "env_step": 71680.0
+      }
+    },
+    {
+      "iter": 9,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -200.0,
+        "reward_std": 0.0,
+        "length": 200.0,
+        "env_step": 81920.0
+      }
+    },
+    {
+      "iter": 10,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -200.0,
+        "reward_std": 0.0,
+        "length": 200.0,
+        "env_step": 92160.0
+      }
+    },
+    {
+      "iter": 11,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -200.0,
+        "reward_std": 0.0,
+        "length": 200.0,
+        "env_step": 102400.0
+      }
+    },
+    {
+      "iter": 12,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -200.0,
+        "reward_std": 0.0,
+        "length": 200.0,
+        "env_step": 112640.0
+      }
+    },
+    {
+      "iter": 13,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -200.0,
+        "reward_std": 0.0,
+        "length": 200.0,
+        "env_step": 122880.0
+      }
+    },
+    {
+      "iter": 14,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -195.0,
+        "reward_std": 12.561846997953765,
+        "length": 195.0,
+        "env_step": 133120.0
+      }
+    },
+    {
+      "iter": 15,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -196.0,
+        "reward_std": 7.886697661252142,
+        "length": 196.0,
+        "env_step": 143360.0
+      }
+    },
+    {
+      "iter": 16,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -191.0,
+        "reward_std": 11.696153213770756,
+        "length": 191.0,
+        "env_step": 153600.0
+      }
+    },
+    {
+      "iter": 17,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -198.2,
+        "reward_std": 2.9933259094191524,
+        "length": 198.2,
+        "env_step": 163840.0
+      }
+    },
+    {
+      "iter": 18,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -188.9,
+        "reward_std": 17.032028651925174,
+        "length": 188.9,
+        "env_step": 174080.0
+      }
+    },
+    {
+      "iter": 19,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -174.7,
+        "reward_std": 22.781790974372495,
+        "length": 174.7,
+        "env_step": 184320.0
+      }
+    },
+    {
+      "iter": 20,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -160.1,
+        "reward_std": 17.03202865192517,
+        "length": 160.1,
+        "env_step": 194560.0
+      }
+    },
+    {
+      "iter": 21,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -156.7,
+        "reward_std": 18.50432381904294,
+        "length": 156.7,
+        "env_step": 204800.0
+      }
+    },
+    {
+      "iter": 22,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -136.4,
+        "reward_std": 16.511813952440235,
+        "length": 136.4,
+        "env_step": 215040.0
+      }
+    },
+    {
+      "iter": 23,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -125.2,
+        "reward_std": 18.225257199831226,
+        "length": 125.2,
+        "env_step": 225280.0
+      }
+    },
+    {
+      "iter": 24,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -134.8,
+        "reward_std": 27.643444069073595,
+        "length": 134.8,
+        "env_step": 235520.0
+      }
+    },
+    {
+      "iter": 25,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -132.6,
+        "reward_std": 21.429885673983424,
+        "length": 132.6,
+        "env_step": 245760.0
+      }
+    },
+    {
+      "iter": 26,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -135.6,
+        "reward_std": 26.88568392286125,
+        "length": 135.6,
+        "env_step": 256000.0
+      }
+    },
+    {
+      "iter": 27,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -131.6,
+        "reward_std": 23.09632005320328,
+        "length": 131.6,
+        "env_step": 266240.0
+      }
+    },
+    {
+      "iter": 28,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -133.1,
+        "reward_std": 26.379727064547122,
+        "length": 133.1,
+        "env_step": 276480.0
+      }
+    },
+    {
+      "iter": 29,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -117.8,
+        "reward_std": 11.320777358467925,
+        "length": 117.8,
+        "env_step": 286720.0
+      }
+    },
+    {
+      "iter": 30,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -126.0,
+        "reward_std": 23.173260452512935,
+        "length": 126.0,
+        "env_step": 296960.0
+      }
+    },
+    {
+      "iter": 31,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -117.4,
+        "reward_std": 19.683495624507348,
+        "length": 117.4,
+        "env_step": 307200.0
+      }
+    },
+    {
+      "iter": 32,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -124.4,
+        "reward_std": 20.288913228657666,
+        "length": 124.4,
+        "env_step": 315392.0
+      }
+    },
+    {
+      "iter": 33,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -141.0,
+        "reward_std": 21.080796948882174,
+        "length": 141.0,
+        "env_step": 317440.0
+      }
+    },
+    {
+      "iter": 34,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -128.5,
+        "reward_std": 20.728000385951365,
+        "length": 128.5,
+        "env_step": 327680.0
+      }
+    },
+    {
+      "iter": 35,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -140.0,
+        "reward_std": 34.57166469813104,
+        "length": 140.0,
+        "env_step": 337920.0
+      }
+    },
+    {
+      "iter": 36,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -124.8,
+        "reward_std": 26.083711392361327,
+        "length": 124.8,
+        "env_step": 348160.0
+      }
+    },
+    {
+      "iter": 37,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -114.8,
+        "reward_std": 20.43917806566595,
+        "length": 114.8,
+        "env_step": 358400.0
+      }
+    },
+    {
+      "iter": 38,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -118.6,
+        "reward_std": 17.41952927033334,
+        "length": 118.6,
+        "env_step": 360448.0
+      }
+    },
+    {
+      "iter": 39,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -116.1,
+        "reward_std": 24.229940156756474,
+        "length": 116.1,
+        "env_step": 362496.0
+      }
+    },
+    {
+      "iter": 40,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -114.7,
+        "reward_std": 26.69475603934226,
+        "length": 114.7,
+        "env_step": 368640.0
+      }
+    },
+    {
+      "iter": 41,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -124.4,
+        "reward_std": 18.194504664870657,
+        "length": 124.4,
+        "env_step": 378880.0
+      }
+    },
+    {
+      "iter": 42,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -119.4,
+        "reward_std": 27.528893911670334,
+        "length": 119.4,
+        "env_step": 389120.0
+      }
+    },
+    {
+      "iter": 43,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -106.3,
+        "reward_std": 24.318922673506737,
+        "length": 106.3,
+        "env_step": 397312.0
+      }
+    }
+  ]
+}

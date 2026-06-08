@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "id": "cartpole-ppo",
+    "title": "CartPole · PPO",
+    "algorithm": "PPO",
+    "category": "rl",
+    "source": "python",
+    "abstract": "PPO 在 CartPole-v1 上的训练收敛过程：测试平均奖励随 epoch 上升至满分。",
+    "description": "经典入门问题，通过左右推小车保持杆子不倒。本轨迹回放每个训练 epoch 的测试平均奖励。",
+    "hyperparams": {
+      "lr": 0.00025,
+      "gamma": 0.99,
+      "gae_lambda": 0.95,
+      "eps_clip": 0.2,
+      "batch_size": 64,
+      "num_training_envs": 8
+    },
+    "insight": "PPO 通过裁剪策略更新比率限制每步变化幅度，GAE 精确估计优势函数，训练稳定快速收敛。"
+  },
+  "frames": [
+    {
+      "iter": 1,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": 28.6,
+        "reward_std": 14.725488107359974,
+        "length": 28.6,
+        "env_step": 0.0
+      }
+    },
+    {
+      "iter": 2,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": 217.1,
+        "reward_std": 117.50527647727144,
+        "length": 217.1,
+        "env_step": 10240.0
+      }
+    },
+    {
+      "iter": 3,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": 269.3,
+        "reward_std": 153.878556010901,
+        "length": 269.3,
+        "env_step": 20480.0
+      }
+    },
+    {
+      "iter": 4,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": 333.9,
+        "reward_std": 98.3904975086517,
+        "length": 333.9,
+        "env_step": 30720.0
+      }
+    },
+    {
+      "iter": 5,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": 500.0,
+        "reward_std": 0.0,
+        "length": 500.0,
+        "env_step": 34816.0
+      }
+    }
+  ]
+}

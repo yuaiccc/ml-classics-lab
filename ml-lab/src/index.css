@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Anthropic-inspired warm palette */
+  --paper: #f0eee6;        /* page background — signature ivory */
+  --card: #faf9f5;         /* card background */
+  --card-solid: #ffffff;
+  --ink: #141413;          /* primary text */
+  --ink-soft: #46443f;     /* secondary text */
+  --ink-muted: #6b6a65;    /* muted text */
+  --ink-faint: #908e85;    /* faint labels */
+  --line: #e3e0d6;         /* borders */
+  --line-strong: #d6d2c4;
+  --clay: #cc785c;         /* primary accent (book cloth) */
+  --clay-soft: #e9d2c7;
+  --olive: #7a8b5a;
+  --slate: #5b7b9a;
+  --ochre: #c99a4e;
+  --brick: #b04a3a;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+body {
+  font-family: 'Inter', 'Noto Sans SC', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---- typography helpers ---- */
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+.font-serif {
+  font-family: 'Fraunces', 'Noto Serif SC', Georgia, serif;
+  font-optical-sizing: auto;
+  letter-spacing: -0.01em;
+}
+.text-clay { color: var(--clay); }
+.text-ink { color: var(--ink); }
+.text-ink-soft { color: var(--ink-soft); }
+.text-ink-muted { color: var(--ink-muted); }
+.text-ink-faint { color: var(--ink-faint); }
+
+/* ---- background helpers (kept class names; now light) ---- */
+.bg-grid {
+  background-image: none;
+}
+.bg-paper { background: var(--paper); }
+.bg-card { background: var(--card); }
+
+/* ---- card surface (was .glass) ---- */
+.glass {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.glass-hover {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+.glass-hover:hover {
+  border-color: var(--line-strong);
+  box-shadow: 0 6px 24px rgba(20, 20, 19, 0.06);
+  transform: translateY(-2px);
+}
+
+/* ---- neutralize old neon effects ---- */
+.neon-text, .neon-text-cyan { text-shadow: none; }
+.glow-green, .glow-cyan { box-shadow: none; }
+
+/* ---- status pills (muted) ---- */
+.status-success {
+  background: rgba(122, 139, 90, 0.14);
+  color: #5c6e3f;
+  border: 1px solid rgba(122, 139, 90, 0.28);
+}
+.status-failed {
+  background: rgba(176, 74, 58, 0.12);
+  color: var(--brick);
+  border: 1px solid rgba(176, 74, 58, 0.26);
+}
+.status-partial {
+  background: rgba(201, 154, 78, 0.14);
+  color: #a87a2e;
+  border: 1px solid rgba(201, 154, 78, 0.30);
+}
+
+/* ---- algorithm badges (earthy) ---- */
+.badge-ppo {
+  background: rgba(91, 123, 154, 0.12);
+  color: var(--slate);
+  border: 1px solid rgba(91, 123, 154, 0.26);
+}
+.badge-dqn {
+  background: rgba(204, 120, 92, 0.12);
+  color: var(--clay);
+  border: 1px solid rgba(204, 120, 92, 0.26);
+}
+.badge-sac {
+  background: rgba(122, 139, 90, 0.12);
+  color: #5c6e3f;
+  border: 1px solid rgba(122, 139, 90, 0.26);
+}
+.badge-shaped {
+  background: rgba(201, 154, 78, 0.14);
+  color: #a87a2e;
+  border: 1px solid rgba(201, 154, 78, 0.30);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.filter-btn-active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.image-rendering-pixelated {
+  image-rendering: pixelated;
+}
+
+/* ---- motion replay scanline (subtle clay sweep) ---- */
+.motion-scanline {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(204, 120, 92, 0.05) 45%,
+    rgba(204, 120, 92, 0.12) 50%,
+    rgba(204, 120, 92, 0.05) 55%,
+    transparent 100%
+  );
+  animation: scanline-x 2.4s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes scanline-x {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}

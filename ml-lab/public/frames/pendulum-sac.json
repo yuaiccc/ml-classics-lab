@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "id": "pendulum-sac",
+    "title": "Pendulum · SAC",
+    "algorithm": "SAC",
+    "category": "rl",
+    "source": "python",
+    "abstract": "连续控制 + 最大熵 RL：SAC 在 Pendulum 上把杆子摆到竖直，测试奖励从约 -1200 收敛到接近 0。",
+    "description": "连续力矩控制，状态用 (cosθ, sinθ, θ̇) 编码。SAC 用双 Q + 自动温度 alpha 兼顾探索与利用。",
+    "hyperparams": {
+      "lr_actor": 0.0003,
+      "lr_critic": 0.0003,
+      "gamma": 0.99,
+      "tau": 0.005,
+      "batch_size": 256,
+      "num_training_envs": 8
+    },
+    "insight": "SAC 的最大熵目标鼓励保持策略随机性，在连续控制中兼顾探索与稳定，样本效率高。"
+  },
+  "frames": [
+    {
+      "iter": 1,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -1410.0016864456497,
+        "reward_std": 238.36833744949004,
+        "length": 200.0,
+        "env_step": 0.0
+      }
+    },
+    {
+      "iter": 2,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -184.30710683360445,
+        "reward_std": 61.94002859956816,
+        "length": 200.0,
+        "env_step": 5120.0
+      }
+    },
+    {
+      "iter": 3,
+      "state": {
+        "family": "curves",
+        "data": {}
+      },
+      "metrics": {
+        "reward": -145.9687435228817,
+        "reward_std": 104.82284774311631,
+        "length": 200.0,
+        "env_step": 10240.0
+      }
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "acrobot-dqn",
+  "env": "Acrobot-v1",
+  "algorithm": "DQN",
+  "trainingTime": 57.69,
+  "epochs": 20,
+  "bestReward": -85.1,
+  "finalReward": -90.0,
+  "stdReward": 18.74,
+  "curve": [
+    {
+      "epoch": 0,
+      "reward": -500
+    },
+    {
+      "epoch": 20,
+      "reward": -90.0
+    }
+  ],
+  "hyperparams": {
+    "lr": "1e-3",
+    "gamma": 0.95,
+    "n_step": 3,
+    "eps_train": "0.5\u21920.05",
+    "batch_size": 128,
+    "num_envs": 8
+  }
+}

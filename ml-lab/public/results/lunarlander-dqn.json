@@ -1,0 +1,28 @@
+{
+  "id": "lunarlander-dqn",
+  "env": "LunarLander-v2",
+  "algorithm": "DQN",
+  "trainingTime": 94.26,
+  "epochs": 5,
+  "bestReward": -26.83,
+  "finalReward": -12.88,
+  "stdReward": 151.46,
+  "curve": [
+    {
+      "epoch": 0,
+      "reward": -200
+    },
+    {
+      "epoch": 5,
+      "reward": -12.88
+    }
+  ],
+  "hyperparams": {
+    "lr": "1.3e-2",
+    "gamma": 0.99,
+    "n_step": 4,
+    "eps_train": "0.73\u21920.01",
+    "batch_size": 128,
+    "num_envs": 16
+  }
+}

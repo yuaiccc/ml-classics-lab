@@ -1,0 +1,1233 @@
+{
+  "id": "imdb-distilbert",
+  "dataset": "Kaggle IMDB Dataset of 50K Movie Reviews",
+  "algorithm": "DistilBERT fine-tune",
+  "model": "distilbert-base-uncased",
+  "device": "mps",
+  "trainingTime": 150.47,
+  "trainSize": 1200,
+  "testSize": 600,
+  "accuracy": 0.79,
+  "f1": 0.7586,
+  "curve": [
+    {
+      "epoch": 0,
+      "reward": 0.5
+    },
+    {
+      "epoch": 1,
+      "reward": 0.79
+    }
+  ],
+  "hyperparams": {
+    "model": "distilbert-base-uncased",
+    "lr": "2e-5",
+    "batch_size": 8,
+    "epochs": 1,
+    "max_length": 128,
+    "train_subset": 1200
+  },
+  "loss": 0.4025,
+  "samples": [
+    {
+      "text": "On the 28th of December, 1895, in the Grand Caf\u00e9 in Paris, film history was writing itself while Louis Lumi\u00e8re showed his short films, all single shots, to a paying audience. 'La Sortie des Usines Lumi\u00e8re' was the first film to be played and I wish I was there",
+      "label": "positive",
+      "prediction": "positive",
+      "confidence": 0.6911,
+      "tokens": [
+        {
+          "token": "[CLS]",
+          "attention": 0.3291
+        },
+        {
+          "token": "on",
+          "attention": 0.4014
+        },
+        {
+          "token": "the",
+          "attention": 0.1738
+        },
+        {
+          "token": "28th",
+          "attention": 0.059
+        },
+        {
+          "token": "of",
+          "attention": 0.0262
+        },
+        {
+          "token": "december",
+          "attention": 0.0646
+        },
+        {
+          "token": ",",
+          "attention": 0.4585
+        },
+        {
+          "token": "1895",
+          "attention": 0.3181
+        },
+        {
+          "token": ",",
+          "attention": 0.186
+        },
+        {
+          "token": "in",
+          "attention": 0.1105
+        },
+        {
+          "token": "the",
+          "attention": 0.0379
+        },
+        {
+          "token": "grand",
+          "attention": 0.0276
+        },
+        {
+          "token": "cafe",
+          "attention": 0.0274
+        },
+        {
+          "token": "in",
+          "attention": 0.0194
+        },
+        {
+          "token": "paris",
+          "attention": 0.0603
+        },
+        {
+          "token": ",",
+          "attention": 0.1065
+        },
+        {
+          "token": "film",
+          "attention": 0.0527
+        },
+        {
+          "token": "history",
+          "attention": 0.2221
+        },
+        {
+          "token": "was",
+          "attention": 1.0
+        },
+        {
+          "token": "writing",
+          "attention": 0.1494
+        },
+        {
+          "token": "itself",
+          "attention": 0.0587
+        },
+        {
+          "token": "while",
+          "attention": 0.7978
+        },
+        {
+          "token": "louis",
+          "attention": 0.0304
+        },
+        {
+          "token": "lu",
+          "attention": 0.0186
+        },
+        {
+          "token": "##mie",
+          "attention": 0.0274
+        },
+        {
+          "token": "##re",
+          "attention": 0.0375
+        },
+        {
+          "token": "showed",
+          "attention": 0.0709
+        },
+        {
+          "token": "his",
+          "attention": 0.0256
+        },
+        {
+          "token": "short",
+          "attention": 0.0337
+        },
+        {
+          "token": "films",
+          "attention": 0.0148
+        },
+        {
+          "token": ",",
+          "attention": 0.0278
+        },
+        {
+          "token": "all",
+          "attention": 0.0672
+        },
+        {
+          "token": "single",
+          "attention": 0.0452
+        },
+        {
+          "token": "shots",
+          "attention": 0.0098
+        },
+        {
+          "token": ",",
+          "attention": 0.4571
+        },
+        {
+          "token": "to",
+          "attention": 0.0515
+        },
+        {
+          "token": "a",
+          "attention": 0.0786
+        },
+        {
+          "token": "paying",
+          "attention": 0.1112
+        },
+        {
+          "token": "audience",
+          "attention": 0.0331
+        },
+        {
+          "token": ".",
+          "attention": 0.9882
+        },
+        {
+          "token": "'",
+          "attention": 0.1892
+        },
+        {
+          "token": "la",
+          "attention": 0.1052
+        },
+        {
+          "token": "sort",
+          "attention": 0.2109
+        },
+        {
+          "token": "##ie",
+          "attention": 0.0773
+        },
+        {
+          "token": "des",
+          "attention": 0.0735
+        },
+        {
+          "token": "us",
+          "attention": 0.0191
+        },
+        {
+          "token": "##ines",
+          "attention": 0.0345
+        },
+        {
+          "token": "lu",
+          "attention": 0.0234
+        }
+      ]
+    },
+    {
+      "text": "Set just before the Second World War, this is a touching and understated romantic story that is loosely based on a real event.  It concerns a German rocket scientist Gerhart Zucher (Ulrich Thomsen) working in Britain in the advent of the Second World",
+      "label": "positive",
+      "prediction": "positive",
+      "confidence": 0.6143,
+      "tokens": [
+        {
+          "token": "[CLS]",
+          "attention": 0.0896
+        },
+        {
+          "token": "set",
+          "attention": 0.0859
+        },
+        {
+          "token": "just",
+          "attention": 0.0242
+        },
+        {
+          "token": "before",
+          "attention": 0.0184
+        },
+        {
+          "token": "the",
+          "attention": 0.0096
+        },
+        {
+          "token": "second",
+          "attention": 0.0099
+        },
+        {
+          "token": "world",
+          "attention": 0.009
+        },
+        {
+          "token": "war",
+          "attention": 0.0099
+        },
+        {
+          "token": ",",
+          "attention": 0.1246
+        },
+        {
+          "token": "this",
+          "attention": 0.2087
+        },
+        {
+          "token": "is",
+          "attention": 0.435
+        },
+        {
+          "token": "a",
+          "attention": 0.2821
+        },
+        {
+          "token": "touching",
+          "attention": 0.2903
+        },
+        {
+          "token": "and",
+          "attention": 0.2159
+        },
+        {
+          "token": "under",
+          "attention": 0.0977
+        },
+        {
+          "token": "##sta",
+          "attention": 0.0161
+        },
+        {
+          "token": "##ted",
+          "attention": 0.1097
+        },
+        {
+          "token": "romantic",
+          "attention": 0.1883
+        },
+        {
+          "token": "story",
+          "attention": 0.101
+        },
+        {
+          "token": "that",
+          "attention": 0.0582
+        },
+        {
+          "token": "is",
+          "attention": 0.0911
+        },
+        {
+          "token": "loosely",
+          "attention": 0.0933
+        },
+        {
+          "token": "based",
+          "attention": 0.0475
+        },
+        {
+          "token": "on",
+          "attention": 0.0178
+        },
+        {
+          "token": "a",
+          "attention": 0.0281
+        },
+        {
+          "token": "real",
+          "attention": 0.0457
+        },
+        {
+          "token": "event",
+          "attention": 0.0291
+        },
+        {
+          "token": ".",
+          "attention": 0.3528
+        },
+        {
+          "token": "<",
+          "attention": 0.0088
+        },
+        {
+          "token": "br",
+          "attention": 0.0078
+        },
+        {
+          "token": "/",
+          "attention": 0.0068
+        },
+        {
+          "token": ">",
+          "attention": 0.0094
+        },
+        {
+          "token": "<",
+          "attention": 0.0082
+        },
+        {
+          "token": "br",
+          "attention": 0.0078
+        },
+        {
+          "token": "/",
+          "attention": 0.0061
+        },
+        {
+          "token": ">",
+          "attention": 0.0135
+        },
+        {
+          "token": "it",
+          "attention": 0.4938
+        },
+        {
+          "token": "concerns",
+          "attention": 1.0
+        },
+        {
+          "token": "a",
+          "attention": 0.9418
+        },
+        {
+          "token": "german",
+          "attention": 0.0467
+        },
+        {
+          "token": "rocket",
+          "attention": 0.0354
+        },
+        {
+          "token": "scientist",
+          "attention": 0.0599
+        },
+        {
+          "token": "ge",
+          "attention": 0.0084
+        },
+        {
+          "token": "##rh",
+          "attention": 0.0055
+        },
+        {
+          "token": "##art",
+          "attention": 0.0174
+        },
+        {
+          "token": "zu",
+          "attention": 0.0062
+        },
+        {
+          "token": "##cher",
+          "attention": 0.0253
+        },
+        {
+          "token": "(",
+          "attention": 0.393
+        }
+      ]
+    },
+    {
+      "text": "Some things need to be clarified. The picture of Mark Ferris is not the Mark Ferris who starred in this movie. I know that because he was my dad. Please remove that picture. Also, Mark Ferris was the writer, at least one of them. I have been trying to find a c",
+      "label": "negative",
+      "prediction": "negative",
+      "confidence": 0.5945,
+      "tokens": [
+        {
+          "token": "[CLS]",
+          "attention": 0.2307
+        },
+        {
+          "token": "some",
+          "attention": 0.0307
+        },
+        {
+          "token": "things",
+          "attention": 0.0225
+        },
+        {
+          "token": "need",
+          "attention": 0.0531
+        },
+        {
+          "token": "to",
+          "attention": 0.0189
+        },
+        {
+          "token": "be",
+          "attention": 0.0265
+        },
+        {
+          "token": "clarified",
+          "attention": 0.0618
+        },
+        {
+          "token": ".",
+          "attention": 0.2958
+        },
+        {
+          "token": "the",
+          "attention": 0.0254
+        },
+        {
+          "token": "picture",
+          "attention": 0.0034
+        },
+        {
+          "token": "of",
+          "attention": 0.008
+        },
+        {
+          "token": "mark",
+          "attention": 0.002
+        },
+        {
+          "token": "ferris",
+          "attention": 0.0113
+        },
+        {
+          "token": "is",
+          "attention": 0.0331
+        },
+        {
+          "token": "not",
+          "attention": 0.0373
+        },
+        {
+          "token": "the",
+          "attention": 0.0139
+        },
+        {
+          "token": "mark",
+          "attention": 0.0017
+        },
+        {
+          "token": "ferris",
+          "attention": 0.0097
+        },
+        {
+          "token": "who",
+          "attention": 0.0067
+        },
+        {
+          "token": "starred",
+          "attention": 0.0024
+        },
+        {
+          "token": "in",
+          "attention": 0.0013
+        },
+        {
+          "token": "this",
+          "attention": 0.0058
+        },
+        {
+          "token": "movie",
+          "attention": 0.0038
+        },
+        {
+          "token": ".",
+          "attention": 0.0157
+        },
+        {
+          "token": "i",
+          "attention": 0.0257
+        },
+        {
+          "token": "know",
+          "attention": 0.0155
+        },
+        {
+          "token": "that",
+          "attention": 0.0125
+        },
+        {
+          "token": "because",
+          "attention": 0.0082
+        },
+        {
+          "token": "he",
+          "attention": 0.0032
+        },
+        {
+          "token": "was",
+          "attention": 0.0064
+        },
+        {
+          "token": "my",
+          "attention": 0.0106
+        },
+        {
+          "token": "dad",
+          "attention": 0.0081
+        },
+        {
+          "token": ".",
+          "attention": 0.021
+        },
+        {
+          "token": "please",
+          "attention": 0.0736
+        },
+        {
+          "token": "remove",
+          "attention": 0.4403
+        },
+        {
+          "token": "that",
+          "attention": 0.071
+        },
+        {
+          "token": "picture",
+          "attention": 0.0318
+        },
+        {
+          "token": ".",
+          "attention": 0.348
+        },
+        {
+          "token": "also",
+          "attention": 1.0
+        },
+        {
+          "token": ",",
+          "attention": 0.3207
+        },
+        {
+          "token": "mark",
+          "attention": 0.0128
+        },
+        {
+          "token": "ferris",
+          "attention": 0.0414
+        },
+        {
+          "token": "was",
+          "attention": 0.4434
+        },
+        {
+          "token": "the",
+          "attention": 0.2231
+        },
+        {
+          "token": "writer",
+          "attention": 0.0473
+        },
+        {
+          "token": ",",
+          "attention": 0.1198
+        },
+        {
+          "token": "at",
+          "attention": 0.0212
+        },
+        {
+          "token": "least",
+          "attention": 0.1468
+        }
+      ]
+    },
+    {
+      "text": "This picture doesn't have any big explosions or expensive chase sequences. However, it does have really wonderful performances and an exceptional script that puts this at the top of my \"indie-must-see list.\" Taylor Nichols and James Remar are terrific together",
+      "label": "positive",
+      "prediction": "positive",
+      "confidence": 0.9456,
+      "tokens": [
+        {
+          "token": "[CLS]",
+          "attention": 0.3586
+        },
+        {
+          "token": "this",
+          "attention": 0.0339
+        },
+        {
+          "token": "picture",
+          "attention": 0.0167
+        },
+        {
+          "token": "doesn",
+          "attention": 0.0115
+        },
+        {
+          "token": "'",
+          "attention": 0.3467
+        },
+        {
+          "token": "t",
+          "attention": 0.0069
+        },
+        {
+          "token": "have",
+          "attention": 0.0034
+        },
+        {
+          "token": "any",
+          "attention": 0.0039
+        },
+        {
+          "token": "big",
+          "attention": 0.0059
+        },
+        {
+          "token": "explosions",
+          "attention": 0.0082
+        },
+        {
+          "token": "or",
+          "attention": 0.0112
+        },
+        {
+          "token": "expensive",
+          "attention": 0.0102
+        },
+        {
+          "token": "chase",
+          "attention": 0.0051
+        },
+        {
+          "token": "sequences",
+          "attention": 0.0036
+        },
+        {
+          "token": ".",
+          "attention": 0.373
+        },
+        {
+          "token": "however",
+          "attention": 0.025
+        },
+        {
+          "token": ",",
+          "attention": 0.0305
+        },
+        {
+          "token": "it",
+          "attention": 0.1043
+        },
+        {
+          "token": "does",
+          "attention": 0.1999
+        },
+        {
+          "token": "have",
+          "attention": 0.1436
+        },
+        {
+          "token": "really",
+          "attention": 0.3297
+        },
+        {
+          "token": "wonderful",
+          "attention": 0.4187
+        },
+        {
+          "token": "performances",
+          "attention": 0.0713
+        },
+        {
+          "token": "and",
+          "attention": 0.1562
+        },
+        {
+          "token": "an",
+          "attention": 0.243
+        },
+        {
+          "token": "exceptional",
+          "attention": 0.3266
+        },
+        {
+          "token": "script",
+          "attention": 0.0606
+        },
+        {
+          "token": "that",
+          "attention": 0.1115
+        },
+        {
+          "token": "puts",
+          "attention": 0.0404
+        },
+        {
+          "token": "this",
+          "attention": 0.0617
+        },
+        {
+          "token": "at",
+          "attention": 0.0071
+        },
+        {
+          "token": "the",
+          "attention": 0.0105
+        },
+        {
+          "token": "top",
+          "attention": 0.0066
+        },
+        {
+          "token": "of",
+          "attention": 0.005
+        },
+        {
+          "token": "my",
+          "attention": 0.0143
+        },
+        {
+          "token": "\"",
+          "attention": 0.0109
+        },
+        {
+          "token": "indie",
+          "attention": 0.0476
+        },
+        {
+          "token": "-",
+          "attention": 0.0093
+        },
+        {
+          "token": "must",
+          "attention": 0.0217
+        },
+        {
+          "token": "-",
+          "attention": 0.0105
+        },
+        {
+          "token": "see",
+          "attention": 0.0379
+        },
+        {
+          "token": "list",
+          "attention": 0.0083
+        },
+        {
+          "token": ".",
+          "attention": 1.0
+        },
+        {
+          "token": "\"",
+          "attention": 0.0755
+        },
+        {
+          "token": "taylor",
+          "attention": 0.1439
+        },
+        {
+          "token": "nichols",
+          "attention": 0.1305
+        },
+        {
+          "token": "and",
+          "attention": 0.559
+        },
+        {
+          "token": "james",
+          "attention": 0.0381
+        }
+      ]
+    },
+    {
+      "text": "In this film, there is a loose plot of a man (Bardem) who wishes to obtain financing for his construction business, and marries a woman he does not love (the wide-eyed Maria de Medieros) in the process. He maintains his passionate relationship with his first a",
+      "label": "negative",
+      "prediction": "positive",
+      "confidence": 0.5368,
+      "tokens": [
+        {
+          "token": "[CLS]",
+          "attention": 0.4652
+        },
+        {
+          "token": "in",
+          "attention": 0.2402
+        },
+        {
+          "token": "this",
+          "attention": 0.5699
+        },
+        {
+          "token": "film",
+          "attention": 0.298
+        },
+        {
+          "token": ",",
+          "attention": 0.6524
+        },
+        {
+          "token": "there",
+          "attention": 0.1682
+        },
+        {
+          "token": "is",
+          "attention": 0.5026
+        },
+        {
+          "token": "a",
+          "attention": 0.2297
+        },
+        {
+          "token": "loose",
+          "attention": 0.4695
+        },
+        {
+          "token": "plot",
+          "attention": 0.2791
+        },
+        {
+          "token": "of",
+          "attention": 0.2286
+        },
+        {
+          "token": "a",
+          "attention": 0.1463
+        },
+        {
+          "token": "man",
+          "attention": 0.0748
+        },
+        {
+          "token": "(",
+          "attention": 0.2039
+        },
+        {
+          "token": "bard",
+          "attention": 0.1482
+        },
+        {
+          "token": "##em",
+          "attention": 0.199
+        },
+        {
+          "token": ")",
+          "attention": 0.9798
+        },
+        {
+          "token": "who",
+          "attention": 0.062
+        },
+        {
+          "token": "wishes",
+          "attention": 0.0485
+        },
+        {
+          "token": "to",
+          "attention": 0.0422
+        },
+        {
+          "token": "obtain",
+          "attention": 0.028
+        },
+        {
+          "token": "financing",
+          "attention": 0.0511
+        },
+        {
+          "token": "for",
+          "attention": 0.0165
+        },
+        {
+          "token": "his",
+          "attention": 0.0168
+        },
+        {
+          "token": "construction",
+          "attention": 0.0301
+        },
+        {
+          "token": "business",
+          "attention": 0.0149
+        },
+        {
+          "token": ",",
+          "attention": 0.0693
+        },
+        {
+          "token": "and",
+          "attention": 0.1555
+        },
+        {
+          "token": "marries",
+          "attention": 0.3067
+        },
+        {
+          "token": "a",
+          "attention": 0.0709
+        },
+        {
+          "token": "woman",
+          "attention": 0.048
+        },
+        {
+          "token": "he",
+          "attention": 0.0747
+        },
+        {
+          "token": "does",
+          "attention": 0.0541
+        },
+        {
+          "token": "not",
+          "attention": 0.0634
+        },
+        {
+          "token": "love",
+          "attention": 0.0204
+        },
+        {
+          "token": "(",
+          "attention": 0.127
+        },
+        {
+          "token": "the",
+          "attention": 0.1133
+        },
+        {
+          "token": "wide",
+          "attention": 0.0637
+        },
+        {
+          "token": "-",
+          "attention": 0.1401
+        },
+        {
+          "token": "eyed",
+          "attention": 0.0421
+        },
+        {
+          "token": "maria",
+          "attention": 0.1107
+        },
+        {
+          "token": "de",
+          "attention": 0.1193
+        },
+        {
+          "token": "med",
+          "attention": 0.051
+        },
+        {
+          "token": "##ier",
+          "attention": 0.0614
+        },
+        {
+          "token": "##os",
+          "attention": 0.1398
+        },
+        {
+          "token": ")",
+          "attention": 1.0
+        },
+        {
+          "token": "in",
+          "attention": 0.1415
+        },
+        {
+          "token": "the",
+          "attention": 0.1083
+        }
+      ]
+    },
+    {
+      "text": "A really terrible movie, really low-budget, with terrible acting, a convoluted and inane plot, a modest reworking of the vampire tales mixed with modern science.  The result is a total mess, without meaning for most parts, with very limited and cheap",
+      "label": "negative",
+      "prediction": "negative",
+      "confidence": 0.9216,
+      "tokens": [
+        {
+          "token": "[CLS]",
+          "attention": 0.877
+        },
+        {
+          "token": "a",
+          "attention": 0.26
+        },
+        {
+          "token": "really",
+          "attention": 0.1608
+        },
+        {
+          "token": "terrible",
+          "attention": 0.206
+        },
+        {
+          "token": "movie",
+          "attention": 0.0766
+        },
+        {
+          "token": ",",
+          "attention": 0.076
+        },
+        {
+          "token": "really",
+          "attention": 0.1089
+        },
+        {
+          "token": "low",
+          "attention": 0.0404
+        },
+        {
+          "token": "-",
+          "attention": 0.0168
+        },
+        {
+          "token": "budget",
+          "attention": 0.0072
+        },
+        {
+          "token": ",",
+          "attention": 0.0827
+        },
+        {
+          "token": "with",
+          "attention": 0.0994
+        },
+        {
+          "token": "terrible",
+          "attention": 0.1526
+        },
+        {
+          "token": "acting",
+          "attention": 0.0056
+        },
+        {
+          "token": ",",
+          "attention": 0.1156
+        },
+        {
+          "token": "a",
+          "attention": 0.0983
+        },
+        {
+          "token": "con",
+          "attention": 0.0436
+        },
+        {
+          "token": "##vo",
+          "attention": 0.0133
+        },
+        {
+          "token": "##lu",
+          "attention": 0.0133
+        },
+        {
+          "token": "##ted",
+          "attention": 0.0475
+        },
+        {
+          "token": "and",
+          "attention": 0.0759
+        },
+        {
+          "token": "ina",
+          "attention": 0.0723
+        },
+        {
+          "token": "##ne",
+          "attention": 0.0331
+        },
+        {
+          "token": "plot",
+          "attention": 0.0118
+        },
+        {
+          "token": ",",
+          "attention": 0.1392
+        },
+        {
+          "token": "a",
+          "attention": 0.1209
+        },
+        {
+          "token": "modest",
+          "attention": 0.0713
+        },
+        {
+          "token": "re",
+          "attention": 0.0184
+        },
+        {
+          "token": "##working",
+          "attention": 0.0145
+        },
+        {
+          "token": "of",
+          "attention": 0.0077
+        },
+        {
+          "token": "the",
+          "attention": 0.0107
+        },
+        {
+          "token": "vampire",
+          "attention": 0.005
+        },
+        {
+          "token": "tales",
+          "attention": 0.0011
+        },
+        {
+          "token": "mixed",
+          "attention": 0.0564
+        },
+        {
+          "token": "with",
+          "attention": 0.0455
+        },
+        {
+          "token": "modern",
+          "attention": 0.0649
+        },
+        {
+          "token": "science",
+          "attention": 0.0282
+        },
+        {
+          "token": ".",
+          "attention": 0.7497
+        },
+        {
+          "token": "<",
+          "attention": 0.0286
+        },
+        {
+          "token": "br",
+          "attention": 0.0261
+        },
+        {
+          "token": "/",
+          "attention": 0.0231
+        },
+        {
+          "token": ">",
+          "attention": 0.0196
+        },
+        {
+          "token": "<",
+          "attention": 0.0241
+        },
+        {
+          "token": "br",
+          "attention": 0.0256
+        },
+        {
+          "token": "/",
+          "attention": 0.0247
+        },
+        {
+          "token": ">",
+          "attention": 0.028
+        },
+        {
+          "token": "the",
+          "attention": 0.7562
+        },
+        {
+          "token": "result",
+          "attention": 1.0
+        }
+      ]
+    }
+  ]
+}

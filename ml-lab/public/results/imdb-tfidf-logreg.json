@@ -1,0 +1,1506 @@
+{
+  "id": "imdb-tfidf-logreg",
+  "dataset": "Kaggle IMDB Dataset of 50K Movie Reviews",
+  "algorithm": "TF-IDF + Logistic Regression",
+  "trainingTime": 16.82,
+  "trainSize": 40000,
+  "testSize": 10000,
+  "accuracy": 0.9048,
+  "f1": 0.9055,
+  "curve": [
+    {
+      "epoch": 0,
+      "reward": 0.5
+    },
+    {
+      "epoch": 1,
+      "reward": 0.9048
+    }
+  ],
+  "hyperparams": {
+    "max_features": 30000,
+    "ngram_range": "1,2",
+    "min_df": 3,
+    "C": 2.0,
+    "max_iter": 300,
+    "solver": "liblinear"
+  },
+  "topPositive": [
+    {
+      "token": "great",
+      "weight": 8.89
+    },
+    {
+      "token": "excellent",
+      "weight": 8.497
+    },
+    {
+      "token": "best",
+      "weight": 6.818
+    },
+    {
+      "token": "perfect",
+      "weight": 6.755
+    },
+    {
+      "token": "amazing",
+      "weight": 6.384
+    },
+    {
+      "token": "wonderful",
+      "weight": 6.136
+    },
+    {
+      "token": "loved",
+      "weight": 5.604
+    },
+    {
+      "token": "hilarious",
+      "weight": 5.487
+    },
+    {
+      "token": "brilliant",
+      "weight": 5.379
+    },
+    {
+      "token": "fun",
+      "weight": 5.324
+    },
+    {
+      "token": "enjoyed",
+      "weight": 5.255
+    },
+    {
+      "token": "favorite",
+      "weight": 5.173
+    },
+    {
+      "token": "today",
+      "weight": 5.081
+    },
+    {
+      "token": "superb",
+      "weight": 4.841
+    },
+    {
+      "token": "enjoyable",
+      "weight": 4.776
+    },
+    {
+      "token": "funniest",
+      "weight": 4.593
+    }
+  ],
+  "topNegative": [
+    {
+      "token": "worst",
+      "weight": -12.112
+    },
+    {
+      "token": "awful",
+      "weight": -9.865
+    },
+    {
+      "token": "bad",
+      "weight": -9.308
+    },
+    {
+      "token": "waste",
+      "weight": -8.893
+    },
+    {
+      "token": "boring",
+      "weight": -8.205
+    },
+    {
+      "token": "poor",
+      "weight": -7.34
+    },
+    {
+      "token": "terrible",
+      "weight": -7.091
+    },
+    {
+      "token": "worse",
+      "weight": -6.526
+    },
+    {
+      "token": "poorly",
+      "weight": -6.413
+    },
+    {
+      "token": "horrible",
+      "weight": -6.348
+    },
+    {
+      "token": "dull",
+      "weight": -6.331
+    },
+    {
+      "token": "disappointment",
+      "weight": -6.088
+    },
+    {
+      "token": "fails",
+      "weight": -6.005
+    },
+    {
+      "token": "disappointing",
+      "weight": -5.834
+    },
+    {
+      "token": "instead",
+      "weight": -5.562
+    },
+    {
+      "token": "unfortunately",
+      "weight": -5.265
+    }
+  ],
+  "samples": [
+    {
+      "text": "saw this at an arty cinema that was also showing last days and some charlie chaplin films based on the quality of the other features decided to give immortel chance nearly walked out of this movie",
+      "label": "negative",
+      "prediction": "negative",
+      "confidence": 0.5924,
+      "tokens": [
+        {
+          "token": "saw",
+          "weight": 1.221
+        },
+        {
+          "token": "this",
+          "weight": 0.0
+        },
+        {
+          "token": "at",
+          "weight": 0.0
+        },
+        {
+          "token": "an",
+          "weight": 0.0
+        },
+        {
+          "token": "arty",
+          "weight": -1.084
+        },
+        {
+          "token": "cinema",
+          "weight": 0.547
+        },
+        {
+          "token": "that",
+          "weight": 0.0
+        },
+        {
+          "token": "was",
+          "weight": 0.0
+        },
+        {
+          "token": "also",
+          "weight": 0.0
+        },
+        {
+          "token": "showing",
+          "weight": -0.285
+        },
+        {
+          "token": "last",
+          "weight": 0.0
+        },
+        {
+          "token": "days",
+          "weight": 1.28
+        },
+        {
+          "token": "and",
+          "weight": 0.0
+        },
+        {
+          "token": "some",
+          "weight": 0.0
+        },
+        {
+          "token": "charlie",
+          "weight": 0.449
+        },
+        {
+          "token": "chaplin",
+          "weight": -0.13
+        },
+        {
+          "token": "films",
+          "weight": 0.554
+        },
+        {
+          "token": "based",
+          "weight": 0.35
+        },
+        {
+          "token": "on",
+          "weight": 0.0
+        },
+        {
+          "token": "the",
+          "weight": 0.0
+        },
+        {
+          "token": "quality",
+          "weight": -1.246
+        },
+        {
+          "token": "of",
+          "weight": 0.0
+        },
+        {
+          "token": "the",
+          "weight": 0.0
+        },
+        {
+          "token": "other",
+          "weight": 0.0
+        },
+        {
+          "token": "features",
+          "weight": 0.482
+        },
+        {
+          "token": "decided",
+          "weight": -0.851
+        },
+        {
+          "token": "to",
+          "weight": 0.0
+        },
+        {
+          "token": "give",
+          "weight": 0.0
+        },
+        {
+          "token": "immortel",
+          "weight": 0.0
+        },
+        {
+          "token": "chance",
+          "weight": 2.749
+        },
+        {
+          "token": "nearly",
+          "weight": -0.406
+        },
+        {
+          "token": "walked",
+          "weight": -2.204
+        },
+        {
+          "token": "out",
+          "weight": 0.0
+        },
+        {
+          "token": "of",
+          "weight": 0.0
+        },
+        {
+          "token": "this",
+          "weight": 0.0
+        },
+        {
+          "token": "movie",
+          "weight": -1.028
+        },
+        {
+          "token": "and",
+          "weight": 0.0
+        },
+        {
+          "token": "like",
+          "weight": -0.533
+        },
+        {
+          "token": "science",
+          "weight": -0.07
+        },
+        {
+          "token": "fiction",
+          "weight": -0.224
+        }
+      ]
+    },
+    {
+      "text": "sweet funny story of people crossing paths as they prepare for their weddings the ex cop writer and the public school teacher fall for each other in this great new york setting even though they are",
+      "label": "positive",
+      "prediction": "positive",
+      "confidence": 0.749,
+      "tokens": [
+        {
+          "token": "sweet",
+          "weight": 2.788
+        },
+        {
+          "token": "funny",
+          "weight": 1.487
+        },
+        {
+          "token": "story",
+          "weight": 0.8
+        },
+        {
+          "token": "of",
+          "weight": 0.0
+        },
+        {
+          "token": "people",
+          "weight": 1.167
+        },
+        {
+          "token": "crossing",
+          "weight": -0.127
+        },
+        {
+          "token": "paths",
+          "weight": 1.011
+        },
+        {
+          "token": "as",
+          "weight": 0.0
+        },
+        {
+          "token": "they",
+          "weight": 0.0
+        },
+        {
+          "token": "prepare",
+          "weight": 0.177
+        },
+        {
+          "token": "for",
+          "weight": 0.0
+        },
+        {
+          "token": "their",
+          "weight": 0.0
+        },
+        {
+          "token": "weddings",
+          "weight": -0.231
+        },
+        {
+          "token": "the",
+          "weight": 0.0
+        },
+        {
+          "token": "ex",
+          "weight": 0.345
+        },
+        {
+          "token": "cop",
+          "weight": -0.114
+        },
+        {
+          "token": "writer",
+          "weight": -0.603
+        },
+        {
+          "token": "and",
+          "weight": 0.0
+        },
+        {
+          "token": "the",
+          "weight": 0.0
+        },
+        {
+          "token": "public",
+          "weight": -0.601
+        },
+        {
+          "token": "school",
+          "weight": 0.552
+        },
+        {
+          "token": "teacher",
+          "weight": -0.175
+        },
+        {
+          "token": "fall",
+          "weight": 0.099
+        },
+        {
+          "token": "for",
+          "weight": 0.0
+        },
+        {
+          "token": "each",
+          "weight": 0.0
+        },
+        {
+          "token": "other",
+          "weight": 0.0
+        },
+        {
+          "token": "in",
+          "weight": 0.0
+        },
+        {
+          "token": "this",
+          "weight": 0.0
+        },
+        {
+          "token": "great",
+          "weight": 8.89
+        },
+        {
+          "token": "new",
+          "weight": 0.734
+        },
+        {
+          "token": "york",
+          "weight": -0.11
+        },
+        {
+          "token": "setting",
+          "weight": -0.154
+        },
+        {
+          "token": "even",
+          "weight": 0.0
+        },
+        {
+          "token": "though",
+          "weight": 0.0
+        },
+        {
+          "token": "they",
+          "weight": 0.0
+        },
+        {
+          "token": "are",
+          "weight": 0.0
+        },
+        {
+          "token": "marrying",
+          "weight": 0.599
+        },
+        {
+          "token": "other",
+          "weight": 0.0
+        },
+        {
+          "token": "people",
+          "weight": 1.167
+        },
+        {
+          "token": "maybe",
+          "weight": -2.226
+        }
+      ]
+    },
+    {
+      "text": "originally came across linda feferman's seven minutes in heaven when was and worked at video store and loved it recently watched the movie again and have realized that it is lost treasure the movie stars jennifer",
+      "label": "positive",
+      "prediction": "positive",
+      "confidence": 0.9683,
+      "tokens": [
+        {
+          "token": "originally",
+          "weight": 1.232
+        },
+        {
+          "token": "came",
+          "weight": 0.697
+        },
+        {
+          "token": "across",
+          "weight": 0.0
+        },
+        {
+          "token": "linda",
+          "weight": -1.306
+        },
+        {
+          "token": "feferman's",
+          "weight": 0.0
+        },
+        {
+          "token": "seven",
+          "weight": 0.709
+        },
+        {
+          "token": "minutes",
+          "weight": -5.052
+        },
+        {
+          "token": "in",
+          "weight": 0.0
+        },
+        {
+          "token": "heaven",
+          "weight": 0.215
+        },
+        {
+          "token": "when",
+          "weight": 0.0
+        },
+        {
+          "token": "was",
+          "weight": 0.0
+        },
+        {
+          "token": "and",
+          "weight": 0.0
+        },
+        {
+          "token": "worked",
+          "weight": 0.155
+        },
+        {
+          "token": "at",
+          "weight": 0.0
+        },
+        {
+          "token": "video",
+          "weight": 0.383
+        },
+        {
+          "token": "store",
+          "weight": -0.762
+        },
+        {
+          "token": "and",
+          "weight": 0.0
+        },
+        {
+          "token": "loved",
+          "weight": 5.604
+        },
+        {
+          "token": "it",
+          "weight": 0.0
+        },
+        {
+          "token": "recently",
+          "weight": 1.585
+        },
+        {
+          "token": "watched",
+          "weight": 0.249
+        },
+        {
+          "token": "the",
+          "weight": 0.0
+        },
+        {
+          "token": "movie",
+          "weight": -1.028
+        },
+        {
+          "token": "again",
+          "weight": 0.0
+        },
+        {
+          "token": "and",
+          "weight": 0.0
+        },
+        {
+          "token": "have",
+          "weight": 0.0
+        },
+        {
+          "token": "realized",
+          "weight": -0.196
+        },
+        {
+          "token": "that",
+          "weight": 0.0
+        },
+        {
+          "token": "it",
+          "weight": 0.0
+        },
+        {
+          "token": "is",
+          "weight": 0.0
+        },
+        {
+          "token": "lost",
+          "weight": -0.961
+        },
+        {
+          "token": "treasure",
+          "weight": 0.357
+        },
+        {
+          "token": "the",
+          "weight": 0.0
+        },
+        {
+          "token": "movie",
+          "weight": -1.028
+        },
+        {
+          "token": "stars",
+          "weight": -0.286
+        },
+        {
+          "token": "jennifer",
+          "weight": -0.216
+        },
+        {
+          "token": "connelly",
+          "weight": 0.799
+        },
+        {
+          "token": "almost",
+          "weight": 0.0
+        },
+        {
+          "token": "twenty",
+          "weight": 0.0
+        },
+        {
+          "token": "years",
+          "weight": 1.817
+        }
+      ]
+    },
+    {
+      "text": "the salena incident is set in arizona where six death row inmates are being transfered from the state prison for reasons never explained while driving along the heavily armed prison bus gets flat the driver is",
+      "label": "negative",
+      "prediction": "negative",
+      "confidence": 0.9994,
+      "tokens": [
+        {
+          "token": "the",
+          "weight": 0.0
+        },
+        {
+          "token": "salena",
+          "weight": 0.0
+        },
+        {
+          "token": "incident",
+          "weight": -0.213
+        },
+        {
+          "token": "is",
+          "weight": 0.0
+        },
+        {
+          "token": "set",
+          "weight": -0.368
+        },
+        {
+          "token": "in",
+          "weight": 0.0
+        },
+        {
+          "token": "arizona",
+          "weight": -0.195
+        },
+        {
+          "token": "where",
+          "weight": 0.0
+        },
+        {
+          "token": "six",
+          "weight": 0.0
+        },
+        {
+          "token": "death",
+          "weight": 1.406
+        },
+        {
+          "token": "row",
+          "weight": -0.689
+        },
+        {
+          "token": "inmates",
+          "weight": 0.275
+        },
+        {
+          "token": "are",
+          "weight": 0.0
+        },
+        {
+          "token": "being",
+          "weight": 0.0
+        },
+        {
+          "token": "transfered",
+          "weight": 0.0
+        },
+        {
+          "token": "from",
+          "weight": 0.0
+        },
+        {
+          "token": "the",
+          "weight": 0.0
+        },
+        {
+          "token": "state",
+          "weight": -1.407
+        },
+        {
+          "token": "prison",
+          "weight": -0.618
+        },
+        {
+          "token": "for",
+          "weight": 0.0
+        },
+        {
+          "token": "reasons",
+          "weight": -1.238
+        },
+        {
+          "token": "never",
+          "weight": 0.0
+        },
+        {
+          "token": "explained",
+          "weight": -1.332
+        },
+        {
+          "token": "while",
+          "weight": 0.0
+        },
+        {
+          "token": "driving",
+          "weight": -0.526
+        },
+        {
+          "token": "along",
+          "weight": 0.0
+        },
+        {
+          "token": "the",
+          "weight": 0.0
+        },
+        {
+          "token": "heavily",
+          "weight": 0.533
+        },
+        {
+          "token": "armed",
+          "weight": 0.176
+        },
+        {
+          "token": "prison",
+          "weight": -0.618
+        },
+        {
+          "token": "bus",
+          "weight": 0.714
+        },
+        {
+          "token": "gets",
+          "weight": 0.42
+        },
+        {
+          "token": "flat",
+          "weight": -2.708
+        },
+        {
+          "token": "the",
+          "weight": 0.0
+        },
+        {
+          "token": "driver",
+          "weight": -0.805
+        },
+        {
+          "token": "is",
+          "weight": 0.0
+        },
+        {
+          "token": "forced",
+          "weight": -1.301
+        },
+        {
+          "token": "to",
+          "weight": 0.0
+        },
+        {
+          "token": "pull",
+          "weight": 0.081
+        },
+        {
+          "token": "off",
+          "weight": 0.0
+        }
+      ]
+    },
+    {
+      "text": "sappy br br liked how they went to the haaavaad baaa to quote books at each other to impress the ugliest girl there br br probably the janitor at my school is genius too but is",
+      "label": "negative",
+      "prediction": "negative",
+      "confidence": 0.7213,
+      "tokens": [
+        {
+          "token": "sappy",
+          "weight": -0.084
+        },
+        {
+          "token": "br",
+          "weight": -0.417
+        },
+        {
+          "token": "br",
+          "weight": -0.417
+        },
+        {
+          "token": "liked",
+          "weight": 3.166
+        },
+        {
+          "token": "how",
+          "weight": 0.0
+        },
+        {
+          "token": "they",
+          "weight": 0.0
+        },
+        {
+          "token": "went",
+          "weight": -0.793
+        },
+        {
+          "token": "to",
+          "weight": 0.0
+        },
+        {
+          "token": "the",
+          "weight": 0.0
+        },
+        {
+          "token": "haaavaad",
+          "weight": 0.0
+        },
+        {
+          "token": "baaa",
+          "weight": 0.0
+        },
+        {
+          "token": "to",
+          "weight": 0.0
+        },
+        {
+          "token": "quote",
+          "weight": 0.287
+        },
+        {
+          "token": "books",
+          "weight": -1.099
+        },
+        {
+          "token": "at",
+          "weight": 0.0
+        },
+        {
+          "token": "each",
+          "weight": 0.0
+        },
+        {
+          "token": "other",
+          "weight": 0.0
+        },
+        {
+          "token": "to",
+          "weight": 0.0
+        },
+        {
+          "token": "impress",
+          "weight": 0.011
+        },
+        {
+          "token": "the",
+          "weight": 0.0
+        },
+        {
+          "token": "ugliest",
+          "weight": 0.162
+        },
+        {
+          "token": "girl",
+          "weight": -0.468
+        },
+        {
+          "token": "there",
+          "weight": 0.0
+        },
+        {
+          "token": "br",
+          "weight": -0.417
+        },
+        {
+          "token": "br",
+          "weight": -0.417
+        },
+        {
+          "token": "probably",
+          "weight": 0.058
+        },
+        {
+          "token": "the",
+          "weight": 0.0
+        },
+        {
+          "token": "janitor",
+          "weight": -0.186
+        },
+        {
+          "token": "at",
+          "weight": 0.0
+        },
+        {
+          "token": "my",
+          "weight": 0.0
+        },
+        {
+          "token": "school",
+          "weight": 0.552
+        },
+        {
+          "token": "is",
+          "weight": 0.0
+        },
+        {
+          "token": "genius",
+          "weight": 2.329
+        },
+        {
+          "token": "too",
+          "weight": 0.0
+        },
+        {
+          "token": "but",
+          "weight": 0.0
+        },
+        {
+          "token": "is",
+          "weight": 0.0
+        },
+        {
+          "token": "waiting",
+          "weight": -0.758
+        },
+        {
+          "token": "to",
+          "weight": 0.0
+        },
+        {
+          "token": "land",
+          "weight": 0.236
+        },
+        {
+          "token": "that",
+          "weight": 0.0
+        }
+      ]
+    },
+    {
+      "text": "as youth pastor heard good things about this movie then watched it the acting wasn't the best that's forgivable it's the message that's not give jesus your life and everything will change you'll tackle better make",
+      "label": "negative",
+      "prediction": "positive",
+      "confidence": 0.6817,
+      "tokens": [
+        {
+          "token": "as",
+          "weight": 0.0
+        },
+        {
+          "token": "youth",
+          "weight": -0.1
+        },
+        {
+          "token": "pastor",
+          "weight": 0.276
+        },
+        {
+          "token": "heard",
+          "weight": 1.008
+        },
+        {
+          "token": "good",
+          "weight": 2.872
+        },
+        {
+          "token": "things",
+          "weight": 1.419
+        },
+        {
+          "token": "about",
+          "weight": 0.0
+        },
+        {
+          "token": "this",
+          "weight": 0.0
+        },
+        {
+          "token": "movie",
+          "weight": -1.028
+        },
+        {
+          "token": "then",
+          "weight": 0.0
+        },
+        {
+          "token": "watched",
+          "weight": 0.249
+        },
+        {
+          "token": "it",
+          "weight": 0.0
+        },
+        {
+          "token": "the",
+          "weight": 0.0
+        },
+        {
+          "token": "acting",
+          "weight": -1.9
+        },
+        {
+          "token": "wasn't",
+          "weight": 0.0
+        },
+        {
+          "token": "the",
+          "weight": 0.0
+        },
+        {
+          "token": "best",
+          "weight": 6.818
+        },
+        {
+          "token": "that's",
+          "weight": 0.0
+        },
+        {
+          "token": "forgivable",
+          "weight": -0.137
+        },
+        {
+          "token": "it's",
+          "weight": 0.0
+        },
+        {
+          "token": "the",
+          "weight": 0.0
+        },
+        {
+          "token": "message",
+          "weight": 0.894
+        },
+        {
+          "token": "that's",
+          "weight": 0.0
+        },
+        {
+          "token": "not",
+          "weight": 0.0
+        },
+        {
+          "token": "give",
+          "weight": 0.0
+        },
+        {
+          "token": "jesus",
+          "weight": -0.575
+        },
+        {
+          "token": "your",
+          "weight": 0.0
+        },
+        {
+          "token": "life",
+          "weight": 2.598
+        },
+        {
+          "token": "and",
+          "weight": 0.0
+        },
+        {
+          "token": "everything",
+          "weight": 0.0
+        },
+        {
+          "token": "will",
+          "weight": 0.0
+        },
+        {
+          "token": "change",
+          "weight": 0.953
+        },
+        {
+          "token": "you'll",
+          "weight": 0.0
+        },
+        {
+          "token": "tackle",
+          "weight": -0.376
+        },
+        {
+          "token": "better",
+          "weight": -2.581
+        },
+        {
+          "token": "make",
+          "weight": -2.432
+        },
+        {
+          "token": "amazing",
+          "weight": 6.384
+        },
+        {
+          "token": "catches",
+          "weight": 0.347
+        },
+        {
+          "token": "stop",
+          "weight": -0.232
+        },
+        {
+          "token": "fumbling",
+          "weight": 0.0
+        }
+      ]
+    },
+    {
+      "text": "well the movie was fun watch the main problem with this movie is the fact that it goes against everything that most vampire myths abide by like vampires that walk in the sunlight though there are",
+      "label": "negative",
+      "prediction": "negative",
+      "confidence": 0.5545,
+      "tokens": [
+        {
+          "token": "well",
+          "weight": 0.0
+        },
+        {
+          "token": "the",
+          "weight": 0.0
+        },
+        {
+          "token": "movie",
+          "weight": -1.028
+        },
+        {
+          "token": "was",
+          "weight": 0.0
+        },
+        {
+          "token": "fun",
+          "weight": 5.324
+        },
+        {
+          "token": "watch",
+          "weight": 0.927
+        },
+        {
+          "token": "the",
+          "weight": 0.0
+        },
+        {
+          "token": "main",
+          "weight": -0.766
+        },
+        {
+          "token": "problem",
+          "weight": -3.475
+        },
+        {
+          "token": "with",
+          "weight": 0.0
+        },
+        {
+          "token": "this",
+          "weight": 0.0
+        },
+        {
+          "token": "movie",
+          "weight": -1.028
+        },
+        {
+          "token": "is",
+          "weight": 0.0
+        },
+        {
+          "token": "the",
+          "weight": 0.0
+        },
+        {
+          "token": "fact",
+          "weight": -0.644
+        },
+        {
+          "token": "that",
+          "weight": 0.0
+        },
+        {
+          "token": "it",
+          "weight": 0.0
+        },
+        {
+          "token": "goes",
+          "weight": -0.423
+        },
+        {
+          "token": "against",
+          "weight": 0.0
+        },
+        {
+          "token": "everything",
+          "weight": 0.0
+        },
+        {
+          "token": "that",
+          "weight": 0.0
+        },
+        {
+          "token": "most",
+          "weight": 0.0
+        },
+        {
+          "token": "vampire",
+          "weight": -0.159
+        },
+        {
+          "token": "myths",
+          "weight": -0.334
+        },
+        {
+          "token": "abide",
+          "weight": 0.0
+        },
+        {
+          "token": "by",
+          "weight": 0.0
+        },
+        {
+          "token": "like",
+          "weight": -0.533
+        },
+        {
+          "token": "vampires",
+          "weight": -1.152
+        },
+        {
+          "token": "that",
+          "weight": 0.0
+        },
+        {
+          "token": "walk",
+          "weight": -1.235
+        },
+        {
+          "token": "in",
+          "weight": 0.0
+        },
+        {
+          "token": "the",
+          "weight": 0.0
+        },
+        {
+          "token": "sunlight",
+          "weight": -0.256
+        },
+        {
+          "token": "though",
+          "weight": 0.0
+        },
+        {
+          "token": "there",
+          "weight": 0.0
+        },
+        {
+          "token": "are",
+          "weight": 0.0
+        },
+        {
+          "token": "parts",
+          "weight": 0.648
+        },
+        {
+          "token": "that",
+          "weight": 0.0
+        },
+        {
+          "token": "just",
+          "weight": -3.133
+        },
+        {
+          "token": "make",
+          "weight": -2.432
+        }
+      ]
+    },
+    {
+      "text": "in in small village in japan the wife of the litter carrier gisaburo takahiro tamura seki kazuko yoshiyuki has an affair with man twenty six years younger toyiji tatsuya fuji toyiji becomes jealous of gisaburo and",
+      "label": "positive",
+      "prediction": "positive",
+      "confidence": 0.9631,
+      "tokens": [
+        {
+          "token": "in",
+          "weight": 0.0
+        },
+        {
+          "token": "in",
+          "weight": 0.0
+        },
+        {
+          "token": "small",
+          "weight": 1.751
+        },
+        {
+          "token": "village",
+          "weight": 0.412
+        },
+        {
+          "token": "in",
+          "weight": 0.0
+        },
+        {
+          "token": "japan",
+          "weight": 0.552
+        },
+        {
+          "token": "the",
+          "weight": 0.0
+        },
+        {
+          "token": "wife",
+          "weight": 0.452
+        },
+        {
+          "token": "of",
+          "weight": 0.0
+        },
+        {
+          "token": "the",
+          "weight": 0.0
+        },
+        {
+          "token": "litter",
+          "weight": 0.0
+        },
+        {
+          "token": "carrier",
+          "weight": -0.098
+        },
+        {
+          "token": "gisaburo",
+          "weight": 0.0
+        },
+        {
+          "token": "takahiro",
+          "weight": 0.0
+        },
+        {
+          "token": "tamura",
+          "weight": 0.929
+        },
+        {
+          "token": "seki",
+          "weight": 0.0
+        },
+        {
+          "token": "kazuko",
+          "weight": 0.0
+        },
+        {
+          "token": "yoshiyuki",
+          "weight": 0.0
+        },
+        {
+          "token": "has",
+          "weight": 0.0
+        },
+        {
+          "token": "an",
+          "weight": 0.0
+        },
+        {
+          "token": "affair",
+          "weight": -1.271
+        },
+        {
+          "token": "with",
+          "weight": 0.0
+        },
+        {
+          "token": "man",
+          "weight": 1.206
+        },
+        {
+          "token": "twenty",
+          "weight": 0.0
+        },
+        {
+          "token": "six",
+          "weight": 0.0
+        },
+        {
+          "token": "years",
+          "weight": 1.817
+        },
+        {
+          "token": "younger",
+          "weight": -0.302
+        },
+        {
+          "token": "toyiji",
+          "weight": 0.0
+        },
+        {
+          "token": "tatsuya",
+          "weight": 0.0
+        },
+        {
+          "token": "fuji",
+          "weight": 0.0
+        },
+        {
+          "token": "toyiji",
+          "weight": 0.0
+        },
+        {
+          "token": "becomes",
+          "weight": 0.0
+        },
+        {
+          "token": "jealous",
+          "weight": 0.308
+        },
+        {
+          "token": "of",
+          "weight": 0.0
+        },
+        {
+          "token": "gisaburo",
+          "weight": 0.0
+        },
+        {
+          "token": "and",
+          "weight": 0.0
+        },
+        {
+          "token": "plots",
+          "weight": -0.571
+        },
+        {
+          "token": "with",
+          "weight": 0.0
+        },
+        {
+          "token": "seki",
+          "weight": 0.0
+        },
+        {
+          "token": "to",
+          "weight": 0.0
+        }
+      ]
+    }
+  ]
+}

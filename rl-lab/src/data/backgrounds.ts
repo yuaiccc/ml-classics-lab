@@ -94,6 +94,11 @@ export const BACKGROUNDS: Record<string, Background> = {
       "长上下文推理时，KV-cache 是显存瓶颈。MQA/GQA/MLA 这条线就是工业界为了「把大模型推理跑得起、跑得便宜」一步步压缩 KV-cache 的真实演进——DeepSeek 的 MLA 是其中的关键一招。",
     uses: ["大模型推理优化", "显存/成本控制", "长上下文", "服务化部署"],
   },
+  "pos-encoding": {
+    realWorld:
+      "位置编码决定了大模型能不能处理长文本、能不能把 4K 训练的模型外推到 128K 上下文。RoPE 是当下几乎所有开源大模型（LLaMA/Qwen 等）的标配，YaRN/NTK 则是「长上下文」卖点背后的关键技术。",
+    uses: ["长上下文外推", "大模型位置感", "RoPE 工程", "检索/长文档"],
+  },
   rnn: {
     realWorld: "处理「有先后顺序」的数据——语音、文本、股价。Transformer 出现之前的序列建模主力。",
     uses: ["语音识别", "机器翻译 (早期)", "时间序列预测", "文本生成"],

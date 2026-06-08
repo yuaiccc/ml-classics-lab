@@ -32,6 +32,7 @@ import { runYoloVersions } from "@/algorithms/yolo-versions";
 import { runDeerflow } from "@/algorithms/deerflow";
 import { runActivations } from "@/algorithms/arch/activations";
 import { runAttentionKV } from "@/algorithms/arch/attention-kv";
+import { runPosEncoding } from "@/algorithms/arch/pos-encoding";
 import { runRagLive, runAgentLive, runAgenticRagLive, runEmbeddingsLive, Progress } from "@/algorithms/live-llm";
 import { ollamaReachable } from "@/lib/ollama";
 import cartpolePPO from "@/data/frames/cartpole-ppo.json";
@@ -104,6 +105,7 @@ import AttentionHeatmap from "@/visualizers/AttentionHeatmap";
 import Cifar10Plot from "@/visualizers/Cifar10Plot";
 import ActivationViz from "@/visualizers/arch/ActivationViz";
 import AttnKVViz from "@/visualizers/arch/AttnKVViz";
+import PosEncodingViz from "@/visualizers/arch/PosEncodingViz";
 import MetricCurve from "@/visualizers/MetricCurve";
 import TutorialPanel from "@/components/TutorialPanel";
 import CodeViewer from "@/components/CodeViewer";
@@ -637,6 +639,16 @@ const DEMOS: Demo[] = [
     metricLabel: "（交互演示 · 无训练曲线）",
     metricColor: "#38bdf8",
   },
+  {
+    key: "pos-encoding",
+    label: "位置编码",
+    group: "LLM 架构解剖",
+    build: () => runPosEncoding(),
+    Viz: PosEncodingViz,
+    metricKey: "noop",
+    metricLabel: "（交互演示 · 无训练曲线）",
+    metricColor: "#38bdf8",
+  },
 ];
 
 // 发展脉络：按 AI 发展史组成一棵分叉树（分支=方法谱系，叶子=具体实验）
@@ -721,6 +733,7 @@ const TREE: TreeNode[] = [
     children: [
       { label: "FFN · 激活", children: [{ key: "activations" }] },
       { label: "注意力 · KV 共享", children: [{ key: "attention-kv" }] },
+      { label: "位置编码", children: [{ key: "pos-encoding" }] },
     ],
   },
 ];

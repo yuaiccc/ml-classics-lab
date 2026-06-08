@@ -96,7 +96,8 @@ describe("RoPE", () => {
 
 describe("YaRN", () => {
   it("rotates slower than RoPE (extends effective range)", () => {
-    const v = [1, 0, 0, 0];
+    // 用第 2 个二维对（i=2）：第 1 对 freq=base^0=1 与 base 无关，体现不出 YaRN 差异。
+    const v = [0, 0, 1, 0];
     const pos = 6;
     // 旋转越慢 → 与原向量越对齐 → 点积越大
     expect(dot(yarnApply(v, pos), v)).toBeGreaterThan(dot(ropeApply(v, pos), v));

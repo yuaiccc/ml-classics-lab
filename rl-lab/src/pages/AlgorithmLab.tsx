@@ -29,6 +29,7 @@ import { runRegularization } from "@/algorithms/regularization";
 import { runROC } from "@/algorithms/roc";
 import { runQwenEmbeddings } from "@/algorithms/qwen-embeddings";
 import { runYoloVersions } from "@/algorithms/yolo-versions";
+import { runDeerflow } from "@/algorithms/deerflow";
 import { runRagLive, runAgentLive, runAgenticRagLive, runEmbeddingsLive, Progress } from "@/algorithms/live-llm";
 import { ollamaReachable } from "@/lib/ollama";
 import cartpolePPO from "@/data/frames/cartpole-ppo.json";
@@ -350,6 +351,16 @@ const DEMOS: Demo[] = [
     metricColor: "#00ff88",
   },
   {
+    key: "deerflow",
+    label: "DeerFlow 深度研究",
+    group: "Agent 时代",
+    build: () => runDeerflow(),
+    Viz: AgentPlot,
+    metricKey: "step",
+    metricLabel: "研究步骤",
+    metricColor: "#ffab40",
+  },
+  {
     key: "yolo",
     label: "YOLO 目标检测",
     group: "深度学习",
@@ -568,6 +579,7 @@ const TREE: TreeNode[] = [
     label: "Agent 时代",
     children: [
       { label: "ReAct · 工具调用（本地 Qwen）", children: [{ key: "agent-react" }, { key: "agentic-rag" }] },
+      { label: "深度研究 Agent（本地 DeerFlow）", children: [{ key: "deerflow" }] },
     ],
   },
   {
@@ -598,11 +610,12 @@ const byKey = Object.fromEntries(DEMOS.map((d) => [d.key, d]));
 
 // 实验由什么驱动：tianshou=用清华 Tianshou 的 RL 算法；pytorch=纯 PyTorch 训练；
 // 其余（不在表里的）都是浏览器端纯手写、零库。
-const ENGINE: Record<string, "tianshou" | "pytorch" | "ollama"> = {
+const ENGINE: Record<string, "tianshou" | "pytorch" | "ollama" | "deerflow"> = {
   "qwen-embeddings": "ollama",
   "agent-react": "ollama",
   rag: "ollama",
   "agentic-rag": "ollama",
+  deerflow: "deerflow",
   "cartpole-ppo": "tianshou",
   "mountaincar-dqn": "tianshou",
   "mountaincar-ppo": "tianshou",
@@ -791,6 +804,14 @@ export default function AlgorithmLab() {
                 className="inline-flex items-center gap-1 text-[11px] font-mono px-1.5 py-0.5 rounded bg-[rgba(179,136,255,0.14)] text-[#b388ff] border border-[#b388ff]/30"
               >
                 🦙 本地 Qwen
+              </span>
+            )}
+            {ENGINE[demoKey] === "deerflow" && (
+              <span
+                title="从本地 DeerFlow 数据库读出的真实研究轨迹（DeepSeek 驱动，只读未触碰服务）"
+                className="inline-flex items-center gap-1 text-[11px] font-mono px-1.5 py-0.5 rounded bg-[rgba(255,171,64,0.14)] text-[#ffab40] border border-[#ffab40]/30"
+              >
+                🦌 DeerFlow · 真实运行
               </span>
             )}
             {!ENGINE[demoKey] && (

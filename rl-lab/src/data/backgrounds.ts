@@ -120,6 +120,10 @@ export const BACKGROUNDS: Record<string, Background> = {
     realWorld: "复杂问题的答案分散在多处，一次检索抓不全。Agentic RAG 让模型像侦探一样多轮检索、边查边想——这是 Deep Research、深度问答 Agent 的核心。",
     uses: ["Deep Research", "多跳问答", "调研/情报分析", "复杂知识检索"],
   },
+  deerflow: {
+    realWorld: "把「Agentic RAG」做到生产级——字节开源的 DeerFlow 接到一个开放问题后，自主规划、多轮联网搜索、读资料、综合成结构化研究报告。这就是 OpenAI Deep Research、各类「深度研究」产品在做的事。",
+    uses: ["深度研究/调研", "行业分析报告", "学术文献综述", "AI 研究助手"],
+  },
   yolo: {
     realWorld: "让机器实时「看见」并框出画面里所有物体——自动驾驶认行人车辆、安防识别、工业质检、手机相册识物。YOLO 是实时目标检测的代名词。",
     uses: ["自动驾驶感知", "安防/监控", "工业质检", "实时视频分析"],

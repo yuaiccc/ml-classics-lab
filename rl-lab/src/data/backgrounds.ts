@@ -89,6 +89,11 @@ export const BACKGROUNDS: Record<string, Background> = {
       "激活函数是神经网络非线性的来源。从 ReLU 到 GELU/SiLU/Swish 再到门控的 SwiGLU，这条演进线直接决定了现代 LLM 的 FFN 长什么样、训练稳不稳。",
     uses: ["大模型 FFN 设计", "训练稳定性", "梯度流动", "深度网络基础"],
   },
+  "attention-kv": {
+    realWorld:
+      "长上下文推理时，KV-cache 是显存瓶颈。MQA/GQA/MLA 这条线就是工业界为了「把大模型推理跑得起、跑得便宜」一步步压缩 KV-cache 的真实演进——DeepSeek 的 MLA 是其中的关键一招。",
+    uses: ["大模型推理优化", "显存/成本控制", "长上下文", "服务化部署"],
+  },
   rnn: {
     realWorld: "处理「有先后顺序」的数据——语音、文本、股价。Transformer 出现之前的序列建模主力。",
     uses: ["语音识别", "机器翻译 (早期)", "时间序列预测", "文本生成"],

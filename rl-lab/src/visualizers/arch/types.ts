@@ -31,3 +31,18 @@ export type NormVariant = "layernorm" | "rmsnorm" | "qknorm" | "prepost";
 export interface NormState {
   vectors: number[][]; // 若干 d 维玩具激活向量（这里 d=3）
 }
+
+// —— MoE ——
+export type MoEVariant = "dense" | "moe" | "switch" | "deepseek";
+export interface MoEState {
+  tokens: number[]; // 玩具 token 序列（值用于确定性路由）
+  nExperts: number;
+  topK: number;
+  nShared: number; // DeepSeekMoE 常驻共享专家数
+}
+
+// —— 残差连接 ——
+export type ResidualVariant = "plain" | "rc" | "hc" | "mhc" | "attnres";
+export interface ResidualState {
+  nLayers: number;
+}

@@ -12,6 +12,11 @@ const IRIS_IMGS = [
 ];
 
 export const BACKGROUNDS: Record<string, Background> = {
+  "sparse-attention": {
+    realWorld:
+      "稀疏/窗口注意力是长上下文大模型的关键省钱手段——Longformer、Mistral 的滑动窗口、DeepSeek 的稀疏注意力，都是为了把 O(L²) 压下来又尽量不掉效果。",
+    uses: ["长上下文", "推理降本", "长文档处理", "高效注意力"],
+  },
   linreg: {
     realWorld: "预测一个连续数值——房价随面积变、销量随广告投入变。线性回归是最基础的预测模型，至今仍是统计建模和数据分析的起点。",
     uses: ["房价/销量预测", "趋势外推", "风险定价", "实验效应估计"],
@@ -103,6 +108,21 @@ export const BACKGROUNDS: Record<string, Background> = {
     realWorld:
       "归一化是深层网络能训起来的关键。RMSNorm 取代 LayerNorm、Pre-Norm 取代 Post-Norm，这些「不起眼的小改」正是现代大模型能堆到几十上百层还稳定收敛的幕后功臣。",
     uses: ["深层训练稳定", "大模型架构", "训练加速", "梯度健康"],
+  },
+  moe: {
+    realWorld:
+      "MoE 是当下顶级大模型（Mixtral、DeepSeek-V3、传闻中的 GPT-4）做大又做省的关键——参数量上万亿，但每个 token 只激活一小撮专家，推理成本可控。",
+    uses: ["万亿参数大模型", "稀疏激活/降本", "专家专精", "DeepSeek/Mixtral 架构"],
+  },
+  residual: {
+    realWorld:
+      "残差连接（ResNet, 2015）是深度学习能「做深」的转折点——没有它就没有几百层的网络、也没有能堆几十上百层的 Transformer。它是现代大模型的地基之一。",
+    uses: ["深层网络训练", "Transformer 地基", "梯度稳定", "超深模型"],
+  },
+  "linear-seq": {
+    realWorld:
+      "线性注意力与 Mamba 系 SSM 是「后 Transformer」最前沿的方向——用定长状态、线性计算挑战注意力的 O(L²) 瓶颈，瞄准超长上下文与高效推理（基因组、长文档、端侧大模型）。",
+    uses: ["超长上下文", "高效推理/端侧", "长文档/基因组", "后 Transformer 架构"],
   },
   rnn: {
     realWorld: "处理「有先后顺序」的数据——语音、文本、股价。Transformer 出现之前的序列建模主力。",

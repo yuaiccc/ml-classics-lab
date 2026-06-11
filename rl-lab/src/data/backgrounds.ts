@@ -114,6 +114,11 @@ export const BACKGROUNDS: Record<string, Background> = {
       "残差连接（ResNet, 2015）是深度学习能「做深」的转折点——没有它就没有几百层的网络、也没有能堆几十上百层的 Transformer。它是现代大模型的地基之一。",
     uses: ["深层网络训练", "Transformer 地基", "梯度稳定", "超深模型"],
   },
+  "linear-seq": {
+    realWorld:
+      "线性注意力与 Mamba 系 SSM 是「后 Transformer」最前沿的方向——用定长状态、线性计算挑战注意力的 O(L²) 瓶颈，瞄准超长上下文与高效推理（基因组、长文档、端侧大模型）。",
+    uses: ["超长上下文", "高效推理/端侧", "长文档/基因组", "后 Transformer 架构"],
+  },
   rnn: {
     realWorld: "处理「有先后顺序」的数据——语音、文本、股价。Transformer 出现之前的序列建模主力。",
     uses: ["语音识别", "机器翻译 (早期)", "时间序列预测", "文本生成"],

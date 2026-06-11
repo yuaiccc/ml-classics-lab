@@ -36,6 +36,7 @@ import { runPosEncoding } from "@/algorithms/arch/pos-encoding";
 import { runNormalization } from "@/algorithms/arch/normalization";
 import { runMoE } from "@/algorithms/arch/moe";
 import { runResidual } from "@/algorithms/arch/residual";
+import { runLinearSeq } from "@/algorithms/arch/linear-seq";
 import { runRagLive, runAgentLive, runAgenticRagLive, runEmbeddingsLive, Progress } from "@/algorithms/live-llm";
 import { ollamaReachable } from "@/lib/ollama";
 import cartpolePPO from "@/data/frames/cartpole-ppo.json";
@@ -112,6 +113,7 @@ import PosEncodingViz from "@/visualizers/arch/PosEncodingViz";
 import NormViz from "@/visualizers/arch/NormViz";
 import MoEViz from "@/visualizers/arch/MoEViz";
 import ResidualViz from "@/visualizers/arch/ResidualViz";
+import LinearSeqViz from "@/visualizers/arch/LinearSeqViz";
 import MetricCurve from "@/visualizers/MetricCurve";
 import TutorialPanel from "@/components/TutorialPanel";
 import CodeViewer from "@/components/CodeViewer";
@@ -685,6 +687,16 @@ const DEMOS: Demo[] = [
     metricLabel: "（交互演示 · 无训练曲线）",
     metricColor: "#38bdf8",
   },
+  {
+    key: "linear-seq",
+    label: "线性·SSM",
+    group: "LLM 架构解剖",
+    build: () => runLinearSeq(),
+    Viz: LinearSeqViz,
+    metricKey: "noop",
+    metricLabel: "（交互演示 · 无训练曲线）",
+    metricColor: "#38bdf8",
+  },
 ];
 
 // 发展脉络：按 AI 发展史组成一棵分叉树（分支=方法谱系，叶子=具体实验）
@@ -773,6 +785,7 @@ const TREE: TreeNode[] = [
       { label: "归一化", children: [{ key: "normalization" }] },
       { label: "专家混合 MoE", children: [{ key: "moe" }] },
       { label: "残差连接", children: [{ key: "residual" }] },
+      { label: "线性·SSM", children: [{ key: "linear-seq" }] },
     ],
   },
 ];

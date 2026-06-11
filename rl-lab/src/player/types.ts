@@ -20,7 +20,15 @@ export type Family =
   | "agent"
   | "rag"
   | "yolo"
-  | "versions";
+  | "versions"
+  | "activation"
+  | "attn-kv"
+  | "pos-encoding"
+  | "normalization"
+  | "sparse-attn"
+  | "linear-seq"
+  | "moe"
+  | "residual";
 
 /** 小白教程内容：把每个算法做成一节可读的小课。 */
 export interface Tutorial {

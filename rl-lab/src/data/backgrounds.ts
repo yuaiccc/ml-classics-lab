@@ -84,6 +84,26 @@ export const BACKGROUNDS: Record<string, Background> = {
     realWorld: "万能函数拟合器——能逼近任意非线性关系，是所有深度网络的基本积木。",
     uses: ["通用分类/回归", "深度网络基础", "表格数据建模", "特征非线性组合"],
   },
+  activations: {
+    realWorld:
+      "激活函数是神经网络非线性的来源。从 ReLU 到 GELU/SiLU/Swish 再到门控的 SwiGLU，这条演进线直接决定了现代 LLM 的 FFN 长什么样、训练稳不稳。",
+    uses: ["大模型 FFN 设计", "训练稳定性", "梯度流动", "深度网络基础"],
+  },
+  "attention-kv": {
+    realWorld:
+      "长上下文推理时，KV-cache 是显存瓶颈。MQA/GQA/MLA 这条线就是工业界为了「把大模型推理跑得起、跑得便宜」一步步压缩 KV-cache 的真实演进——DeepSeek 的 MLA 是其中的关键一招。",
+    uses: ["大模型推理优化", "显存/成本控制", "长上下文", "服务化部署"],
+  },
+  "pos-encoding": {
+    realWorld:
+      "位置编码决定了大模型能不能处理长文本、能不能把 4K 训练的模型外推到 128K 上下文。RoPE 是当下几乎所有开源大模型（LLaMA/Qwen 等）的标配，YaRN/NTK 则是「长上下文」卖点背后的关键技术。",
+    uses: ["长上下文外推", "大模型位置感", "RoPE 工程", "检索/长文档"],
+  },
+  normalization: {
+    realWorld:
+      "归一化是深层网络能训起来的关键。RMSNorm 取代 LayerNorm、Pre-Norm 取代 Post-Norm，这些「不起眼的小改」正是现代大模型能堆到几十上百层还稳定收敛的幕后功臣。",
+    uses: ["深层训练稳定", "大模型架构", "训练加速", "梯度健康"],
+  },
   rnn: {
     realWorld: "处理「有先后顺序」的数据——语音、文本、股价。Transformer 出现之前的序列建模主力。",
     uses: ["语音识别", "机器翻译 (早期)", "时间序列预测", "文本生成"],
@@ -91,6 +111,34 @@ export const BACKGROUNDS: Record<string, Background> = {
   "cnn-shapes": {
     realWorld: "让机器「看懂」图像——自动学出边缘/纹理/物体。人脸识别、医学影像、自动驾驶视觉的基础。",
     uses: ["图像分类/识别", "医学影像诊断", "自动驾驶感知", "人脸识别"],
+  },
+  "mnist-cnn-kernels": {
+    realWorld: "MNIST 手写数字是深度学习的标准入门基准。这里用真实训练的 CNN，把它学到的卷积核和某个数字的激活图直接可视化——看清「机器到底学到了什么特征」。",
+    uses: ["手写识别 (OCR)", "卷积特征可视化", "CNN 教学", "模型可解释性"],
+  },
+  "mnist-autoencoder": {
+    realWorld: "自编码器把图像压缩成低维编码再重建——无监督表示学习、降噪、异常检测的基础。这里展示真实 MNIST 的重建逐 epoch 变清晰。",
+    uses: ["降维/表示学习", "图像降噪", "异常检测", "预训练"],
+  },
+  "mnist-vae": {
+    realWorld: "VAE 是生成模型的里程碑——学一个连续的「潜空间」，能采样生成全新的手写数字。它是 Stable Diffusion 等现代生成模型的思想前身。",
+    uses: ["图像生成", "潜空间插值", "数据增强", "生成模型基础"],
+  },
+  "mnist-gan": {
+    realWorld: "GAN 让生成器和判别器对抗博弈，从噪声「无中生有」造出逼真手写数字。这里展示真实训练中生成质量逐步提升的过程。",
+    uses: ["图像生成", "数据增强", "超分辨率", "对抗训练教学"],
+  },
+  "imdb-transformer": {
+    realWorld: "在真实 IMDb 影评上训练一个 Tiny Transformer 做情感分类，并把自注意力热力图画出来——直观看到模型「读句子时关注了哪些词」。这是理解 GPT/BERT 的钥匙。",
+    uses: ["情感分析", "文本分类", "注意力可解释性", "Transformer 教学"],
+  },
+  "imdb-lstm": {
+    realWorld: "LSTM 是 Transformer 之前的序列建模主力。这里在真实 IMDb 影评上训练，可视化隐状态随阅读句子的演化。",
+    uses: ["情感分析", "序列建模", "RNN/LSTM 教学", "文本分类"],
+  },
+  "cifar10-cnn": {
+    realWorld: "CIFAR-10 是自然图像（飞机/猫/船…）十分类基准，比 MNIST 难得多。真实 CNN 在这上面的表现展示了卷积网络处理彩色自然图像的能力。",
+    uses: ["图像分类", "自然图像识别", "CNN 基准", "迁移学习起点"],
   },
   word2vec: {
     realWorld: "把词变成有「语义算术」的向量（king − man + woman ≈ queen）——开启了 NLP 的向量时代，是搜索/推荐/大模型的前身。",

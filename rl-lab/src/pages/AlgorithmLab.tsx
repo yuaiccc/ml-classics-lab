@@ -37,6 +37,7 @@ import { runNormalization } from "@/algorithms/arch/normalization";
 import { runMoE } from "@/algorithms/arch/moe";
 import { runResidual } from "@/algorithms/arch/residual";
 import { runLinearSeq } from "@/algorithms/arch/linear-seq";
+import { runSparseAttention } from "@/algorithms/arch/sparse-attention";
 import { runRagLive, runAgentLive, runAgenticRagLive, runEmbeddingsLive, Progress } from "@/algorithms/live-llm";
 import { ollamaReachable } from "@/lib/ollama";
 import cartpolePPO from "@/data/frames/cartpole-ppo.json";
@@ -114,6 +115,7 @@ import NormViz from "@/visualizers/arch/NormViz";
 import MoEViz from "@/visualizers/arch/MoEViz";
 import ResidualViz from "@/visualizers/arch/ResidualViz";
 import LinearSeqViz from "@/visualizers/arch/LinearSeqViz";
+import SparseAttnViz from "@/visualizers/arch/SparseAttnViz";
 import MetricCurve from "@/visualizers/MetricCurve";
 import TutorialPanel from "@/components/TutorialPanel";
 import CodeViewer from "@/components/CodeViewer";
@@ -697,6 +699,16 @@ const DEMOS: Demo[] = [
     metricLabel: "（交互演示 · 无训练曲线）",
     metricColor: "#38bdf8",
   },
+  {
+    key: "sparse-attention",
+    label: "稀疏·窗口注意力",
+    group: "LLM 架构解剖",
+    build: () => runSparseAttention(),
+    Viz: SparseAttnViz,
+    metricKey: "noop",
+    metricLabel: "（交互演示 · 无训练曲线）",
+    metricColor: "#38bdf8",
+  },
 ];
 
 // 发展脉络：按 AI 发展史组成一棵分叉树（分支=方法谱系，叶子=具体实验）
@@ -786,6 +798,7 @@ const TREE: TreeNode[] = [
       { label: "专家混合 MoE", children: [{ key: "moe" }] },
       { label: "残差连接", children: [{ key: "residual" }] },
       { label: "线性·SSM", children: [{ key: "linear-seq" }] },
+      { label: "稀疏·窗口注意力", children: [{ key: "sparse-attention" }] },
     ],
   },
 ];
@@ -795,6 +808,7 @@ const byKey = Object.fromEntries(DEMOS.map((d) => [d.key, d]));
 // 实验由什么驱动：tianshou=用清华 Tianshou 的 RL 算法；pytorch=纯 PyTorch 训练；
 // 其余（不在表里的）都是浏览器端纯手写、零库。
 const ENGINE: Record<string, "tianshou" | "pytorch" | "ollama" | "deerflow"> = {
+  "sparse-attention": "pytorch",
   "qwen-embeddings": "ollama",
   "agent-react": "ollama",
   rag: "ollama",

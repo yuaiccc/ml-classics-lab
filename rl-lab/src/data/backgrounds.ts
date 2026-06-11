@@ -12,6 +12,11 @@ const IRIS_IMGS = [
 ];
 
 export const BACKGROUNDS: Record<string, Background> = {
+  "sparse-attention": {
+    realWorld:
+      "稀疏/窗口注意力是长上下文大模型的关键省钱手段——Longformer、Mistral 的滑动窗口、DeepSeek 的稀疏注意力，都是为了把 O(L²) 压下来又尽量不掉效果。",
+    uses: ["长上下文", "推理降本", "长文档处理", "高效注意力"],
+  },
   linreg: {
     realWorld: "预测一个连续数值——房价随面积变、销量随广告投入变。线性回归是最基础的预测模型，至今仍是统计建模和数据分析的起点。",
     uses: ["房价/销量预测", "趋势外推", "风险定价", "实验效应估计"],

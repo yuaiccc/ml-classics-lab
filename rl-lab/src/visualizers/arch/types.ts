@@ -46,3 +46,16 @@ export type ResidualVariant = "plain" | "rc" | "hc" | "mhc" | "attnres";
 export interface ResidualState {
   nLayers: number;
 }
+
+// —— 线性·SSM ——
+export type LinearSeqVariant = "lightning" | "gateddeltanet" | "kda" | "mamba" | "mamba2" | "mamba3";
+export interface LinearSeqState {
+  tokens: number[];
+  stateSize: number;
+}
+
+// —— 稀疏·窗口注意力 ——
+export type SparseAttnVariant = "full" | "sparse" | "swa" | "dsa" | "csa";
+export interface SparseAttnState {
+  seqLen: number;
+}

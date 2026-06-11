@@ -104,6 +104,11 @@ export const BACKGROUNDS: Record<string, Background> = {
       "归一化是深层网络能训起来的关键。RMSNorm 取代 LayerNorm、Pre-Norm 取代 Post-Norm，这些「不起眼的小改」正是现代大模型能堆到几十上百层还稳定收敛的幕后功臣。",
     uses: ["深层训练稳定", "大模型架构", "训练加速", "梯度健康"],
   },
+  moe: {
+    realWorld:
+      "MoE 是当下顶级大模型（Mixtral、DeepSeek-V3、传闻中的 GPT-4）做大又做省的关键——参数量上万亿，但每个 token 只激活一小撮专家，推理成本可控。",
+    uses: ["万亿参数大模型", "稀疏激活/降本", "专家专精", "DeepSeek/Mixtral 架构"],
+  },
   rnn: {
     realWorld: "处理「有先后顺序」的数据——语音、文本、股价。Transformer 出现之前的序列建模主力。",
     uses: ["语音识别", "机器翻译 (早期)", "时间序列预测", "文本生成"],

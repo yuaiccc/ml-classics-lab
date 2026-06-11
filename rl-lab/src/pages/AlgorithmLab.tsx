@@ -35,6 +35,7 @@ import { runAttentionKV } from "@/algorithms/arch/attention-kv";
 import { runPosEncoding } from "@/algorithms/arch/pos-encoding";
 import { runNormalization } from "@/algorithms/arch/normalization";
 import { runMoE } from "@/algorithms/arch/moe";
+import { runResidual } from "@/algorithms/arch/residual";
 import { runRagLive, runAgentLive, runAgenticRagLive, runEmbeddingsLive, Progress } from "@/algorithms/live-llm";
 import { ollamaReachable } from "@/lib/ollama";
 import cartpolePPO from "@/data/frames/cartpole-ppo.json";
@@ -110,6 +111,7 @@ import AttnKVViz from "@/visualizers/arch/AttnKVViz";
 import PosEncodingViz from "@/visualizers/arch/PosEncodingViz";
 import NormViz from "@/visualizers/arch/NormViz";
 import MoEViz from "@/visualizers/arch/MoEViz";
+import ResidualViz from "@/visualizers/arch/ResidualViz";
 import MetricCurve from "@/visualizers/MetricCurve";
 import TutorialPanel from "@/components/TutorialPanel";
 import CodeViewer from "@/components/CodeViewer";
@@ -673,6 +675,16 @@ const DEMOS: Demo[] = [
     metricLabel: "（交互演示 · 无训练曲线）",
     metricColor: "#38bdf8",
   },
+  {
+    key: "residual",
+    label: "残差连接",
+    group: "LLM 架构解剖",
+    build: () => runResidual(),
+    Viz: ResidualViz,
+    metricKey: "noop",
+    metricLabel: "（交互演示 · 无训练曲线）",
+    metricColor: "#38bdf8",
+  },
 ];
 
 // 发展脉络：按 AI 发展史组成一棵分叉树（分支=方法谱系，叶子=具体实验）
@@ -760,6 +772,7 @@ const TREE: TreeNode[] = [
       { label: "位置编码", children: [{ key: "pos-encoding" }] },
       { label: "归一化", children: [{ key: "normalization" }] },
       { label: "专家混合 MoE", children: [{ key: "moe" }] },
+      { label: "残差连接", children: [{ key: "residual" }] },
     ],
   },
 ];

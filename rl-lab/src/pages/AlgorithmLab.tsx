@@ -874,6 +874,8 @@ export default function AlgorithmLab() {
   const player = useTrajectory(traj);
   const meta = traj.meta;
   const Viz = demo.Viz;
+  // 交互式演示（单帧、无训练曲线）：不需要播放器和指标图，让可视化器占满整行。
+  const interactive = demo.metricKey === "noop";
 
   const runLive = async () => {
     if (!demo.live || isRunning) return;
@@ -952,7 +954,7 @@ export default function AlgorithmLab() {
           <span className="text-slate-300">· 实验台</span>
         </h1>
         <p className="text-slate-500 text-sm mt-1.5">
-          26 个经典算法，按 AI 发展脉络组成一棵树（左侧）—— 统计学习、联结主义、大模型、生成模型、强化学习各成一支，分支即方法谱系。选一个，按 ▶️ 看它怎么一步步收敛。
+          {DEMOS.length} 个经典算法，按 AI 发展脉络组成一棵树（左侧）—— 统计学习、联结主义、神经网络、大模型与 Agent、生成模型、强化学习、以及 Transformer 内部解剖各成一支。选一个，看它一步步收敛或调参对比。
         </p>
       </header>
 
@@ -1097,10 +1099,10 @@ export default function AlgorithmLab() {
         </div>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <div className="lg:col-span-2 flex flex-col gap-4">
+      <div className={`grid grid-cols-1 gap-5 ${interactive ? "" : "lg:grid-cols-3"}`}>
+        <div className={`flex flex-col gap-4 ${interactive ? "" : "lg:col-span-2"}`}>
           <Viz state={isRunning && myPreview ? myPreview.state : player.frame.state} meta={meta} />
-          {!(isRunning && myPreview) && (
+          {!interactive && !(isRunning && myPreview) && (
             <TrajectoryPlayer
               index={player.index}
               last={player.last}
@@ -1118,6 +1120,7 @@ export default function AlgorithmLab() {
           )}
         </div>
 
+        {!interactive && (
         <div className="flex flex-col gap-4">
           <MetricCurve
             frames={traj.frames}
@@ -1154,6 +1157,7 @@ export default function AlgorithmLab() {
             </div>
           )}
         </div>
+        )}
       </div>
 
           {/* 现实意义 + 小白教程：宽屏并排，行长更舒适、减少纵向滚动 */}

@@ -738,31 +738,21 @@ const TREE: TreeNode[] = [
     ],
   },
   {
-    label: "联结主义 · 神经网络",
+    label: "神经网络 · 基础",
     children: [
       { label: "联想记忆", children: [{ key: "hopfield", era: "1982" }] },
       { label: "前馈 · 反向传播", children: [{ key: "mlp", era: "1986" }] },
       { label: "序列", children: [{ key: "rnn", era: "1997" }] },
-      { label: "视觉 · 卷积", children: [{ key: "cnn-shapes", era: "1998" }, { key: "yolo", era: "2016" }, { key: "yolo-versions", era: "v1→v12" }] },
-      { label: "真实数据集 · 视觉", children: [{ key: "mnist-cnn-kernels", era: "MNIST" }, { key: "mnist-autoencoder" }, { key: "cifar10-cnn", era: "CIFAR-10" }] },
-      { label: "真实数据集 · 文本", children: [{ key: "imdb-lstm", era: "IMDb" }, { key: "imdb-transformer" }] },
+      { label: "视觉 · 卷积", children: [{ key: "cnn-shapes", era: "1998" }] },
       { label: "表示学习", children: [{ key: "word2vec", era: "2013" }] },
     ],
   },
   {
-    label: "大模型时代",
+    label: "深度学习 · 真实数据集",
     children: [
-      { label: "注意力", children: [{ key: "attention-reverse", era: "2017" }] },
-      { label: "后注意力 · 线性时间", children: [{ key: "mamba-ssm", era: "2023" }] },
-      { label: "嵌入 · 语义（本地 Qwen）", children: [{ key: "qwen-embeddings" }] },
-      { label: "检索增强 RAG（本地 Qwen）", children: [{ key: "rag" }] },
-    ],
-  },
-  {
-    label: "Agent 时代",
-    children: [
-      { label: "ReAct · 工具调用（本地 Qwen）", children: [{ key: "agent-react" }, { key: "agentic-rag" }] },
-      { label: "深度研究 Agent（本地 DeerFlow）", children: [{ key: "deerflow" }] },
+      { label: "视觉 · MNIST/CIFAR", children: [{ key: "mnist-cnn-kernels", era: "MNIST" }, { key: "mnist-autoencoder" }, { key: "cifar10-cnn", era: "CIFAR-10" }] },
+      { label: "文本 · IMDb", children: [{ key: "imdb-lstm", era: "IMDb" }, { key: "imdb-transformer" }] },
+      { label: "目标检测 · YOLO", children: [{ key: "yolo", era: "2016" }, { key: "yolo-versions", era: "v1→v12" }] },
     ],
   },
   {
@@ -774,18 +764,10 @@ const TREE: TreeNode[] = [
     ],
   },
   {
-    label: "决策与控制",
+    label: "大模型 · Transformer",
     children: [
-      { label: "经典控制 · RL 之前", children: [{ key: "cartpole-control", era: "1960s" }] },
-      {
-        label: "强化学习",
-        children: [
-          { label: "价值法", children: [{ key: "qlearning", era: "1989" }, { key: "mountaincar-dqn", era: "2013" }] },
-          { label: "策略法", children: [{ key: "cartpole-ppo" }, { key: "mountaincar-ppo" }] },
-          { label: "Actor-Critic · 连续", children: [{ key: "pendulum-sac" }] },
-          { label: "奖励工程", children: [{ key: "mountaincar-shaped" }] },
-        ],
-      },
+      { label: "注意力", children: [{ key: "attention-reverse", era: "2017" }] },
+      { label: "后注意力 · 线性时间", children: [{ key: "mamba-ssm", era: "2023" }] },
     ],
   },
   {
@@ -799,6 +781,29 @@ const TREE: TreeNode[] = [
       { label: "残差连接", children: [{ key: "residual" }] },
       { label: "线性·SSM", children: [{ key: "linear-seq" }] },
       { label: "稀疏·窗口注意力", children: [{ key: "sparse-attention" }] },
+    ],
+  },
+  {
+    label: "检索 · Agent",
+    children: [
+      { label: "嵌入 · 语义（本地 Qwen）", children: [{ key: "qwen-embeddings" }] },
+      { label: "检索增强 RAG（本地 Qwen）", children: [{ key: "rag" }, { key: "agentic-rag" }] },
+      { label: "工具调用 · 深度研究", children: [{ key: "agent-react" }, { key: "deerflow" }] },
+    ],
+  },
+  {
+    label: "决策与控制 · 强化学习",
+    children: [
+      { label: "经典控制 · RL 之前", children: [{ key: "cartpole-control", era: "1960s" }] },
+      {
+        label: "强化学习",
+        children: [
+          { label: "价值法", children: [{ key: "qlearning", era: "1989" }, { key: "mountaincar-dqn", era: "2013" }] },
+          { label: "策略法", children: [{ key: "cartpole-ppo" }, { key: "mountaincar-ppo" }] },
+          { label: "Actor-Critic · 连续", children: [{ key: "pendulum-sac" }] },
+          { label: "奖励工程", children: [{ key: "mountaincar-shaped" }] },
+        ],
+      },
     ],
   },
 ];
@@ -848,6 +853,12 @@ const LEAVES: TreeNode[] = [];
     else if (n.children) walk(n.children);
   }
 })(TREE);
+
+// 递归统计一个分支下的有效实验（叶子）数 —— 顶级板块计数用，自动随 TREE 变化。
+function countLeaves(node: TreeNode): number {
+  if (node.key) return byKey[node.key] ? 1 : 0;
+  return (node.children ?? []).reduce((sum, c) => sum + countLeaves(c), 0);
+}
 
 export default function AlgorithmLab() {
   const [demoKey, setDemoKey] = useState(DEMOS[0].key);
@@ -933,11 +944,16 @@ export default function AlgorithmLab() {
           <div
             className={
               depth === 0
-                ? "text-[11px] text-[#00e5ff]/80 font-semibold mb-1"
+                ? "text-[11px] text-[#00e5ff]/80 font-semibold mb-1 flex items-center justify-between gap-2"
                 : "text-[11px] text-slate-500 mb-0.5"
             }
           >
-            {node.label}
+            <span>{node.label}</span>
+            {depth === 0 && (
+              <span className="text-[10px] text-slate-600 font-mono font-normal shrink-0">
+                {countLeaves(node)}
+              </span>
+            )}
           </div>
           <div className="ml-1.5 pl-2 border-l border-slate-800 flex flex-col gap-0.5">
             {renderTree(node.children!, depth + 1)}

@@ -76,6 +76,23 @@ npm run build   # tsc + vite 生产构建
 
 > 极新 / 未公开的变体（Mamba-3 / KDA / DSA / CSA 等）在界面里明确标注「按公开描述近似演示」。
 
+### 🔬 形式化验证（Lean 4）
+
+LLM 架构解剖板块中的 5 个核心组件已用 **Lean 4 + Mathlib4** 进行形式化验证，
+在编译期数学证明其安全性质：
+
+→ **[ml-lean-verify](https://github.com/yuaiccc/ml-lean-verify)**
+
+| 组件 | 对应实验 | 证明的性质 |
+|------|---------|-----------|
+| Attention | 注意力 KV 变体 | softmax 分量非负（概率分布性质） |
+| MoE | 专家混合 MoE | Top-k 稀疏激活占比上界 |
+| Normalization | 归一化 | RMSNorm 纯缩放（方向不变），缩放因子非负 |
+| Position Encoding | 位置编码 | RoPE 旋转角公式正确，YaRN = RoPE(base×scale) |
+| Residual | 残差连接 | 所有残差变体梯度 ≥ 1（防止梯度消失） |
+
+25 条定理 + 1200 轮差分测试全部通过。
+
 ---
 
 ## 🎮 强化学习实验（`solvers/`，Tianshou）
